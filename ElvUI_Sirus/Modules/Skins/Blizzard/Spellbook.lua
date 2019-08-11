@@ -15,4 +15,5 @@ local function LoadSkin()
 	S:HandleNextPrevButton(SpellBookNextPageButton, nil, nil, true)
 end
 
+S:RemoveCallback("Spellbook")
 S:AddCallback("Spellbook", LoadSkin)

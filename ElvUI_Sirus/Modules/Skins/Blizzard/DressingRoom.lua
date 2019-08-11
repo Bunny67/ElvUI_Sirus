@@ -1,8 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule("Skins");
 
-local SetDressUpBackground = SetDressUpBackground;
-
 local function LoadSkin()
 	if(E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true) then return; end
 
@@ -35,4 +33,5 @@ local function LoadSkin()
 	DressUpModel.backdrop:SetOutside(DressUpBackgroundTopLeft, nil, nil, DressUpModel);
 end
 
-S:AddCallback("DressingRoom", LoadSkin);
+S:RemoveCallback("DressingRoom")
+S:AddCallback("DressingRoom", LoadSkin)

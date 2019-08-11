@@ -551,4 +551,5 @@ local function LoadSkin()
 	S:HandleCheckBox(TokenFramePopupBackpackCheckBox)
 end
 
+S:RemoveCallback("Character")
 S:AddCallback("Character", LoadSkin)

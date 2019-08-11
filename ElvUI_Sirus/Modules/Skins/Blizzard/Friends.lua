@@ -424,4 +424,5 @@ local function LoadSkin()
 	S:HandleButton(RaidInfoCancelButton)
 end
 
+S:RemoveCallback("Friends")
 S:AddCallback("Friends", LoadSkin)
