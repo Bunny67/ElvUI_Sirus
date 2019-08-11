@@ -9,6 +9,7 @@
 
 
 
+	<Script file="Sirus_DeathRecap.lua"/>
 	<Script file="Sirus_Store.lua"/>
 	<Script file="Sirus_Calendar.lua"/>
 </Ui>
