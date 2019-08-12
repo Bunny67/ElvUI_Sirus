@@ -20,9 +20,9 @@ local function LoadSkin()
 
 	-- Inbox Frame
 	MailFrame:StripTextures(true)
-	MailFrame:CreateBackdrop("Transparent")
-	MailFrame.backdrop:Point("TOPLEFT", 16, -12)
-	MailFrame.backdrop:Point("BOTTOMRIGHT", -32, 74)
+	MailFrame:SetTemplate("Transparent")
+	MailFrameInset:StripTextures(true)
+	MailFrameNineSlice:StripTextures(true)
 
 	MailFrame:EnableMouseWheel(true)
 	MailFrame:SetScript("OnMouseWheel", function(_, value)
@@ -36,6 +36,8 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	S:HandleCloseButton(MailFrame.CloseButton)
 
 	for i = 1, INBOXITEMS_TO_DISPLAY do
 		local mail = _G["MailItem"..i]
@@ -54,6 +56,11 @@ local function LoadSkin()
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetInside()
 	end
+
+	InboxFrame.WaitFrame:StripTextures()
+	InboxFrame.LeftContainer:StripTextures()
+	InboxFrame.RightContainer:StripTextures()
+	InboxTooMuchMail:StripTextures()
 
 	hooksecurefunc("InboxFrame_Update", function()
 		local numItems = GetInboxNumItems()
@@ -86,10 +93,8 @@ local function LoadSkin()
 		end
 	end)
 
-	S:HandleNextPrevButton(InboxPrevPageButton)
-	S:HandleNextPrevButton(InboxNextPageButton)
-
---	S:HandleCloseButton(InboxCloseButton)
+	S:HandleNextPrevButton(InboxPrevPageButton, nil, nil, true)
+	S:HandleNextPrevButton(InboxNextPageButton, nil, nil, true)
 
 	for i = 1, 2 do
 		local tab = _G["MailFrameTab"..i]
