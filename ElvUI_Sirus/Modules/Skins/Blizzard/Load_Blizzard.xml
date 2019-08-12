@@ -4,10 +4,15 @@
 	<Script file="DressingRoom.lua"/>
 	<Script file="Friends.lua"/>
 	<Script file="Mail.lua"/>
+	<Script file="Merchant.lua"/>
 	<Script file="Spellbook.lua"/>
 	<Script file="Taxi.lua"/>
 
-	<Script file="Sirus_DeathRecap.lua"/>
-	<Script file="Sirus_Store.lua"/>
 	<Script file="Sirus_Calendar.lua"/>
+	<Script file="Sirus_DeathRecap.lua"/>
+	<Script file="Sirus_LossOfControl.lua"/>
+	<Script file="Sirus_Macro.lua"/>
+	<Script file="Sirus_Store.lua"/>
+	<Script file="Sirus_TimeManager.lua"/>
+	<Script file="Sirus_Trainer.lua"/>
 </Ui>

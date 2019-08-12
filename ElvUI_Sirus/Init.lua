@@ -5,7 +5,7 @@ local EP = E.Libs.EP
 local addon = E:NewModule("ElvUI_Sirus")
 
 function addon:Initialize()
-	EP:RegisterPlugin(AddOnName, addon.GetOptions)
+	EP:RegisterPlugin(AddOnName, self.GetOptions)
 end
 
 local function InitializeCallback()

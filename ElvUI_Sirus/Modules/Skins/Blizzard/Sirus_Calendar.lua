@@ -283,5 +283,4 @@ local function LoadSkin()
 	S:HandleScrollBar(CalendarViewEventDescriptionScrollFrameScrollBar)
 end
 
-S:RemoveCallback("Calendar")
 S:AddCallback("Sirus_Calendar", LoadSkin)

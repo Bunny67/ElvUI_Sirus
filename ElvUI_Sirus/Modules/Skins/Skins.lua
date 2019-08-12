@@ -11,7 +11,7 @@ function S:RemoveCallback(eventName)
 		E:Print("Invalid argument #1 to S:RemoveCallback (string expected)")
 		return
 	elseif not self.nonAddonCallbacks[eventName] then
-		E:Print("Invalid 'eventName' #1 to S:RemoveCallback")
+		E:Print("Invalid 'eventName' #1 to S:RemoveCallback ", eventName)
 		return
 	end
 
