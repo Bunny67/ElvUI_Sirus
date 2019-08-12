@@ -4,20 +4,18 @@ local S = E:GetModule("Skins")
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true then return end
 
-	DressUpFrame:StripTextures()
+	DressUpFrame:StripTextures(true)
 	DressUpFrame:SetTemplate("Transparent")
+	DressUpFrameInset:StripTextures()
 
-	DressUpFramePortrait:Kill()
+	MaximizeMinimizeFrame:StripTextures(true)
 
 	S:HandleCloseButton(DressUpFrameCloseButton)
 
 	S:HandleButton(DressUpFrameCancelButton)
-	DressUpFrameCancelButton:Point("CENTER", DressUpFrame, "TOPLEFT", 306, -423)
 	S:HandleButton(DressUpFrameResetButton)
-	DressUpFrameResetButton:Point("RIGHT", DressUpFrameCancelButton, "LEFT", -3, 0)
 
 	DressUpModel:CreateBackdrop("Default")
-	DressUpModel.backdrop:SetOutside(DressUpBackgroundTopLeft, nil, nil, DressUpModel)
 end
 
 S:RemoveCallback("DressingRoom")
