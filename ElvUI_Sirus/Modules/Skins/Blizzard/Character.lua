@@ -6,10 +6,30 @@ local _G = _G
 local find = string.find
 --WoW API / Variables
 
+local function ColorizeStatPane(frame)
+	if frame.leftGrad then return end
+
+	local r, g, b = 0.8, 0.8, 0.8
+	frame.leftGrad = frame:CreateTexture(nil, "BORDER")
+	frame.leftGrad:Width(frame:GetWidth() * .5)
+	frame.leftGrad:Height(frame:GetHeight())
+	frame.leftGrad:Point("LEFT", frame, "CENTER")
+	frame.leftGrad:SetTexture(E.media.blankTex)
+	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.35, r, g, b, 0)
+
+	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
+	frame.rightGrad:Width(frame:GetWidth() * .5)
+	frame.rightGrad:Height(frame:GetHeight())
+	frame.rightGrad:Point("RIGHT", frame, "CENTER")
+	frame.rightGrad:SetTexture(E.Media.Textures.White8x8)
+	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.35)
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true then return; end
 
 	CharacterFrame:StripTextures(true)
+	CharacterFrameInset:StripTextures()
 	CharacterFrame:SetTemplate("Transparent")
 
 	S:HandleCloseButton(CharacterFrameCloseButton)
@@ -104,6 +124,20 @@ local function LoadSkin()
 	S:HandleButton(GearManagerDialogPopupCancel)
 
 	PaperDollFrame:StripTextures(true)
+
+	PaperDollFrame.NewPanel:StripTextures()
+	ColorizeStatPane(PaperDollFrameStrengthenFrame.StrengthenTittle)
+	PaperDollFrameStrengthenFrame.StrengthenTittle.tittleBackground:SetAlpha(0)
+
+	PaperDollSidebarTabs:StripTextures()
+	PaperDollFrame.StatsInset:StripTextures()
+	PaperDollFrame.EquipInset:StripTextures()
+	CharacterModelFrame:CreateBackdrop()
+	CharacterModelFrame.backdrop:SetOutside(CharacterModelFrameBackgroundOverlay)
+	CharacterModelFrame:DisableDrawLayer("OVERLAY")
+
+	ColorizeStatPane(CharacterItemLevelFrame)
+	CharacterItemLevelFrame.ilvlbackground:SetAlpha(0)
 
 	PlayerTitleFrame:StripTextures()
 	PlayerTitleFrame:CreateBackdrop("Default")
@@ -391,7 +425,8 @@ local function LoadSkin()
 
 	ReputationDetailFrame:StripTextures()
 	ReputationDetailFrame:SetTemplate("Transparent")
-	ReputationDetailFrame:Point("TOPLEFT", ReputationFrame, "TOPRIGHT", -32, -12)
+	ReputationDetailFrame.TextContainer:StripTextures()
+	ReputationDetailFrame.TextContainer.ShadowOverlay:StripTextures()
 
 	S:HandleCloseButton(ReputationDetailCloseButton)
 	ReputationDetailCloseButton:Point("TOPRIGHT", 3, 4)
