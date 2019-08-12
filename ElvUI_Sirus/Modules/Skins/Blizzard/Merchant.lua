@@ -13,6 +13,12 @@ local function LoadSkin()
 	local MerchantFrame = _G.MerchantFrame
 	MerchantFrame:StripTextures(true)
 	MerchantFrame:SetTemplate("Transparent")
+	MerchantFrameInset:StripTextures()
+	MerchantArtFrame:StripTextures()
+	MerchantExtraCurrencyBg:StripTextures()
+	MerchantMoneyBg:StripTextures()
+	MerchantMoneyFrame:StripTextures()
+	MerchantMoneyInset:StripTextures()
 
 	MerchantFrame:EnableMouseWheel(true)
 	MerchantFrame:SetScript("OnMouseWheel", function(_, value)
@@ -27,7 +33,7 @@ local function LoadSkin()
 		end
 	end)
 
-	S:HandleCloseButton(MerchantFrameCloseButton, MerchantFrame.backdrop)
+	S:HandleCloseButton(MerchantFrameCloseButton)
 
 	for i = 1, 12 do
 		local item = _G["MerchantItem"..i]
@@ -72,28 +78,28 @@ local function LoadSkin()
 		end
 	end
 
-	S:HandleNextPrevButton(MerchantNextPageButton)
-	S:HandleNextPrevButton(MerchantPrevPageButton)
+	S:HandleNextPrevButton(MerchantNextPageButton, nil, nil, true)
+	S:HandleNextPrevButton(MerchantPrevPageButton, nil, nil, true)
 
 	MerchantRepairItemButton:StyleButton()
-	MerchantRepairItemButton:SetTemplate("Default", true)
+	MerchantRepairItemButton:SetTemplate()
 
 	for i = 1, MerchantRepairItemButton:GetNumRegions() do
 		local region = select(i, MerchantRepairItemButton:GetRegions())
-		if region:GetObjectType() == "Texture" then
+		if region:GetObjectType() == "Texture" and region:GetTexture() == "Interface\\MerchantFrame\\UI-Merchant-RepairIcons" then
 			region:SetTexCoord(0.04, 0.24, 0.07, 0.5)
 			region:SetInside()
 		end
 	end
 
 	MerchantRepairAllButton:StyleButton()
-	MerchantRepairAllButton:SetTemplate("Default", true)
+	MerchantRepairAllButton:SetTemplate()
 
 	MerchantRepairAllIcon:SetTexCoord(0.34, 0.1, 0.34, 0.535, 0.535, 0.1, 0.535, 0.535)
 	MerchantRepairAllIcon:SetInside()
 
 	MerchantGuildBankRepairButton:StyleButton()
-	MerchantGuildBankRepairButton:SetTemplate("Default", true)
+	MerchantGuildBankRepairButton:SetTemplate()
 
 	MerchantGuildBankRepairButtonIcon:SetTexCoord(0.61, 0.82, 0.1, 0.52)
 	MerchantGuildBankRepairButtonIcon:SetInside()
