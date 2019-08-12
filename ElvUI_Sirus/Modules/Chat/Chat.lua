@@ -1,14 +1,19 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local CH = E:GetModule("Chat")
 
-local ElvMelon = E:TextureString(E.Media.ChatLogos.ElvMelon, ":13:25")
+local ElvBlue = E:TextureString(E.Media.ChatLogos.ElvBlue, ":13:25")
 local specialChatIcons = {
-	["Крельчонок-3.3.5a+"] = ElvMelon,
+	["Крельчонок-Scourge x2 - 3.3.5a+"] = ElvBlue,
 }
 
-local function GetChatIcon(sender)
-	if specialChatIcons[sender] then
-		return specialChatIcons[sender]
+local function GetChatIcon(_, name, realm)
+	if not name then return end
+
+	realm = realm ~= "" and realm or E.myrealm
+	name = name.."-"..realm
+
+	if specialChatIcons[name] then
+		return specialChatIcons[name]
 	end
 end
 
