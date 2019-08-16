@@ -29,6 +29,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true then return; end
 
 	S:HandlePortraitFrame(CharacterFrame)
+	CharacterFrameInset:StripTextures(true)
 
 	for i = 1, #CHARACTERFRAME_SUBFRAMES do
 		local tab = _G["CharacterFrameTab"..i]
