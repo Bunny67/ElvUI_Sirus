@@ -8,6 +8,20 @@ local _G = _G
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
+	local BlizzardMenuButtons = {
+		"Help",
+		"Store",
+		"PromoCodes",
+		"AudioOptions",
+	}
+
+	for i = 1, #BlizzardMenuButtons do
+		local ElvuiMenuButtons = _G["GameMenuButton"..BlizzardMenuButtons[i]]
+		if ElvuiMenuButtons then
+			S:HandleButton(ElvuiMenuButtons)
+		end
+	end
+
 	-- Static Popups
 	for i = 1, 4 do
 		local staticPopup = _G["StaticPopup"..i]

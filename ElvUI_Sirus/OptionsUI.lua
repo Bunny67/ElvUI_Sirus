@@ -21,4 +21,9 @@ function S:GetOptions()
 		name = "Магазин",
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.timer = {
+		type = "toggle",
+		name = "Таймер",
+		desc = L["TOGGLESKIN_DESC"]
+	}
 end
