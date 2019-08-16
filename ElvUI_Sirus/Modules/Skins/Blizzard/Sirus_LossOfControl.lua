@@ -36,11 +36,6 @@ local function LoadSkin()
 		self.TimeLeft.SecondsText:Point("BOTTOM", self, 0, -80)
 		self.TimeLeft.SecondsText.scrollTime = nil
 		self.TimeLeft.SecondsText:FontTemplate(E.media.normFont, 20, "OUTLINE")
-
-		-- always stop shake animation on start
-		if self.Anim:IsPlaying() then
-			self.Anim:Stop()
-		end
 	end)
 end
 
