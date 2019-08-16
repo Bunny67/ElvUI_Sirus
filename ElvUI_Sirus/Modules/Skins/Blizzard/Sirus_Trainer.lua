@@ -143,4 +143,4 @@ local function LoadSkin()
 	end)
 end
 
-S:AddCallback("Sirus_Talent", LoadSkin)
+S:AddCallback("Sirus_Trainer", LoadSkin)
