@@ -5,6 +5,7 @@
 	<Script file="Friends.lua"/>
 	<Script file="Mail.lua"/>
 	<Script file="Merchant.lua"/>
+	<Script file="Misc.lua"/>
 	<Script file="Spellbook.lua"/>
 	<Script file="Taxi.lua"/>
 
