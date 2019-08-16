@@ -7,3 +7,4 @@ local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 V.skins.blizzard.deathRecap = true
 V.skins.blizzard.losscontrol = true
 V.skins.blizzard.store = true
+V.skins.blizzard.timer = true
