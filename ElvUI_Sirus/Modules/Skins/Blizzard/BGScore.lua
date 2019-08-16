@@ -4,13 +4,11 @@ local S = E:GetModule("Skins")
 --Lua functions
 --WoW API / Variables
 
-
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bgscore ~= true then return; end
 
 	WorldStateScoreFrame:StripTextures()
 	WorldStateScoreFrame:SetTemplate("Transparent")
-
 
 	BattlegroundBalanceProgressBar:CreateBackdrop()
 	BattlegroundBalanceProgressBar.backdrop:SetOutside(BattlegroundBalanceProgressBar.Horde, nil, nil, BattlegroundBalanceProgressBar.Alliance)

@@ -7,8 +7,8 @@ local S = E:GetModule("Skins")
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timer ~= true then return end
 
-	TimerTracker:HookScript("OnEvent", function(self, event)
-		if event == "PLAYER_ENTERING_BATTLEGROUND" then
+	hooksecurefunc("TimerTracker_OnEvent", function(self, event)
+		if event == "START_TIMER" then
 			for _, b in pairs(self.timerList) do
 				if b.bar and not b.bar.isSkinned then
 					b.bar:StripTextures()
