@@ -11,13 +11,10 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true then return end
 
 	local MerchantFrame = _G.MerchantFrame
-	MerchantFrame:StripTextures(true)
-	MerchantFrame:SetTemplate("Transparent")
+	S:HandlePortraitFrame(MerchantFrame)
 	MerchantFrameInset:StripTextures()
 	MerchantArtFrame:StripTextures()
-	MerchantExtraCurrencyBg:StripTextures()
 	MerchantMoneyBg:StripTextures()
-	MerchantMoneyFrame:StripTextures()
 	MerchantMoneyInset:StripTextures()
 
 	MerchantFrame:EnableMouseWheel(true)
