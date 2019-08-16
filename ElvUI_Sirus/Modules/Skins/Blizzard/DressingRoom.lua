@@ -4,13 +4,10 @@ local S = E:GetModule("Skins")
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true then return end
 
-	DressUpFrame:StripTextures(true)
-	DressUpFrame:SetTemplate("Transparent")
-	DressUpFrameInset:StripTextures()
+	S:HandlePortraitFrame(DressUpFrame)
 
 	MaximizeMinimizeFrame:StripTextures(true)
-
-	S:HandleCloseButton(DressUpFrameCloseButton)
+	S:HandleMaxMinFrame(DressUpFrame.MaxMinButtonFrame)
 
 	S:HandleButton(DressUpFrameCancelButton)
 	S:HandleButton(DressUpFrameResetButton)
