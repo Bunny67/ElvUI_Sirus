@@ -7,7 +7,26 @@ local S = E:GetModule("Skins")
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timer ~= true then return end
 
+	TimerTracker:HookScript("OnEvent", function(self, event)
+		if event == "PLAYER_ENTERING_BATTLEGROUND" then
+			for _, b in pairs(self.timerList) do
+				if b.bar and not b.bar.isSkinned then
+					b.bar:StripTextures()
+					b.bar.timeText:FontTemplate(nil, 12, "OUTLINE")
 
+					b.bar:SetStatusBarTexture(E.media.normTex)
+					E:RegisterStatusBar(b.bar)
+
+					b.bar.backdrop = CreateFrame("Frame", nil, b.bar)
+					b.bar.backdrop:SetFrameLevel(0)
+					b.bar.backdrop:SetTemplate("Transparent")
+					b.bar.backdrop:SetOutside()
+
+					b.bar.isSkinned = true
+				end
+			end
+		end
+	end)
 end
 
 S:AddCallback("Sirus_Timer", LoadSkin)
