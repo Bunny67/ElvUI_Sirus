@@ -28,12 +28,7 @@ end
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true then return; end
 
-	CharacterFrame:StripTextures(true)
-	CharacterFrameInset:StripTextures()
-	CharacterFrame:SetTemplate("Transparent")
-
-	S:HandleCloseButton(CharacterFrameCloseButton)
-	CharacterFrameCloseButton:Point("CENTER", CharacterFrame, "TOPRIGHT", -45, -25)
+	S:HandlePortraitFrame(CharacterFrame)
 
 	for i = 1, #CHARACTERFRAME_SUBFRAMES do
 		local tab = _G["CharacterFrameTab"..i]
