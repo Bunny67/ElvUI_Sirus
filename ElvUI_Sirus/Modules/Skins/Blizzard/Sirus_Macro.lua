@@ -9,7 +9,9 @@ local unpack = unpack
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true then return end
 
-	S:HandleCloseButton(MacroFrameCloseButton)
+	S:HandlePortraitFrame(MacroFrame)
+	MacroFrameInset:StripTextures()
+	MacroFrame.Art:StripTextures()
 
 	S:HandleScrollBar(MacroButtonScrollFrameScrollBar)
 	S:HandleScrollBar(MacroFrameScrollFrameScrollBar)
@@ -27,11 +29,6 @@ local function LoadSkin()
 	end
 
 	MacroFrameTab2:Point("LEFT", MacroFrameTab1, "RIGHT", 4, 0)
-
-	MacroFrame:StripTextures()
-	MacroFrame:SetTemplate("Transparent")
-	MacroFrameInset:StripTextures()
-	MacroFrame.Art:StripTextures()
 
 	MacroFrameTextBackground:StripTextures()
 	MacroFrameTextBackground:CreateBackdrop("Default")
