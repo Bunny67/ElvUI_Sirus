@@ -20,7 +20,8 @@ local function LoadSkin()
 
 	-- Inbox Frame
 	S:HandlePortraitFrame(MailFrame)
-	MailFrameNineSlice:StripTextures(true)
+	MailFrame.Inset:StripTextures()
+	MailFrame.NineSlice:StripTextures()
 
 	MailFrame:EnableMouseWheel(true)
 	MailFrame:SetScript("OnMouseWheel", function(_, value)
@@ -40,10 +41,10 @@ local function LoadSkin()
 		local button = _G["MailItem"..i.."Button"]
 		local icon = _G["MailItem"..i.."ButtonIcon"]
 
-		mail:StripTextures()
+		mail:StripTextures(true)
 		mail:CreateBackdrop("Default")
-		mail.backdrop:Point("TOPLEFT", 2, 1)
-		mail.backdrop:Point("BOTTOMRIGHT", -2, 2)
+		--mail.backdrop:Point("TOPLEFT", 2, 1)
+		--mail.backdrop:Point("BOTTOMRIGHT", -2, 2)
 
 		button:StripTextures()
 		button:SetTemplate("Default", true)
@@ -55,7 +56,20 @@ local function LoadSkin()
 
 	InboxFrame.WaitFrame:StripTextures()
 	InboxFrame.LeftContainer:StripTextures()
+	InboxFrame.LeftContainer.ClassLogo:Kill()
+	InboxFrame.LeftContainer.ShadowOverlay:StripTextures()
+--	InboxFrame.LeftContainer.ShadowOverlay:SetTemplate("Transparent")
+	S:HandleButton(OpenAllMailButton)
+	S:HandleNextPrevButton(AdditionalMailFunctionalButton)
+	AdditionalMailFunctionalButton:Size(28)
+	AdditionalMailFunctionalButton:Point("LEFT", OpenAllMailButton, "RIGHT", 4, 0)
+
 	InboxFrame.RightContainer:StripTextures()
+	InboxFrame.RightContainer.FactionLogo:Kill()
+	InboxFrame.RightContainer.ShadowOverlay:StripTextures()
+--	InboxFrame.RightContainer.ShadowOverlay:SetTemplate("Transparent")
+	S:HandleButton(UpdateMailButton)
+
 	InboxTooMuchMail:StripTextures()
 
 	hooksecurefunc("InboxFrame_Update", function()
@@ -90,7 +104,11 @@ local function LoadSkin()
 	end)
 
 	S:HandleNextPrevButton(InboxPrevPageButton, nil, nil, true)
+	InboxPrevPageButton:Size(28)
+	InboxPrevPageButton:Point("BOTTOMLEFT", 8, 8)
 	S:HandleNextPrevButton(InboxNextPageButton, nil, nil, true)
+	InboxNextPageButton:Size(28)
+	InboxNextPageButton:Point("BOTTOMRIGHT", -8, 8)
 
 	for i = 1, 2 do
 		local tab = _G["MailFrameTab"..i]
@@ -100,10 +118,13 @@ local function LoadSkin()
 	end
 
 	-- Send Mail Frame
-	SendMailFrame:StripTextures()
+	SendMailFrame.Content:StripTextures()
 
 	SendMailScrollFrame:StripTextures(true)
 	SendMailScrollFrame:SetTemplate("Default")
+
+	SendMailMoneyInset:StripTextures()
+	SendMailMoneyBg:StripTextures()
 
 	hooksecurefunc("SendMailFrame_Update", function()
 		for i = 1, ATTACHMENTS_MAX_SEND do
@@ -140,11 +161,11 @@ local function LoadSkin()
 
 	S:HandleScrollBar(SendMailScrollFrameScrollBar)
 
+	SendMailNameEditBox:Height(20)
 	S:HandleEditBox(SendMailNameEditBox)
-	SendMailNameEditBox.backdrop:Point("BOTTOMRIGHT", 2, 0)
 
 	S:HandleEditBox(SendMailSubjectEditBox)
-	SendMailSubjectEditBox.backdrop:Point("BOTTOMRIGHT", 2, 0)
+	SendMailSubjectEditBox:Point("TOPLEFT", SendMailNameEditBox, "BOTTOMLEFT", 0, -4)
 
 	S:HandleEditBox(SendMailMoneyGold)
 	S:HandleEditBox(SendMailMoneySilver)
@@ -154,19 +175,16 @@ local function LoadSkin()
 	SendMailMailButton:Point("RIGHT", SendMailCancelButton, "LEFT", -2, 0)
 
 	S:HandleButton(SendMailCancelButton)
-	SendMailCancelButton:Point("BOTTOMRIGHT", -45, 80)
-
-	SendMailMoneyFrame:Point("BOTTOMLEFT", 170, 84)
 
 	for i = 1, 5 do
 		_G["AutoCompleteButton"..i]:StyleButton()
 	end
 
 	-- Open Mail Frame
-	OpenMailFrame:StripTextures(true)
-	OpenMailFrame:CreateBackdrop("Transparent")
-	OpenMailFrame.backdrop:Point("TOPLEFT", 12, -12)
-	OpenMailFrame.backdrop:Point("BOTTOMRIGHT", -34, 74)
+	S:HandlePortraitFrame(OpenMailFrame)
+	OpenMailFrame.Inset:StripTextures()
+	OpenMailFrame.NineSlice:StripTextures()
+	OpenMailFrame.Content:StripTextures()
 
 	for i = 1, ATTACHMENTS_MAX_SEND do
 		local button = _G["OpenMailAttachmentButton"..i]
@@ -204,17 +222,15 @@ local function LoadSkin()
 		end
 	end)
 
---	S:HandleCloseButton(OpenMailCloseButton)
-
 	S:HandleButton(OpenMailReportSpamButton)
 
-	S:HandleButton(OpenMailReplyButton)
+	S:HandleButton(OpenMailReplyButton, true)
 	OpenMailReplyButton:Point("RIGHT", OpenMailDeleteButton, "LEFT", -2, 0)
 
-	S:HandleButton(OpenMailDeleteButton)
+	S:HandleButton(OpenMailDeleteButton, true)
 	OpenMailDeleteButton:Point("RIGHT", OpenMailCancelButton, "LEFT", -2, 0)
 
-	S:HandleButton(OpenMailCancelButton)
+	S:HandleButton(OpenMailCancelButton, true)
 
 	OpenMailScrollFrame:StripTextures(true)
 	OpenMailScrollFrame:SetTemplate("Default")
