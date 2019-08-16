@@ -167,10 +167,6 @@ local function LoadSkin()
 		tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	end
 
-	PlayerSpecTab1:ClearAllPoints()
-	PlayerSpecTab1:Point("TOPLEFT", PlayerTalentFrame, "TOPRIGHT", E.PixelMode and -1 or 1, -32)
-	PlayerSpecTab1.SetPoint = E.noop
-
 	-- Pet Talents
 	PlayerTalentFramePetTalents:StripTextures()
 
