@@ -350,6 +350,7 @@ local function LoadSkin()
 
 	S:HandleButton(CompanionSummonButton)
 
+--[[
 	hooksecurefunc("PetPaperDollFrame_UpdateCompanions", function()
 		local Button, IconNormal, IconDisabled, ActiveTexture
 
@@ -373,6 +374,7 @@ local function LoadSkin()
 			ActiveTexture:SetTexture(1, 1, 1, .15)
 		end
 	end)
+]]
 
 	S:HandleNextPrevButton(CompanionPrevPageButton)
 	S:HandleNextPrevButton(CompanionNextPageButton)
