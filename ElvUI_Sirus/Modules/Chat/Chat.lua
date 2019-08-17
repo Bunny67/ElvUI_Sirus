@@ -18,3 +18,9 @@ local function GetChatIcon(_, name, realm)
 end
 
 CH:AddPluginIcons(GetChatIcon)
+
+hooksecurefunc(CH, "StyleChat", function(_, frame)
+	frame.buttonFrame:Kill()
+	frame.buttonFrame2:Hide()
+	frame.buttonFrame2.Show = E.noop
+end)
