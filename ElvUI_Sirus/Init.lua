@@ -4,12 +4,30 @@ local EP = E.Libs.EP
 
 local addon = E:NewModule("ElvUI_Sirus")
 
-function addon:Initialize()
-	hooksecurefunc("GameMenuFrame_UpdateVisibleButtons", function()
-		if GameMenuFrame.isElvUI then
+local function GameMenuFrame_UpdateVisibleButtons()
+	if not GameMenuFrame.isSirus then
+		GameMenuFrame.isSirus = true
+	else
+		GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() + 1)
+	end
+
+	if ElvUI_ButtonAddons then
+		ElvUI_ButtonAddons:ClearAllPoints()
+		ElvUI_ButtonAddons:Point("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
+
+		GameMenuFrame.ElvUI:ClearAllPoints()
+		GameMenuFrame.ElvUI:Point("TOP", ElvUI_ButtonAddons, "BOTTOM", 0, -1)
+
+		if not GameMenuFrame.isEnhanced then
+			GameMenuFrame.isEnhanced = true
+		else
 			GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() + 1)
 		end
-	end)
+	end
+end
+
+function addon:Initialize()
+	GameMenuFrame:HookScript("OnShow", GameMenuFrame_UpdateVisibleButtons)
 
 	EP:RegisterPlugin(AddOnName, self.GetOptions)
 end
