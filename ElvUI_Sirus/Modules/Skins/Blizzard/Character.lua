@@ -158,12 +158,13 @@ local function LoadSkin()
 
 	for i = 1, #PAPERDOLL_SIDEBARS do
 		local tab = _G["PaperDollSidebarTab"..i]
-
-		tab:CreateBackdrop()
-		tab.Icon:SetAllPoints()
-		tab.Highlights:SetTexture(1, 1, 1, .3)
-		tab.Highlights:SetAllPoints()
-		tab.TabBg:Kill()
+		if tab then
+			tab:CreateBackdrop()
+			tab.Icon:SetAllPoints()
+			tab.Highlights:SetTexture(1, 1, 1, .3)
+			tab.Highlights:SetAllPoints()
+			tab.TabBg:Kill()
+		end
 	end
 
 	_G["GearManagerToggleButton"]:Size(26, 32)
