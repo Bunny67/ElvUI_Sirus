@@ -79,7 +79,6 @@ local function BuildFriendTable(total)
 			if categoryID then
 				_, _, categoryIcon = GetSpellInfo(categoryID)
 			end
-			print(categoryIcon)
 
 			local className = E:UnlocalizedClassName(class) or ""
 			local state = statusTable[(status == "<"..AFK..">" and 1) or (status == "<"..DND..">" and 2) or 3]
