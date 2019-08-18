@@ -12,6 +12,58 @@ local GUILDMEMBERS_TO_DISPLAY = GUILDMEMBERS_TO_DISPLAY
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 
+local function FriendsFrameTooltip_Show(self)
+	if self.buttonType == FRIENDS_BUTTON_TYPE_HEADER then return end
+
+	local toonIndex, anchor = 1
+	local tooltip = FriendsTooltip
+	tooltip.height = 0
+	tooltip.maxWidth = 0
+	
+	if self.buttonType == FRIENDS_BUTTON_TYPE_WOW then
+		local name, level, class, area, connected, status, noteText = GetFriendInfo(self.id)
+		anchor = FriendsFrameTooltip_SetLine(FriendsTooltipHeader, nil, name)
+		if connected then
+			FriendsTooltipHeader:SetTextColor(FRIENDS_WOW_NAME_COLOR.r, FRIENDS_WOW_NAME_COLOR.g, FRIENDS_WOW_NAME_COLOR.b)
+			local str = string.format(FRIENDS_LEVEL_TEMPLATE, level, class)
+			local catID = GetGuildCharacterCategory(name)
+			if catID then
+				str = GetSpellInfo(catID).."\n\n"..str
+			end
+			FriendsFrameTooltip_SetLine(FriendsTooltipToon1Name, nil, str)
+			anchor = FriendsFrameTooltip_SetLine(FriendsTooltipToon1Info, nil, area)
+		else
+			FriendsTooltipHeader:SetTextColor(FRIENDS_GRAY_COLOR.r, FRIENDS_GRAY_COLOR.g, FRIENDS_GRAY_COLOR.b)
+			FriendsTooltipToon1Name:Hide()
+			FriendsTooltipToon1Info:Hide()
+		end
+		if noteText then
+			FriendsTooltipNoteIcon:Show()
+			anchor = FriendsFrameTooltip_SetLine(FriendsTooltipNoteText, anchor, noteText, -8)
+		else
+			FriendsTooltipNoteIcon:Hide()
+			FriendsTooltipNoteText:Hide()
+		end
+	end
+
+	for i = toonIndex + 1, FRIENDS_TOOLTIP_MAX_TOONS do
+		toonNameString = _G["FriendsTooltipToon"..i.."Name"]
+		toonInfoString = _G["FriendsTooltipToon"..i.."Info"]
+		toonNameString:Hide()
+		toonInfoString:Hide()
+	end
+
+	FriendsTooltipBroadcastIcon:Hide()
+	FriendsTooltipOtherToons:Hide()
+	FriendsTooltipToonMany:Hide()
+
+	tooltip.button = self
+	tooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 36, 0)
+	tooltip:SetHeight(tooltip.height + FRIENDS_TOOLTIP_MARGIN_WIDTH)
+	tooltip:SetWidth(min(FRIENDS_TOOLTIP_MAX_WIDTH, tooltip.maxWidth + FRIENDS_TOOLTIP_MARGIN_WIDTH))
+	tooltip:Show()
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true then return; end
 
@@ -45,7 +97,10 @@ local function LoadSkin()
 		Tab:HookScript("OnLeave", S.SetOriginalBackdrop)
 	end
 
-	for i = 1, 11 do
+	for i = 1, #FriendsFrameFriendsScrollFrame.buttons do
+		local button = FriendsFrameFriendsScrollFrame.buttons[i]
+		button:SetScript("OnEnter", FriendsFrameTooltip_Show)
+	
 		_G["FriendsFrameFriendsScrollFrameButton"..i.."SummonButtonIcon"]:SetTexCoord(unpack(E.TexCoords))
 		_G["FriendsFrameFriendsScrollFrameButton"..i.."SummonButtonNormalTexture"]:SetAlpha(0)
 		_G["FriendsFrameFriendsScrollFrameButton"..i.."SummonButton"]:StyleButton()
