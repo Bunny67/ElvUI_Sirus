@@ -149,6 +149,9 @@ function AB:SetupMicroBar()
 		self:HandleMicroButton(_G[MICRO_BUTTONS[i]])
 	end
 
+	GuildMicroButtonTabard:SetPoint("TOPLEFT", -5, 24)
+	GuildMicroButtonTabard.SetPoint = E.noop
+
 	MicroButtonPortrait:SetInside(CharacterMicroButton.backdrop)
 
 	self:SecureHook("VehicleMenuBar_MoveMicroButtons", "UpdateMicroButtonsParent")
