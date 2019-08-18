@@ -11,6 +11,11 @@ function S:GetOptions()
 		name = DEATH_RECAP_TITLE_DONT_INFO,
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.guild = {
+		type = "toggle",
+		name = L["Guild"],
+		desc = L["TOGGLESKIN_DESC"]
+	}
 	E.Options.args.skins.args.blizzard.args.losscontrol = {
 		type = "toggle",
 		name = LOSS_OF_CONTROL,
