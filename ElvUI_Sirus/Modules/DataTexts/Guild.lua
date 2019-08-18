@@ -83,7 +83,9 @@ local function BuildGuildTable()
 		local categoryID = GetGuildCharacterCategory(name)
 		if categoryID then
 			categoryName, _, categoryIcon = GetSpellInfo(categoryID)
-			categoryName = string.gsub(categoryName, "%s(%S+)$", "")
+			if categoryName then
+				categoryName = string.gsub(categoryName, "%s(%S+)$", "")
+			end
 		end
 		
 		if not name then break end
