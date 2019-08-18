@@ -156,6 +156,16 @@ local function LoadSkin()
 
 	S:HandleScrollBar(PlayerTitlePickerScrollFrameScrollBar)
 
+	for i = 1, #PAPERDOLL_SIDEBARS do
+		local tab = _G["PaperDollSidebarTab"..i]
+
+		tab:CreateBackdrop()
+		tab.Icon:SetAllPoints()
+		tab.Highlights:SetTexture(1, 1, 1, .3)
+		tab.Highlights:SetAllPoints()
+		tab.TabBg:Kill()
+	end
+
 	_G["GearManagerToggleButton"]:Size(26, 32)
 	_G["GearManagerToggleButton"]:CreateBackdrop("Default")
 
