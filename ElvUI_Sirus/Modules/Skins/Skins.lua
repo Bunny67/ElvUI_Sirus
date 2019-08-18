@@ -21,7 +21,7 @@ function S:HandleInsetFrame(frame)
 	if frame.InsetBorderLeft then frame.InsetBorderLeft:Hide() end
 	if frame.InsetBorderRight then frame.InsetBorderRight:Hide() end
 
-	if frame.Bg then frame.Bg:Hide() end
+	if frame.Bgs then frame.Bgs:Hide() end
 end
 
 -- All frames that have a Portrait
