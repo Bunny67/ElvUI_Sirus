@@ -110,5 +110,4 @@ function S:RemoveCallback(eventName)
 	E.UnregisterCallback(S, eventName)
 end
 
-S:RemoveCallback("LFD")
 S:RemoveCallback("WatchFrame")
