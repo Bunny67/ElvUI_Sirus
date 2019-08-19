@@ -80,17 +80,17 @@ local function BuildGuildTable()
 	local totalMembers = GetNumGuildMembers()
 	for i = 1, totalMembers do
 		name, rank, rankIndex, level, _, zone, note, officernote, connected, status, englishClass = GetGuildRosterInfo(i)
-		local categoryID = GetGuildCharacterCategory(name)
-		if categoryID then
-			categoryName, _, categoryIcon = GetSpellInfo(categoryID)
-			if categoryName then
-				categoryName = string.gsub(categoryName, "%s(%S+)$", "")
-			end
-		end
-		
 		if not name then break end
 
 		if connected then
+			local categoryID = GetGuildCharacterCategory(name)
+			if categoryID then
+				categoryName, _, categoryIcon = GetSpellInfo(categoryID)
+				if categoryName then
+					categoryName = string.gsub(categoryName, "%s(%S+)$", "")
+				end
+			end
+
 			guildTable[#guildTable + 1] = {name, rank, level, zone, note, officernote, connected, onlinestatus[status], englishClass, rankIndex, categoryIcon, categoryName}
 		end
 	end
