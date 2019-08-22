@@ -132,6 +132,7 @@ end
 
 function AB:UpdateMicroButtons()
 	self:UpdateMicroPositionDimensions()
+	GuildMicroButtonTabard:SetPoint("TOPLEFT", -5, 24)
 end
 
 function AB:SetupMicroBar()
@@ -148,9 +149,6 @@ function AB:SetupMicroBar()
 	for i = 1, #MICRO_BUTTONS do
 		self:HandleMicroButton(_G[MICRO_BUTTONS[i]])
 	end
-
-	GuildMicroButtonTabard:SetPoint("TOPLEFT", -5, 24)
-	GuildMicroButtonTabard.SetPoint = E.noop
 
 	MicroButtonPortrait:SetInside(CharacterMicroButton.backdrop)
 
