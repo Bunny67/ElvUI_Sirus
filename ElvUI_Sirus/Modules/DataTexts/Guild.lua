@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local mod = E:GetModule("Sirus_DataTexts")
 local DT = E:GetModule("DataTexts")
 
 --Lua functions
@@ -255,6 +256,26 @@ local function OnEnter(self, _, noUpdate)
 	end
 end
 
-DT.RegisteredDataTexts.Guild.onEvent = OnEvent
-DT.RegisteredDataTexts.Guild.onClick = OnClick
-DT.RegisteredDataTexts.Guild.onEnter = OnEnter
+local function ValueColorUpdate(hex)
+	displayString = join("", GUILD, ": ", hex, "%d|r")
+	noGuildString = join("", hex, L["No Guild"])
+
+	if lastPanel ~= nil then
+		OnEvent(lastPanel, "ELVUI_COLOR_UPDATE")
+	end
+end
+E.valueColorUpdateFuncs[ValueColorUpdate] = true
+
+function mod:HookGuild()
+	lastPanel = mod:GetPanelByDataTextName("Guild")
+	if lastPanel then
+		lastPanel:SetScript("OnEvent", OnEvent)
+		lastPanel:SetScript("OnClick", OnClick)
+		lastPanel:SetScript("OnEnter", OnEnter)
+		OnEvent(lastPanel, "PLAYER_ENTERING_WORLD")
+	end
+
+	DT.RegisteredDataTexts.Guild.eventFunc = OnEvent
+	DT.RegisteredDataTexts.Guild.onClick = OnClick
+	DT.RegisteredDataTexts.Guild.onEnter = OnEnter
+end

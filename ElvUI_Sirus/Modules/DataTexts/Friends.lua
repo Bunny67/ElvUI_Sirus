@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local mod = E:GetModule("Sirus_DataTexts")
 local DT = E:GetModule("DataTexts")
 
 --Lua functions
@@ -199,6 +200,25 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
-DT.RegisteredDataTexts.Friends.onEvent = OnEvent
-DT.RegisteredDataTexts.Friends.onClick = OnClick
-DT.RegisteredDataTexts.Friends.onEnter = OnEnter
+local function ValueColorUpdate(hex)
+	displayString = join("", "%s: ", hex, "%d|r")
+
+	if lastPanel ~= nil then
+		OnEvent(lastPanel, "ELVUI_COLOR_UPDATE")
+	end
+end
+E.valueColorUpdateFuncs[ValueColorUpdate] = true
+
+function mod:HookFriens()
+	lastPanel = mod:GetPanelByDataTextName("Friends")
+	if lastPanel then
+		lastPanel:SetScript("OnEvent", OnEvent)
+		lastPanel:SetScript("OnClick", OnClick)
+		lastPanel:SetScript("OnEnter", OnEnter)
+		OnEvent(lastPanel, "ELVUI_FORCE_RUN")
+	end
+
+	DT.RegisteredDataTexts.Friends.eventFunc = OnEvent
+	DT.RegisteredDataTexts.Friends.onClick = OnClick
+	DT.RegisteredDataTexts.Friends.onEnter = OnEnter
+end
