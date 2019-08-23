@@ -479,7 +479,7 @@ local function LoadSkin()
 		S:HandleTab(_G["PVPLadderFrameTab"..i])
 	end
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local b = _G["PVPLadderFrameCategoryButton"..i]
 		b.Ring:Kill()
 		b.Background:Kill()
@@ -537,6 +537,14 @@ local function LoadSkin()
 	S:HandleButton(PVPLadderFrame.Container.RightContainer.TopContainer.SearchButton)
 
 	PVPLadderFrame.Container.RightContainer.TopContainer.ShadowOverlay:StripTextures()
+
+	S:HandlePortraitFrame(PVPLadderInfoFrame)
+	PVPLadderInfoFrame.CentralContainer:StripTextures()
+	PVPLadderInfoFrame.CentralContainer.BackgroundOverlay:SetAlpha(0)
+	S:HandleScrollBar(PVPLadderInfoFrame.CentralContainer.ScrollFrame.ScrollBar)
+	PVPLadderInfoFrame.CentralContainer.ScrollFrame.ShadowOverlay:StripTextures()
+	PVPLadderInfoFrame.TopContainer.ShadowOverlay:StripTextures()
+	PVPLadderInfoFrame.TopContainer.StatisticsFrame:StripTextures()
 end
 
 S:RemoveCallback("LFD")
