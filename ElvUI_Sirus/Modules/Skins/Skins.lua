@@ -33,12 +33,14 @@ function S:HandlePortraitFrame(frame, setBackdrop)
 	local portraitFrame = name and _G[name.."Portrait"] or frame.Portrait or frame.portrait
 	local portraitFrameOverlay = name and _G[name.."PortraitOverlay"] or frame.PortraitOverlay
 	local artFrameOverlay = name and _G[name.."ArtOverlayFrame"] or frame.ArtOverlayFrame
+	local nineSliceFrame = name and _G[name.."NineSlice"] or frame.NineSlice
 
 	frame:StripTextures()
 
 	if portraitFrame then portraitFrame:SetAlpha(0) end
 	if portraitFrameOverlay then portraitFrameOverlay:SetAlpha(0) end
 	if artFrameOverlay then artFrameOverlay:SetAlpha(0) end
+	if nineSliceFrame then nineSliceFrame:StripTextures() end
 
 	if insetFrame then
 		S:HandleInsetFrame(insetFrame)
