@@ -31,4 +31,9 @@ function S:GetOptions()
 		name = "Таймер",
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.transmogrify = {
+		type = "toggle",
+		name = "Трансмогрификация",
+		desc = L["TOGGLESKIN_DESC"]
+	}
 end

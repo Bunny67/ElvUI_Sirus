@@ -20,4 +20,5 @@
 	<Script file="Sirus_TimeManager.lua"/>
 	<Script file="Sirus_Timer.lua"/>
 	<Script file="Sirus_Trainer.lua"/>
+	<Script file="Sirus_Transmogrify.lua"/>
 </Ui>

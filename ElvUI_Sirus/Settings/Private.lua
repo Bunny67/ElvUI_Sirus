@@ -9,3 +9,4 @@ V.skins.blizzard.guild = true
 V.skins.blizzard.losscontrol = true
 V.skins.blizzard.store = true
 V.skins.blizzard.timer = true
+V.skins.blizzard.transmogrify = true
