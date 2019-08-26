@@ -7,7 +7,6 @@ local _G = _G
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local RegisterStateDriver = RegisterStateDriver
-local UnitLevel = UnitLevel
 
 local MICRO_BUTTONS = SHARED_MICROMENU_BUTTONS
 

@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 --Lua functions
-local print, unpack = print, unpack
+local print = print
 --WoW API / Variables
 local GetSpellInfo = GetSpellInfo
 

@@ -84,7 +84,7 @@ local function BuildGuildTable()
 		if not name then break end
 
 		if connected then
-			local categoryID = GetGuildCharacterCategory(name)
+			categoryID = GetGuildCharacterCategory(name)
 			if categoryID then
 				categoryName, _, categoryIcon = GetSpellInfo(categoryID)
 				if categoryName then

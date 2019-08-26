@@ -8,9 +8,6 @@ local unpack = unpack
 local hooksecurefunc = hooksecurefunc
 local GetWhoInfo = GetWhoInfo
 local GetGuildRosterInfo = GetGuildRosterInfo
-local GUILDMEMBERS_TO_DISPLAY = GUILDMEMBERS_TO_DISPLAY
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 
 local function FriendsFrameTooltip_Show(self)
 	if self.buttonType == FRIENDS_BUTTON_TYPE_HEADER then return end
@@ -21,7 +18,7 @@ local function FriendsFrameTooltip_Show(self)
 	tooltip.maxWidth = 0
 	
 	if self.buttonType == FRIENDS_BUTTON_TYPE_WOW then
-		local name, level, class, area, connected, status, noteText = GetFriendInfo(self.id)
+		local name, level, class, area, connected, _, noteText = GetFriendInfo(self.id)
 		anchor = FriendsFrameTooltip_SetLine(FriendsTooltipHeader, nil, name)
 		if connected then
 			FriendsTooltipHeader:SetTextColor(FRIENDS_WOW_NAME_COLOR.r, FRIENDS_WOW_NAME_COLOR.g, FRIENDS_WOW_NAME_COLOR.b)
@@ -100,7 +97,7 @@ local function LoadSkin()
 	for i = 1, #FriendsFrameFriendsScrollFrame.buttons do
 		local button = FriendsFrameFriendsScrollFrame.buttons[i]
 		button:SetScript("OnEnter", FriendsFrameTooltip_Show)
-	
+
 		_G["FriendsFrameFriendsScrollFrameButton"..i.."SummonButtonIcon"]:SetTexCoord(unpack(E.TexCoords))
 		_G["FriendsFrameFriendsScrollFrameButton"..i.."SummonButtonNormalTexture"]:SetAlpha(0)
 		_G["FriendsFrameFriendsScrollFrameButton"..i.."SummonButton"]:StyleButton()

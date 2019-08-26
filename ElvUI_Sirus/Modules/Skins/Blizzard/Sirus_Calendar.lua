@@ -257,7 +257,7 @@ local function LoadSkin()
 	CalendarViewEventInviteListSection:StripTextures()
 	S:HandleCloseButton(CalendarViewEventCloseButton)
 	S:HandleScrollBar(CalendarViewEventInviteListScrollFrameScrollBar)
-
+--[[
 	local buttons = {
 		"CalendarViewEventAcceptButton",
 		"CalendarViewEventTentativeButton",
@@ -266,9 +266,9 @@ local function LoadSkin()
 	}
 
 	for _, button in pairs(buttons) do
---		S:HandleButton(_G[button])
+		S:HandleButton(_G[button])
 	end
-
+]]
 	--Event Picker Frame
 	CalendarEventPickerFrame:StripTextures()
 	CalendarEventPickerTitleFrame:StripTextures()

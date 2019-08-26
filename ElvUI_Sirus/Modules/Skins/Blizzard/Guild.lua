@@ -5,10 +5,6 @@ local S = E:GetModule("Skins")
 local _G = _G
 local unpack = unpack
 --WoW API / Variables
-local hooksecurefunc = hooksecurefunc
-local GetWhoInfo = GetWhoInfo
-local GetGuildRosterInfo = GetGuildRosterInfo
-local GUILDMEMBERS_TO_DISPLAY = GUILDMEMBERS_TO_DISPLAY
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true then return end
@@ -37,15 +33,15 @@ local function LoadSkin()
 		tab.Icon:SetInside()
 		tab.Icon:SetTexCoord(unpack(E.TexCoords))
 	end
-	
+
 	-- GuildPerks Frame
 	GuildAllPerksFrame:StripTextures()
 	S:HandleScrollBar(GuildPerksContainerScrollBar)
-	
+
 	for i = 1, #GuildPerksContainer.buttons do
 		local button = GuildPerksContainer.buttons[i]
 		button:StripTextures()
-		
+
 		button.icon:CreateBackdrop()
 		button.icon:SetTexCoord(unpack(E.TexCoords))
 		button.icon:SetParent(button.icon.backdrop)
@@ -58,7 +54,7 @@ local function LoadSkin()
 	for i = 1, #GuildRewardsContainer.buttons do
 		local button = GuildRewardsContainer.buttons[i]
 		button:StripTextures()
-		
+
 		button.icon:CreateBackdrop()
 		button.icon:SetTexCoord(unpack(E.TexCoords))
 		button.icon:SetParent(button.icon.backdrop)
@@ -66,7 +62,7 @@ local function LoadSkin()
 
 	-- GuildRoster Frame
 	S:HandleDropDownBox(GuildRosterViewDropdown)
-	
+
 	for i = 1, 5 do
 		_G["GuildRosterColumnButton"..i]:StripTextures()
 		_G["GuildRosterColumnButton"..i]:StyleButton()
