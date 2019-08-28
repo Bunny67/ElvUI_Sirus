@@ -457,7 +457,7 @@ local function LoadSkin()
 	S:HandleButton(PVPUI_ArenaTeamDetailsAddTeamMember)
 
 	BattlegroundInviteFrame:SetTemplate("Transparent")
-	BattlegroundInviteFrame.Background:SetAlpha(0)
+--	BattlegroundInviteFrame.Background:SetAlpha(0)
 
 	S:HandleButton(BattlegroundInviteFrame.PopupFrame.EnterButton)
 	S:HandleButton(BattlegroundInviteFrame.PopupFrame.CancelButton)
