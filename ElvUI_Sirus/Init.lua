@@ -18,11 +18,7 @@ local function GameMenuFrame_UpdateVisibleButtons()
 		GameMenuFrame.ElvUI:ClearAllPoints()
 		GameMenuFrame.ElvUI:Point("TOP", ElvUI_ButtonAddons, "BOTTOM", 0, -1)
 
-		if not GameMenuFrame.isEnhanced then
-			GameMenuFrame.isEnhanced = true
-		else
-			GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() + 1)
-		end
+		GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() + 1)
 	end
 end
 
