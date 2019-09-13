@@ -29,6 +29,16 @@ end
 function addon:Initialize()
 	GameMenuFrame:HookScript("OnShow", GameMenuFrame_UpdateVisibleButtons)
 
+	local function StaticPopup_OnShow(self)
+		if self.ReplayInfoFrame then
+			self.ReplayInfoFrame:Hide()
+		end
+	end
+
+	for index = 1, 4 do
+		E.StaticPopupFrames[index]:HookScript("OnShow", StaticPopup_OnShow)
+	end
+
 	EP:RegisterPlugin(AddOnName, self.GetOptions)
 end
 
