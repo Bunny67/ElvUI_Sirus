@@ -30,8 +30,6 @@ local function LoadSkin()
 		end
 	end)
 
-	S:HandleCloseButton(MerchantFrameCloseButton)
-
 	for i = 1, 12 do
 		local item = _G["MerchantItem"..i]
 		local button = _G["MerchantItem"..i.."ItemButton"]
