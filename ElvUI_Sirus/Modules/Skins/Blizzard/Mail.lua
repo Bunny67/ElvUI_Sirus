@@ -265,5 +265,5 @@ local function LoadSkin()
 	OpenMailMoneyButtonCount:SetDrawLayer("OVERLAY")
 end
 
-S:RemoveCallback("Mail")
-S:AddCallback("Mail", LoadSkin)
+S:RemoveCallback("Skin_Mail")
+S:AddCallback("Skin_Mail", LoadSkin)

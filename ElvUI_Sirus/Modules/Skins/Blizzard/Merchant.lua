@@ -181,5 +181,5 @@ local function LoadSkin()
 	end)
 end
 
-S:RemoveCallback("Merchant")
-S:AddCallback("Merchant", LoadSkin)
+S:RemoveCallback("Skin_Merchant")
+S:AddCallback("Skin_Merchant", LoadSkin)

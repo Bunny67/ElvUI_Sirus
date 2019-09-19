@@ -14,5 +14,5 @@ local function LoadSkin()
 	TaxiRouteMap:CreateBackdrop()
 end
 
-S:RemoveCallback("Taxi")
-S:AddCallback("Taxi", LoadSkin)
+S:RemoveCallback("Skin_Taxi")
+S:AddCallback("Skin_Taxi", LoadSkin)

@@ -15,5 +15,5 @@ local function LoadSkin()
 	DressUpModel:CreateBackdrop("Default")
 end
 
-S:RemoveCallback("DressingRoom")
-S:AddCallback("DressingRoom", LoadSkin)
+S:RemoveCallback("Skin_DressingRoom")
+S:AddCallback("Skin_DressingRoom", LoadSkin)

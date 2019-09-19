@@ -38,5 +38,5 @@ local function LoadSkin()
 	S:HandleButton(WorldStateScoreFrameLeaveButton)
 end
 
-S:RemoveCallback("WorldStateScore")
-S:AddCallback("WorldStateScore", LoadSkin)
+S:RemoveCallback("Skin_WorldStateScore")
+S:AddCallback("Skin_WorldStateScore", LoadSkin)

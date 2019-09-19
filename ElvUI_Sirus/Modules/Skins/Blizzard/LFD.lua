@@ -547,5 +547,5 @@ local function LoadSkin()
 	PVPLadderInfoFrame.TopContainer.StatisticsFrame:StripTextures()
 end
 
-S:RemoveCallback("LFD")
-S:AddCallback("LFD", LoadSkin)
+S:RemoveCallback("Skin_LFD")
+S:AddCallback("Skin_LFD", LoadSkin)
