@@ -29,6 +29,7 @@ local function LoadSkin()
 
 	StoreFrame:StripTextures()
 	StoreFrame:SetTemplate("Transparent")
+	StoreFrame:SetFrameStrata("DIALOG")
 
 	StoreFrameLeftInset:StripTextures()
 	StoreFrameLeftInset:SetTemplate("Transparent")
