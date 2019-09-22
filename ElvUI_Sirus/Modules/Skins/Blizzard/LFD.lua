@@ -187,7 +187,7 @@ local function LoadSkin()
 	S:HandleButton(LFDDungeonReadyDialogLeaveQueueButton)
 
 	local function SkinLFDDungeonReadyDialogReward(button)
-		if button.isSkinned then return end
+		if button.isSkinned or not button.texture then return end
 
 		button:Size(28)
 		button:SetTemplate("Default")
