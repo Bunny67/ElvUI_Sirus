@@ -205,6 +205,8 @@ local function LoadSkin()
 	end)
 
 	hooksecurefunc("LFDDungeonReadyDialogReward_SetReward", function(button, dungeonID, rewardIndex)
+		if button and not button.texture then return end
+
 		SkinLFDDungeonReadyDialogReward(button)
 
 		local link = GetLFGDungeonRewardLinkFix(dungeonID, rewardIndex)
