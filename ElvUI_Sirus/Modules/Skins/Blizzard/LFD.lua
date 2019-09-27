@@ -358,7 +358,7 @@ local function LoadSkin()
 	StyleRewardFrame(ConquestFrame.BottomInset.ArenaContainer.Header.RewardFrame)
 
 	StyleButton(ConquestFrame.BottomInset.ArenaContainer.Arena2v2)
-	ConquestFrame.BottomInset.ArenaContainer.Arena2v2:Point("TOP", ConquestFrame.BottomInset.ArenaContainer.Header, "BOTTOM", 0, -6)
+	ConquestFrame.BottomInset.ArenaContainer.Arena2v2:Point("TOP", ConquestFrame.BottomInset.ArenaContainer.Header, "BOTTOM", 0, 10)
 	StyleButton(ConquestFrame.BottomInset.ArenaContainer.Arena3v3)
 	ConquestFrame.BottomInset.ArenaContainer.Arena3v3:Point("TOP", ConquestFrame.BottomInset.ArenaContainer.Arena2v2, "BOTTOM", 0, -(E.Border*2))
 
