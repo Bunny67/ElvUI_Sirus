@@ -61,7 +61,7 @@ function EI:UpdatePaperDoll(unit)
 
 			if E.db.enhanced.equipment.itemlevel.enable then
 				itemLink = GetInventoryItemLink(unit, slotID)
-print(itemLink)
+
 				if itemLink then
 					_, _, rarity, itemLevel = GetItemInfo(itemLink)
 
