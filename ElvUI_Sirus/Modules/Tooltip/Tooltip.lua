@@ -4,6 +4,8 @@ local TT = E:GetModule("Tooltip")
 --Lua functions
 --WoW API / Variables
 
+TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
+
 function TT:GetItemLvL(unit)
 	ItemLevelMixIn:Request(unit)
 	local ilvl = ItemLevelMixIn:GetItemLevel(UnitGUID(unit))
