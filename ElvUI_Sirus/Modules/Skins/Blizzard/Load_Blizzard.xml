@@ -14,6 +14,7 @@
 	<Script file="Sirus_Calendar.lua"/>
 	<Script file="Sirus_DeathRecap.lua"/>
 	<Script file="Sirus_EncounterJournal.lua"/>
+	<Script file="Sirus_Inspect.lua"/>
 	<Script file="Sirus_ItemSocketing.lua"/>
 	<Script file="Sirus_LossOfControl.lua"/>
 	<Script file="Sirus_Macro.lua"/>
