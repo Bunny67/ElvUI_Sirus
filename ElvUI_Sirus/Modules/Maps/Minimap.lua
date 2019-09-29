@@ -51,4 +51,6 @@ function M:Minimap_OnMouseUp(btn)
 end
 
 Minimap:SetScript("OnMouseUp", M.Minimap_OnMouseUp)
-FarmModeMap:SetScript("OnMouseUp", M.Minimap_OnMouseUp)
+if FarmModeMap then
+	FarmModeMap:SetScript("OnMouseUp", M.Minimap_OnMouseUp)
+end
