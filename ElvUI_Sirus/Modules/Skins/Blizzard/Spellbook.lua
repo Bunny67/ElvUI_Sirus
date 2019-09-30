@@ -30,8 +30,11 @@ local function LoadSkin()
 
 	for i = 1, 12 do
 		local button = _G["SpellButton"..i]
+		local autoCast = _G["SpellButton"..i.."AutocastAutoCastable"]
 		button:StripTextures()
 		button:CreateBackdrop("Default", true)
+
+		autoCast:SetOutside(button, 16, 16)
 
 		_G["SpellButton"..i.."IconTexture"]:SetTexCoord(unpack(E.TexCoords))
 
