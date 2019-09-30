@@ -18,6 +18,8 @@ local function LoadSkin()
 	end
 
 	-- InspectPaperDollFrame
+	InspectLevelText:SetPoint("TOP", 0, -20)
+
 	S:HandleButton(InspectPaperDollFrame.ViewButton)
 
 	InspectModelFrame:CreateBackdrop()
