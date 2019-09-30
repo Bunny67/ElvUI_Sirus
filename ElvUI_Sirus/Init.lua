@@ -22,6 +22,8 @@ local function GameMenuFrame_UpdateVisibleButtons()
 	end
 end
 
+SecureUIParentManageFramePositions = E.noop
+
 function addon:Initialize()
 	GameMenuFrame:HookScript("OnShow", GameMenuFrame_UpdateVisibleButtons)
 
