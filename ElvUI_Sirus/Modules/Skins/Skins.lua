@@ -111,5 +111,3 @@ function S:RemoveCallback(eventName)
 	end
 	E.UnregisterCallback(S, eventName)
 end
-
-S:RemoveCallback("Skin_WatchFrame")
