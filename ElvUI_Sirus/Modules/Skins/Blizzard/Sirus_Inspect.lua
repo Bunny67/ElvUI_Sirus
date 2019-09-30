@@ -26,6 +26,8 @@ local function LoadSkin()
 	InspectModelFrame.backdrop:SetOutside(InspectModelFrameBackgroundOverlay)
 	InspectModelFrame:DisableDrawLayer("OVERLAY")
 
+	S:HandleControlFrame(InspectModelFrame.controlFrame)
+
 	local slots = {
 		InspectHeadSlot,
 		InspectNeckSlot,

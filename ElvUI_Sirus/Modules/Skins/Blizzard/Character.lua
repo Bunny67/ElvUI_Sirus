@@ -131,6 +131,8 @@ local function LoadSkin()
 	CharacterModelFrame.backdrop:SetOutside(CharacterModelFrameBackgroundOverlay)
 	CharacterModelFrame:DisableDrawLayer("OVERLAY")
 
+	S:HandleControlFrame(CharacterModelFrame.controlFrame)
+
 	ColorizeStatPane(CharacterItemLevelFrame)
 	CharacterItemLevelFrame.ilvlbackground:SetAlpha(0)
 

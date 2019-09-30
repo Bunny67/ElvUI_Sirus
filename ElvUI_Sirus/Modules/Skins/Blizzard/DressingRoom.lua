@@ -13,6 +13,8 @@ local function LoadSkin()
 	S:HandleButton(DressUpFrameResetButton)
 
 	DressUpModel:CreateBackdrop("Default")
+
+	S:HandleControlFrame(DressUpModel.controlFrame)
 end
 
 S:RemoveCallback("Skin_DressingRoom")

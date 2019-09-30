@@ -94,6 +94,32 @@ function S:HandleMaxMinFrame(frame)
 	frame.isSkinned = true
 end
 
+local function SkinControlButton(button)
+	button:Size(18)
+
+	S:HandleButton(button)
+
+	button.bg:SetAlpha(0)
+	button.icon:SetInside()
+	select(3, button:GetRegions()):Hide()
+end
+
+function S:HandleControlFrame(frame)
+	local name = frame:GetName()
+	frame:StripTextures()
+	frame:Width(58)
+
+	local rightButton = _G[name.."RotateRightButton"]
+	local resetButton = _G[name.."RotateResetButton"]
+
+	SkinControlButton(_G[name.."RotateLeftButton"])
+	SkinControlButton(rightButton)
+	SkinControlButton(resetButton)
+
+	rightButton:Point("LEFT", "$parentRotateLeftButton", "RIGHT", 2, 0)
+	resetButton:Point("LEFT", "$parentRotateRightButton", "RIGHT", 2, 0)
+end
+
 function S:RemoveCallback(eventName)
 	if not eventName or type(eventName) ~= "string" then
 		E:Print("Invalid argument #1 to S:RemoveCallback (string expected)")
