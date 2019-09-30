@@ -66,6 +66,7 @@ local function LoadSkin()
 
 	S:HandleRotateButton(SpellBookCompanionModelFrameRotateLeftButton)
 	S:HandleRotateButton(SpellBookCompanionModelFrameRotateRightButton)
+	SpellBookCompanionModelFrameRotateRightButton:SetPoint("TOPLEFT", SpellBookCompanionModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)
 
 	S:HandleButton(SpellBookCompanionSummonButton)
 

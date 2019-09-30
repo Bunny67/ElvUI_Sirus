@@ -94,7 +94,45 @@ function S:HandleMaxMinFrame(frame)
 	frame.isSkinned = true
 end
 
-local function SkinControlButton(button)
+function S:HandleRotateButton(btn)
+	if btn.isSkinned then return end
+
+	btn:SetTemplate()
+
+	btn:Size(btn:GetWidth() - 14, btn:GetHeight() - 14)
+
+	local normTex = btn:GetNormalTexture()
+	local pushTex = btn:GetPushedTexture()
+	local highlightTex = btn:GetHighlightTexture()
+
+	normTex:SetInside()
+	pushTex:SetAllPoints(normTex)
+
+	local name = btn:GetName()
+	if name then
+		normTex:SetTexture("Interface\\Common\\UI-ModelControlPanel")
+		pushTex:SetTexture("Interface\\Common\\UI-ModelControlPanel")
+
+		if string.find(name, "Right") then
+			normTex:SetTexCoord(0.57812500, 0.82812500, 0.28906250, 0.41406250)
+			pushTex:SetTexCoord(0.57812500, 0.82812500, 0.28906250, 0.41406250)
+		else
+			normTex:SetTexCoord(0.01562500, 0.26562500, 0.28906250, 0.41406250)
+			pushTex:SetTexCoord(0.01562500, 0.26562500, 0.28906250, 0.41406250)
+		end
+	else
+		normTex:SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
+		pushTex:SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
+	end
+
+	local highlightTex = btn:GetHighlightTexture()
+	highlightTex:SetAllPoints(normTex)
+	highlightTex:SetTexture(1, 1, 1, 0.3)
+
+	btn.isSkinned = true
+end
+
+function S:HandleControlButton(button)
 	button:Size(18)
 
 	S:HandleButton(button)
@@ -112,9 +150,9 @@ function S:HandleControlFrame(frame)
 	local rightButton = _G[name.."RotateRightButton"]
 	local resetButton = _G[name.."RotateResetButton"]
 
-	SkinControlButton(_G[name.."RotateLeftButton"])
-	SkinControlButton(rightButton)
-	SkinControlButton(resetButton)
+	S:HandleControlButton(_G[name.."RotateLeftButton"])
+	S:HandleControlButton(rightButton)
+	S:HandleControlButton(resetButton)
 
 	rightButton:Point("LEFT", "$parentRotateLeftButton", "RIGHT", 2, 0)
 	resetButton:Point("LEFT", "$parentRotateRightButton", "RIGHT", 2, 0)

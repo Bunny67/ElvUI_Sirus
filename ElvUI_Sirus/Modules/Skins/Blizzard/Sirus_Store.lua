@@ -68,6 +68,7 @@ local function LoadSkin()
 
 	S:HandleRotateButton(StorePreviewModelFrameRotateLeftButton)
 	S:HandleRotateButton(StorePreviewModelFrameRotateRightButton)
+	StorePreviewModelFrameRotateRightButton:SetPoint("TOPLEFT", StorePreviewModelFrameRotateLeftButton, "TOPRIGHT", 3, 0)
 
 	S:HandleCloseButton(StoreModelPreviewFrameCloseButton) -- WTF?
 	S:HandleButton(StoreModelPreviewFrame.CloseButton, true) -- WTF?
