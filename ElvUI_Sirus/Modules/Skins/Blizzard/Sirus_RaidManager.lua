@@ -13,11 +13,12 @@ local function LoadSkin()
 	frameManager:StripTextures()
 	frameManager:CreateBackdrop("Transparent")
 	frameManager.backdrop:Point("TOPLEFT", 1, -1)
-	frameManager.backdrop:Point("BOTTOMRIGHT", -7, 1)
+	frameManager.backdrop:Point("BOTTOMRIGHT", -11, 1)
 
 	S:HandleButton(frameManager.toggleButton)
 	frameManager.toggleButton:ClearAllPoints()
-	frameManager.toggleButton:Point("RIGHT", 0, 0)
+	frameManager.toggleButton:Width(10)
+	frameManager.toggleButton:Point("RIGHT", -7, 0)
 
 	frameManager.toggleButton.Icon = frameManager.toggleButton:CreateTexture()
 	frameManager.toggleButton.Icon:Size(16)
@@ -39,9 +40,17 @@ local function LoadSkin()
 
 	displayFrame:StripTextures()
 
+	displayFrame.memberCountLabel:SetPoint("TOPRIGHT", -18, -8)
+
+	for i = 1, 8 do
+		_G["CompactRaidFrameManagerDisplayFrameRaidMarkersRaidMarker"..i]:SetNormalTexture(E.Media.Textures.RaidIcons)
+	end
+
+	displayFrame.convertToRaid:StripTextures(nil, true)
 	S:HandleButton(displayFrame.convertToRaid, true)
 
-	S:HandleButton(displayFrame.readyCheckButton, true)
+	displayFrame.readyCheckButton:StripTextures(nil, true)
+	S:HandleButton(displayFrame.readyCheckButton)
 
 	displayFrame.RaidWorldMarkerButton:StripTextures(nil, true)
 	S:HandleButton(displayFrame.RaidWorldMarkerButton)
