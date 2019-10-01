@@ -12,32 +12,41 @@ local function LoadSkin()
 
 	frameManager:StripTextures()
 	frameManager:CreateBackdrop("Transparent")
-	frameManager.backdrop:Point("TOPLEFT", 0, 0)
-	frameManager.backdrop:Point("BOTTOMRIGHT", 0, 0)
+	frameManager.backdrop:Point("TOPLEFT", 1, -1)
+	frameManager.backdrop:Point("BOTTOMRIGHT", -7, 1)
 
 	S:HandleButton(frameManager.toggleButton)
 	frameManager.toggleButton:ClearAllPoints()
-	frameManager.toggleButton:Point("RIGHT", 5, 0)
+	frameManager.toggleButton:Point("RIGHT", 0, 0)
+
+	frameManager.toggleButton.Icon = frameManager.toggleButton:CreateTexture()
+	frameManager.toggleButton.Icon:Size(16)
+	frameManager.toggleButton.Icon:SetPoint("CENTER")
+	frameManager.toggleButton.Icon:SetTexture(E.Media.Textures.ArrowUp)
+	frameManager.toggleButton.Icon:SetRotation(S.ArrowRotation.right)
+
+	hooksecurefunc(frameManager.toggleButton:GetNormalTexture(), "SetTexCoord", function(_, a, b)
+		if a > 0 then
+			frameManager.toggleButton.Icon:SetRotation(S.ArrowRotation.left)
+		elseif b < 1 then
+			frameManager.toggleButton.Icon:SetRotation(S.ArrowRotation.right)
+		end
+	end)
 
 	S:HandleButton(frameManager.resizer)
-	frameManager.resizer:ClearAllPoints()
-	frameManager.resizer:Point("BOTTOM", 0, -5)
+	frameManager.resizer:Size(100, 10)
+	frameManager.resizer:Point("BOTTOM", 0, -3)
 
 	displayFrame:StripTextures()
 
-	displayFrame.convertToRaid:StripTextures(true)
-	S:HandleButton(displayFrame.convertToRaid)
+	S:HandleButton(displayFrame.convertToRaid, true)
 
-	displayFrame.readyCheckButton:StripTextures(true)
-	S:HandleButton(displayFrame.readyCheckButton)
+	S:HandleButton(displayFrame.readyCheckButton, true)
 
-	displayFrame.RaidWorldMarkerButton:StripTextures(true)
-	S:HandleButton(displayFrame.RaidWorldMarkerButton)
+	S:HandleButton(displayFrame.RaidWorldMarkerButton, true)
+	displayFrame.RaidWorldMarkerButton:Width(39)
 	displayFrame.RaidWorldMarkerButton:Point("TOPLEFT", displayFrame.readyCheckButton, "TOPRIGHT", 2, 0)
 	displayFrame.RaidWorldMarkerButton:SetNormalTexture(E.Media.Textures.Leader)
-	displayFrame.RaidWorldMarkerButton:SetPushedTexture(nil)
-	displayFrame.RaidWorldMarkerButton.SetPushedTexture = E.noop
-
 end
 
 S:AddCallback("Skin_RaidManager", LoadSkin)
