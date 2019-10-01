@@ -23,12 +23,14 @@ local function LoadSkin()
 
 	S:HandleCheckBox(ShowAllSpellRanksCheckBox)
 	S:HandleCheckBox(ShowUnassignedSpellBorderCheckBox)
-	ShowUnassignedSpellBorderCheckBox:SetPoint("BOTTOMLEFT", 80, 22)
+	ShowUnassignedSpellBorderCheckBox:SetPoint("BOTTOMLEFT", 80, 28)
 
 	SpellBookPageText:SetTextColor(1, 1, 1)
-	SpellBookPageText:SetPoint("BOTTOMRIGHT", -110, 30)
+	SpellBookPageText:SetPoint("BOTTOMRIGHT", -110, 36)
 	S:HandleNextPrevButton(SpellBookPrevPageButton, nil, nil, true)
+	SpellBookPrevPageButton:Size(32)
 	S:HandleNextPrevButton(SpellBookNextPageButton, nil, nil, true)
+	SpellBookNextPageButton:Size(32)
 
 	for i = 1, 12 do
 		local button = _G["SpellButton"..i]
