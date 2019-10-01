@@ -23,8 +23,10 @@ local function LoadSkin()
 
 	S:HandleCheckBox(ShowAllSpellRanksCheckBox)
 	S:HandleCheckBox(ShowUnassignedSpellBorderCheckBox)
+	ShowUnassignedSpellBorderCheckBox:SetPoint("BOTTOMLEFT", 80, 22)
 
 	SpellBookPageText:SetTextColor(1, 1, 1)
+	SpellBookPageText:SetPoint("BOTTOMRIGHT", -110, 30)
 	S:HandleNextPrevButton(SpellBookPrevPageButton, nil, nil, true)
 	S:HandleNextPrevButton(SpellBookNextPageButton, nil, nil, true)
 
