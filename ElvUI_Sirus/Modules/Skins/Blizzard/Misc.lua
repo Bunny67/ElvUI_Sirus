@@ -33,6 +33,11 @@ local function LoadSkin()
 		staticPopup.bar:SetStatusBarTexture(E.media.normTex)
 		E:RegisterStatusBar(staticPopup.bar)
 	end
+
+	if InterfaceOptionsCombatPanelTargetOfTarget:GetAlpha() == 0 then
+		InterfaceOptionsCombatPanelTOTDropDown:ClearAllPoints()
+		InterfaceOptionsCombatPanelTOTDropDown:SetPoint("TOPRIGHT", InterfaceOptionsCombatPanelSubText, "BOTTOMRIGHT", 0, -2)
+	end
 end
 
 S:AddCallback("Sirus_Misc", LoadSkin)
