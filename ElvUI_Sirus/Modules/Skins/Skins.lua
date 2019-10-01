@@ -175,3 +175,23 @@ function S:RemoveCallback(eventName)
 	end
 	E.UnregisterCallback(S, eventName)
 end
+
+function S:RemoveCallbackForAddon(addonName, eventName)
+	if not addonName or type(addonName) ~= "string" then
+		E:Print("Invalid argument #1 to S:RemoveCallbackForAddon (string expected)")
+		return
+	elseif not self.addonCallbacks[addonName] then
+		E:Print("Invalid 'addonName' #1 to S:RemoveCallbackForAddon ", addonName)
+		return
+	end
+
+	for index, event in ipairs(self.addonCallbacks[addonName].CallPriority) do
+		if event == eventName then
+			tremove(self.addonCallbacks[addonName].CallPriority, index)
+		end
+	end
+	if #self.addonCallbacks[addonName].CallPriority == 0 then
+		self.addonCallbacks[addonName] = nil
+	end
+	E.UnregisterCallback(S, eventName)
+end
