@@ -43,10 +43,11 @@ local function LoadSkin()
 
 	S:HandleButton(displayFrame.readyCheckButton, true)
 
-	S:HandleButton(displayFrame.RaidWorldMarkerButton, true)
+	displayFrame.RaidWorldMarkerButton:StripTextures(nil, true)
+	S:HandleButton(displayFrame.RaidWorldMarkerButton)
 	displayFrame.RaidWorldMarkerButton:Width(39)
 	displayFrame.RaidWorldMarkerButton:Point("TOPLEFT", displayFrame.readyCheckButton, "TOPRIGHT", 2, 0)
-	displayFrame.RaidWorldMarkerButton:SetNormalTexture(E.Media.Textures.Leader)
+	displayFrame.RaidWorldMarkerButton:SetNormalTexture("Interface\\RaidFrame\\Raid-WorldPing")
 end
 
 S:AddCallback("Skin_RaidManager", LoadSkin)
