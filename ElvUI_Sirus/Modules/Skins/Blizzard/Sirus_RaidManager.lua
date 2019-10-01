@@ -35,18 +35,18 @@ local function LoadSkin()
 	end)
 
 	S:HandleButton(frameManager.resizer)
-	frameManager.resizer:Size(100, 10)
+	frameManager.resizer:Size(64, 10)
 	frameManager.resizer:Point("BOTTOM", 0, -3)
 
 	frameManager.resizer.UpIcon = frameManager.resizer:CreateTexture()
 	frameManager.resizer.UpIcon:Size(16)
-	frameManager.resizer.UpIcon:SetPoint("LEFT", 25, 0)
+	frameManager.resizer.UpIcon:SetPoint("LEFT", 12, 0)
 	frameManager.resizer.UpIcon:SetTexture(E.Media.Textures.ArrowUp)
 	frameManager.resizer.UpIcon:SetRotation(S.ArrowRotation.up)
 
 	frameManager.resizer.DownIcon = frameManager.resizer:CreateTexture()
 	frameManager.resizer.DownIcon:Size(16)
-	frameManager.resizer.DownIcon:SetPoint("RIGHT", -25, 0)
+	frameManager.resizer.DownIcon:SetPoint("RIGHT", -12, 0)
 	frameManager.resizer.DownIcon:SetTexture(E.Media.Textures.ArrowUp)
 	frameManager.resizer.DownIcon:SetRotation(S.ArrowRotation.down)
 
