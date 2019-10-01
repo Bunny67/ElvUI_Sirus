@@ -23,7 +23,7 @@ local function LoadSkin()
 
 	S:HandleCheckBox(ShowAllSpellRanksCheckBox)
 	S:HandleCheckBox(ShowUnassignedSpellBorderCheckBox)
-	ShowUnassignedSpellBorderCheckBox:SetPoint("BOTTOMLEFT", 80, 28)
+	ShowUnassignedSpellBorderCheckBox:SetPoint("BOTTOMLEFT", 95, 28)
 
 	SpellBookPageText:SetTextColor(1, 1, 1)
 	SpellBookPageText:SetPoint("BOTTOMRIGHT", -110, 36)
