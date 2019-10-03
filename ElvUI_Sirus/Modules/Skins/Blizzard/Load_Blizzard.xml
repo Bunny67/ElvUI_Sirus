@@ -27,4 +27,5 @@
 	<Script file="Sirus_TradeSkill.lua"/>
 	<Script file="Sirus_Trainer.lua"/>
 	<Script file="Sirus_Transmogrify.lua"/>
+	<Script file="Sirus_Collections.lua"/>
 </Ui>

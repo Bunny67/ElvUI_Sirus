@@ -36,4 +36,9 @@ function S:GetOptions()
 		name = "Трансмогрификация",
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.collections = {
+		type = "toggle",
+		name = "Коллекции",
+		desc = L["TOGGLESKIN_DESC"]
+	}
 end
