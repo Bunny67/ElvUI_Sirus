@@ -2,22 +2,17 @@ local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 local S = E:GetModule("Skins")
 
 --Lua functions
+local ipairs = ipairs
 --WoW API / Variables
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true then return end
+	if not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections then return end
 
-	CollectionsJournal:StripTextures()
-	CollectionsJournal:SetTemplate("Transparent")
+	S:HandlePortraitFrame(CollectionsJournal)
 
-	S:HandleCloseButton(CollectionsJournal.CloseButton)
+	MountJournal.navBar:StripTextures()
+	MountJournal.navBar.overlay:StripTextures()
 
-	MountJournal.navBar:StripTextures(true)
-	MountJournal.navBar.overlay:StripTextures(true)
-
-	MountJournal.navBar:CreateBackdrop()
-	MountJournal.navBar.backdrop:Point("TOPLEFT", -2, 0)
-	MountJournal.navBar.backdrop:Point("BOTTOMRIGHT")
 	S:HandleButton(MountJournal.navBar.home, true)
 	MountJournal.navBar.home.xoffset = 1
 
@@ -32,49 +27,61 @@ local function LoadSkin()
 	MountJournal.ListScrollFrame:StripTextures()
 	S:HandleScrollBar(MountJournal.ListScrollFrame.scrollBar)
 
-	for _, button in pairs(MountJournal.ListScrollFrame.buttons) do
-		button:SetTemplate()
-		button:StyleButton()
+	for _, button in ipairs(MountJournal.ListScrollFrame.buttons) do
+		button.icon:Size(40)
+		button.icon:SetDrawLayer("BORDER")
+		S:HandleIcon(button.icon)
 
-		button.background:Hide()
+		local highlight = button:GetHighlightTexture()
+		button:SetHighlightTexture(E.Media.Textures.Highlight)
+		highlight:SetTexCoord(0, 1, 0, 1)
+		highlight:SetVertexColor(1, 1, 1, .35)
+		highlight:SetAllPoints()
 
-		button.selectedTexture:SetTexture(.9, .8, .1, .3)
-		button.selectedTexture:SetInside()
+		button.iconBorder:SetTexture()
+		button.background:SetTexture()
+
+		button.selectedTexture:SetTexture(E.Media.Textures.Highlight)
+		button.selectedTexture:SetTexCoord(0, 1, 0, 1)
+		button.selectedTexture:SetVertexColor(1, .8, .1, .35)
+		button.selectedTexture:SetAllPoints()
+
+		button.favorite:SetParent(button.backdrop)
 	end
 
-	for _, button in pairs(MountJournal.CategoryScrollFrame.buttons) do
-		button:SetTemplate()
-		button:StyleButton()
+	for _, button in ipairs(MountJournal.CategoryScrollFrame.buttons) do
+		button:SetHighlightTexture(E.Media.Textures.Highlight)
+		button:GetHighlightTexture():SetVertexColor(1, 1, 1)
+		button:GetHighlightTexture().SetAlpha = E.noop
 
-		button.Background:Hide()
+		button.Background:SetTexture()
 
-		button.Icon:SetDrawLayer("ARTWORK")
-
+		button.Icon:SetDrawLayer("BORDER")
 		S:HandleIcon(button.Icon)
 	end
 
-	hooksecurefunc("MountJournal_CategoryDisplayButton", function(button)
-		button.Icon:SetShown(element.isCategory)
-		button.backdrop:SetShown(element.isCategory)
+	hooksecurefunc("MountJournal_CategoryDisplayButton", function(button, element)
+		if element then
+			button.backdrop:SetShown(element.isCategory)
+
+			local highlight = button:GetHighlightTexture()
+			highlight:SetTexCoord(0, 1, 0, 1)
+			highlight:SetAllPoints()
+		end
 	end)
 
 	MountJournal.CategoryScrollFrame:StripTextures()
 	S:HandleScrollBar(MountJournal.CategoryScrollFrame.scrollBar)
 
 	MountJournal.LeftInset:StripTextures()
-	MountJournal.LeftInset:SetTemplate("Transparent")
 
 	MountJournal.RightTopInset:StripTextures()
-	MountJournal.RightTopInset:SetTemplate("Transparent")
 
 	MountJournal.RightBottomInset:StripTextures()
-	MountJournal.RightBottomInset:SetTemplate("Transparent")
 
 	MountJournal.MountCount:StripTextures()
-	MountJournal.MountCount:SetTemplate("Transparent")
 
 	MountJournal.MountDisplay:StripTextures()
-	MountJournal.MountDisplay:SetTemplate("Transparent")
 
 	MountJournal.MountDisplay.ShadowOverlay:Hide()
 
@@ -85,8 +92,9 @@ local function LoadSkin()
 	S:HandleItemButton(MountJournal.SummonRandomFavoriteButton)
 
 	S:HandleIcon(MountJournal.MountDisplay.ModelScene.InfoButton.Icon)
+	S:HandleButton(MountJournal.MountDisplay.ModelScene.buyFrame.buyButton)
 
 	S:HandleButton(MountJournal.MountButton, true)
 end
 
-S:AddCallback("Sirus_Collections", LoadSkin)
+S:AddCallback("Skin_Collections", LoadSkin)
