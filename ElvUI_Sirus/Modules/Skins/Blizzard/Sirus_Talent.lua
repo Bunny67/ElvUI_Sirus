@@ -19,6 +19,14 @@ local function LoadSkin()
 
 	PlayerTalentFrameImportFrameButton.OuterBorderButton:SetAlpha(0)
 
+
+	PlayerTalentLinkButton:GetNormalTexture():SetTexCoord(6 / 32, 24 / 32, 12 / 32, 24 / 32)
+	PlayerTalentLinkButton:GetPushedTexture():SetTexCoord(6 / 32, 24 / 32, 14 / 32, 26 / 32)
+	PlayerTalentLinkButton:GetHighlightTexture():Kill()
+	PlayerTalentLinkButton:CreateBackdrop()
+	PlayerTalentLinkButton:SetSize(19, 14)
+	PlayerTalentLinkButton:SetPoint("TOPRIGHT", -16, -36)
+
 	local function StripTalentFramePanelTextures(object)
 		for i = 1, object:GetNumRegions() do
 			local region = select(i, object:GetRegions())
