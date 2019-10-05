@@ -105,52 +105,29 @@ local function LoadSkin()
 		end
 	end)
 
-	local function talentpairs(inspect, pet)
-		local tab, tal = 1, 0
-		return function()
-			tal = tal + 1
-			if tal > GetNumTalents(tab, inspect, pet) then
-				tal = 1
-				tab = tab + 1
-			end
-			if tab <= GetNumTalentTabs(inspect, pet) then
-				return tab, tal
-			end
-		end
-	end
-
-	local function TalentButtons(self, first, i, j)
+	local function TalentButtons(i, j)
 		local button = _G["PlayerTalentFramePanel"..i.."Talent"..j]
-		local icon = _G["PlayerTalentFramePanel"..i.."Talent"..j.."IconTexture"]
+		button:StripTextures()
+		button:CreateBackdrop()
+		button:StyleButton()
 
-		if first then
-			button:StripTextures()
-		end
+		button.SetHighlightTexture = E.noop
+		button:GetHighlightTexture():SetAllPoints()
+		button.SetPushedTexture = E.noop
+		button:GetPushedTexture():SetAllPoints()
+		button:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
+		button:SetNormalTexture("")
 
-		if button.Rank then
-			button.Rank:FontTemplate(nil, 12, "OUTLINE")
-			button.Rank:Point("BOTTOMRIGHT", 9, -12)
-		end
+		button.icon:SetTexCoord(unpack(E.TexCoords))
+		button.icon:SetAllPoints()
 
-		if icon then
-			button:CreateBackdrop()
-			button:StyleButton()
-			button:SetFrameLevel(button:GetFrameLevel() + 1)
-
-			button.SetHighlightTexture = E.noop
-			button:GetHighlightTexture():SetAllPoints(icon)
-			button.SetPushedTexture = E.noop
-			button:GetPushedTexture():SetAllPoints(icon)
-			button:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
-			--button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-
-			icon:SetTexCoord(unpack(E.TexCoords))
-			icon:SetAllPoints()
-		end
+		button.Rank:FontTemplate()
 	end
 
-	for tab, talent in talentpairs() do
-		TalentButtons(nil, true, tab, talent)
+	for i = 1, 3 do
+		for j = 1, 40 do
+			TalentButtons(i, j)
+		end
 	end
 
 	PlayerTalentFramePanel2SummaryRoleIcon2:Kill()
@@ -177,6 +154,8 @@ local function LoadSkin()
 	PlayerTalentFramePetModelRotateRightButton:Kill()
 
 	S:HandleButton(PlayerTalentFrameLearnButton, true)
+	S:HandleButton(PlayerTalentFrameBackButton, true)
+	S:HandleButton(PlayerTalentFrameScreenshotButton, true)
 	S:HandleButton(PlayerTalentFrameResetButton, true)
 
 	PlayerTalentFramePetInfo:StripTextures()
@@ -254,6 +233,27 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	PlayerGlyphPreviewFrame:StripTextures()
+	PlayerGlyphPreviewFrame:SetTemplate("Transparent")
+	PlayerGlyphPreviewFrameHbar:Hide()
+
+	local slots = {
+		"MajorSlot1",
+		"MajorSlot2",
+		"MajorSlot3",
+		"MinorSlot1",
+		"MinorSlot2",
+		"MinorSlot3"
+	}
+
+	for i = 1, #slots do
+		local slot = PlayerGlyphPreviewFrame[slots[i]]
+		slot:CreateBackdrop()
+		slot.backdrop:SetOutside(slot.Icon)
+		slot.Icon:SetTexCoord(unpack(E.TexCoords))
+		slot.NameFrame:SetAlpha(0)
+	end
 end
 
 S:AddCallback("Sirus_Talent", LoadSkin)
