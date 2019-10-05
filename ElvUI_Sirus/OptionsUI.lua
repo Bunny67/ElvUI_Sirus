@@ -41,4 +41,9 @@ function S:GetOptions()
 		name = "Коллекции",
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.encounterjournal = {
+		type = "toggle",
+		name = "Путеводитель",
+		desc = L["TOGGLESKIN_DESC"]
+	}
 end

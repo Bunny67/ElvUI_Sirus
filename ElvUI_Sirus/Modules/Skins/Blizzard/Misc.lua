@@ -18,6 +18,7 @@ local function SkinNavBarButtons(self)
 		if navButton.MenuArrowButton then
 			navButton.MenuArrowButton:StripTextures()
 			if navButton.MenuArrowButton.Art then
+				navButton.MenuArrowButton.Art:Size(18)
 				navButton.MenuArrowButton.Art:SetTexture(E.Media.Textures.ArrowUp)
 				navButton.MenuArrowButton.Art:SetTexCoord(0, 1, 0, 1)
 				navButton.MenuArrowButton.Art:SetRotation(3.14)
