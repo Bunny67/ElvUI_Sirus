@@ -69,6 +69,17 @@ local function LoadSkin()
 	EncounterJournal.encounter.instance.title:SetPoint("TOP", 0, -65)
 	EncounterJournal.encounter.instance.titleBG:SetPoint("TOP", EncounterJournal.encounter.instance.loreBG)
 
+	EncounterJournal.encounter.instance.mapButton:StripTextures()
+	EncounterJournal.encounter.instance.mapButton:ClearAllPoints()
+	EncounterJournal.encounter.instance.mapButton:Point("BOTTOMLEFT", EncounterJournal.encounter.instance.loreBG.backdrop, 5, 5)
+	EncounterJournal.encounter.instance.mapButton:StripTextures()
+	S:HandleButton(EncounterJournal.encounter.instance.mapButton)
+
+	EncounterJournal.encounter.instance.mapButton.Text:ClearAllPoints()
+	EncounterJournal.encounter.instance.mapButton.Text:Point("CENTER")
+	EncounterJournal.encounter.instance.mapButton.Text:SetText(SHOW_MAP)
+	EncounterJournal.encounter.instance.mapButton:Size(EncounterJournal.encounter.instance.mapButton.Text:GetStringWidth() * 1.5, 25)
+
 	S:HandleScrollBar(EncounterJournal.encounter.instance.loreScroll.ScrollBar)
 	EncounterJournal.encounter.instance.loreScroll.child.lore:SetTextColor(1, 1, 1)
 
