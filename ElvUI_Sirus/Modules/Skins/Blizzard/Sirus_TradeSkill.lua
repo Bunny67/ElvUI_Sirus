@@ -114,12 +114,12 @@ local function LoadSkin()
 
 	S:HandleEditBox(TradeSkillFrame.SearchBox)
 
-	TradeSkillFrame.LinkToButton:GetNormalTexture():SetTexCoord(0.25, 0.7, 0.37, 0.75)
-	TradeSkillFrame.LinkToButton:GetPushedTexture():SetTexCoord(0.25, 0.7, 0.45, 0.8)
+	TradeSkillFrame.LinkToButton:GetNormalTexture():SetTexCoord(6 / 32, 24 / 32, 12 / 32, 24 / 32)
+	TradeSkillFrame.LinkToButton:GetPushedTexture():SetTexCoord(6 / 32, 24 / 32, 14 / 32, 26 / 32)
 	TradeSkillFrame.LinkToButton:GetHighlightTexture():Kill()
-	TradeSkillFrame.LinkToButton:CreateBackdrop()
-	TradeSkillFrame.LinkToButton:SetSize(17, 14)
-	TradeSkillFrame.LinkToButton:SetPoint("BOTTOMRIGHT", TradeSkillFrame.FilterButton, "TOPRIGHT", -2, 4)
+	S:HandleButton(TradeSkillFrame.LinkToButton)
+	TradeSkillFrame.LinkToButton:SetSize(19, 14)
+	TradeSkillFrame.LinkToButton:SetPoint("BOTTOMRIGHT", TradeSkillFrame.FilterButton, "TOPRIGHT", -2, 8)
 
 	hooksecurefunc("TradeSkillFrame_SetSelection", function(id)
 		if TradeSkillSkillIcon:GetNormalTexture() then
