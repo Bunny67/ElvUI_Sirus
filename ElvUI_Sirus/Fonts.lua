@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local LSM = E.Libs.LSM
 
 --Lua functions
 --WoW API / Variables
@@ -18,10 +17,18 @@ hooksecurefunc(E, "UpdateBlizzardFonts", function(self)
 	local NORMAL = self.media.normFont
 
 	if self.private.general.replaceBlizzFonts then
+		SetFont(GameFontNormal12, NORMAL, self.db.general.fontSize)
+		SetFont(GameFontNormal13, NORMAL, self.db.general.fontSize)
+		SetFont(GameFontNormal17, NORMAL, 18)
 		SetFont(SystemFont_Med2, NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Outline, NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Outline_Small, NORMAL, self.db.general.fontSize)
+		SetFont(SystemFont_Shadow_Med1, NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Shadow_Med2, NORMAL, self.db.general.fontSize)
+		SetFont(SystemFont_Shadow_Med2, NORMAL, self.db.general.fontSize*1.1)
 		SetFont(QuestFont_Super_Huge, NORMAL, 22)
+		SetFont(Fancy15Font, NORMAL, 16)
+		SetFont(Fancy16Font, NORMAL, 16)
+		SetFont(QuestFont15, NORMAL, 16)
 	end
 end)
