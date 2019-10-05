@@ -105,7 +105,7 @@ local function LoadSkin()
 		end
 	end)
 
-	function talentpairs(inspect, pet)
+	local function talentpairs(inspect, pet)
 		local tab, tal = 1, 0
 		return function()
 			tal = tal + 1

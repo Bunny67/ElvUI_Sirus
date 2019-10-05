@@ -19,7 +19,7 @@ local function LoadSkin()
 	WatchFrame.BlocksFrame.QuestHeader:StripTextures()
 	WatchFrame.BlocksFrame.AchievementHeader:StripTextures()
 
-  	-- WatchFrame Expand/Collapse Button
+	-- WatchFrame Expand/Collapse Button
 	WatchFrameHeaderMinimizeButton:StripTextures()
 	WatchFrameHeaderMinimizeButton.tex = WatchFrameHeaderMinimizeButton:CreateTexture(nil, "OVERLAY")
 	WatchFrameHeaderMinimizeButton.tex:SetTexture(E.Media.Textures.MinusButton)

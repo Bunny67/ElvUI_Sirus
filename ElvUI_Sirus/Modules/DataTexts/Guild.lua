@@ -20,7 +20,6 @@ local InviteUnit = InviteUnit
 local IsInGuild = IsInGuild
 local IsShiftKeyDown = IsShiftKeyDown
 local SetItemRef = SetItemRef
-local ToggleFriendsFrame = ToggleFriendsFrame
 local UnitInParty = UnitInParty
 local UnitInRaid = UnitInRaid
 local GUILD = GUILD

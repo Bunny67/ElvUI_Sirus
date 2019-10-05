@@ -125,7 +125,6 @@ function S:HandleRotateButton(btn)
 		pushTex:SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
 	end
 
-	local highlightTex = btn:GetHighlightTexture()
 	highlightTex:SetAllPoints(normTex)
 	highlightTex:SetTexture(1, 1, 1, 0.3)
 

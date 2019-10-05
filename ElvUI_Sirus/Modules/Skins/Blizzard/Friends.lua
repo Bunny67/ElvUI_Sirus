@@ -7,16 +7,16 @@ local unpack = unpack
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 local GetWhoInfo = GetWhoInfo
-local GetGuildRosterInfo = GetGuildRosterInfo
 
 local function FriendsFrameTooltip_Show(self)
 	if self.buttonType == FRIENDS_BUTTON_TYPE_HEADER then return end
 
 	local toonIndex, anchor = 1
+	local toonNameString, toonInfoString
 	local tooltip = FriendsTooltip
 	tooltip.height = 0
 	tooltip.maxWidth = 0
-	
+
 	if self.buttonType == FRIENDS_BUTTON_TYPE_WOW then
 		local name, level, class, area, connected, _, noteText = GetFriendInfo(self.id)
 		anchor = FriendsFrameTooltip_SetLine(FriendsTooltipHeader, nil, name)
