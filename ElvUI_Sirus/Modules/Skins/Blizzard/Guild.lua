@@ -104,13 +104,16 @@ local function LoadSkin()
 	S:HandleButton(GuildTextEditFrameCloseButton)
 
 	-- GuildLogFrame
+	GuildLogFrame:StripTextures()
 	GuildLogFrame:SetTemplate("Transparent")
-	S:HandleCloseButton(GuildLogFrameCloseButton)
+
+	local CloseButton, _, CloseButton2 = GuildLogFrame:GetChildren()
+	S:HandleCloseButton(CloseButton)
 	GuildLogContainer:SetBackdrop(nil)
 
 	S:HandleScrollBar(GuildLogScrollFrameScrollBar)
 
-	S:HandleButton(GuildLogFrameCloseButton)
+	S:HandleButton(CloseButton2)
 end
 
 S:AddCallback("Guild", LoadSkin)
