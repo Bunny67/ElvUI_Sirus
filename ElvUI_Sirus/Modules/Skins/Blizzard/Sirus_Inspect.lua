@@ -81,6 +81,24 @@ local function LoadSkin()
 
 	S:HandleScrollBar(InspectBattlegroundStatisticsScrollFrameScrollBar)
 
+	for i = 1, #InspectBattlegroundStatisticsScrollFrame.buttons do
+		local button = InspectBattlegroundStatisticsScrollFrame.buttons[i]
+		button:SetTemplate("Transparent")
+
+		button.Background:SetDrawLayer("BORDER")
+		button.Background:SetInside()
+		button.Background:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, 1, 1, 1, 1)
+
+		S:HandleButton(button.TogglePlus)
+		button.TogglePlus:SetNormalTexture(E.Media.Textures.Plus)
+		button.TogglePlus:SetPushedTexture(E.Media.Textures.Plus)
+		button.TogglePlus:SetHighlightTexture("")
+		S:HandleButton(button.ToggleMinus)
+		button.ToggleMinus:SetNormalTexture(E.Media.Textures.Minus)
+		button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
+		button.ToggleMinus:SetHighlightTexture("")
+	end
+
 	InspectPVPFrame.Ladder.CentralContainer:StripTextures()
 	InspectPVPFrame.Ladder.CentralContainer.BackgroundOverlay:SetAlpha(0)
 

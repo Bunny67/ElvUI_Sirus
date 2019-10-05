@@ -10,6 +10,16 @@ local find = string.find
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfd ~= true then return end
 
+	local imageSize = 1024
+	BattlegroundsData[2].backgroundCoords = {0, 0.298828125, 308 / imageSize, 0.59765625}
+	BattlegroundsData[3].backgroundCoords = {0, 0.298828125, 614 / imageSize, 0.896484375}
+--	BattlegroundsData[1].backgroundCoords = {0, 0.298828125, 0, 0.298828125}
+	BattlegroundsData[7].backgroundCoords = {308 / imageSize, 0.59765625, 0, 0.298828125}
+	BattlegroundsData[9].backgroundCoords = {308 / imageSize, 0.59765625, 0.298828125, 0.59765625}
+	BattlegroundsData[30].backgroundCoords = {308 / imageSize, 0.59765625, 0.59765625, 0.896484375}
+	BattlegroundsData[31].backgroundCoords = {614 / imageSize, 0.896484375, 0, 0.298828125}
+	BattlegroundsData[12].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
+
 	S:HandlePortraitFrame(LFDParentFrame)
 	S:HandleCloseButton(LFDParentFrameCloseButton)
 	LFDParentFrame:SetTemplate("Transparent")
@@ -427,11 +437,25 @@ local function LoadSkin()
 	RatedBattlegroundStatisticsScrollFrame:StripTextures()
 	S:HandleScrollBar(RatedBattlegroundStatisticsScrollFrameScrollBar)
 
---[[
+	RatedBattlegroundStatisticsScrollFrame.buttons[1]:Point("TOPLEFT", RatedBattlegroundStatisticsScrollFrame.scrollChild, "TOPLEFT", 1, 0)
+
 	for i = 1, #RatedBattlegroundStatisticsScrollFrame.buttons do
 		local button = RatedBattlegroundStatisticsScrollFrame.buttons[i]
+		button:SetTemplate("Transparent")
+
+		button.Background:SetDrawLayer("BORDER")
+		button.Background:SetInside()
+		button.Background:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, 1, 1, 1, 1)
+
+		S:HandleButton(button.TogglePlus)
+		button.TogglePlus:SetNormalTexture(E.Media.Textures.Plus)
+		button.TogglePlus:SetPushedTexture(E.Media.Textures.Plus)
+		button.TogglePlus:SetHighlightTexture("")
+		S:HandleButton(button.ToggleMinus)
+		button.ToggleMinus:SetNormalTexture(E.Media.Textures.Minus)
+		button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
+		button.ToggleMinus:SetHighlightTexture("")
 	end
-]]
 
 	S:HandleButton(RatedBattlegroundFrame.SoloQueueButton, true)
 	S:HandleButton(RatedBattlegroundFrame.GroupQueueButton, true)
