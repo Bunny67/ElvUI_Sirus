@@ -62,7 +62,7 @@ local function LoadSkin()
 
 	S:HandleScrollBar(EncounterJournal.instanceSelect.scroll.ScrollBar)
 
-	EncounterJournal.encounter.instance.loreBG:SetSize(326, 256)
+	EncounterJournal.encounter.instance.loreBG:SetSize(350, 256)
 	EncounterJournal.encounter.instance.loreBG:SetPoint("TOP", 0, -45)
 	EncounterJournal.encounter.instance.loreBG:SetTexCoord(0.06, 0.71, 0.08, 0.582)
 	EncounterJournal.encounter.instance.loreBG:CreateBackdrop()
