@@ -15,8 +15,8 @@ local function LoadSkin()
 		button.Background:SetAlpha(0)
 
 		button:CreateBackdrop("Transparent")
-		button.backdrop:Point("TOPLEFT", 8, -12)
-		button.backdrop:Point("BOTTOMRIGHT", -5, 8)
+		button.backdrop:Point("TOPLEFT", 14, -15)
+		button.backdrop:Point("BOTTOMRIGHT", -16, 11)
 
 		local iconBackdrop = CreateFrame("Frame", nil, button)
 		iconBackdrop:SetTemplate()
@@ -28,6 +28,16 @@ local function LoadSkin()
 		button.IconBorder:SetAlpha(0)
 		hooksecurefunc(button.ItemName, "SetTextColor", function(_, r, g, b) iconBackdrop:SetBackdropBorderColor(r, g, b) end)
 	end
+
+--[[
+	function TestAlert()
+		local name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(100152)
+
+		if link then
+			LootAlertFrame:AddAlert(name, link, quality, texture, 5)
+		end
+	end
+]]
 end
 
 S:AddCallback("Sirus_LootAlertFrame", LoadSkin)
