@@ -22,5 +22,6 @@ hooksecurefunc(E, "UpdateBlizzardFonts", function(self)
 		SetFont(SystemFont_Outline, NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Outline_Small, NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Shadow_Med2, NORMAL, self.db.general.fontSize)
+		SetFont(QuestFont_Super_Huge, NORMAL, 22)
 	end
 end)

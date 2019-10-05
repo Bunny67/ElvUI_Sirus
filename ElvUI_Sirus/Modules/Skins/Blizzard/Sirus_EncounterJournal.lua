@@ -62,6 +62,13 @@ local function LoadSkin()
 
 	S:HandleScrollBar(EncounterJournal.instanceSelect.scroll.ScrollBar)
 
+	EncounterJournal.encounter.instance.loreBG:SetSize(326, 256)
+	EncounterJournal.encounter.instance.loreBG:SetPoint("TOP", 0, -45)
+	EncounterJournal.encounter.instance.loreBG:SetTexCoord(0.06, 0.71, 0.08, 0.582)
+	EncounterJournal.encounter.instance.loreBG:CreateBackdrop()
+	EncounterJournal.encounter.instance.title:SetPoint("TOP", 0, -65)
+	EncounterJournal.encounter.instance.titleBG:SetPoint("TOP", EncounterJournal.encounter.instance.loreBG)
+
 	S:HandleScrollBar(EncounterJournal.encounter.instance.loreScroll.ScrollBar)
 	EncounterJournal.encounter.instance.loreScroll.child.lore:SetTextColor(1, 1, 1)
 
@@ -189,6 +196,7 @@ local function LoadSkin()
 		while bossButton do
 			if not bossButton.isSkinned then
 				S:HandleButton(bossButton)
+				bossButton:SetTemplate("Transparent")
 
 				bossButton.creature:ClearAllPoints()
 				bossButton.creature:Point("TOPLEFT", 1, -4)
@@ -216,6 +224,7 @@ local function LoadSkin()
 				end
 
 				S:HandleButton(header.button)
+				header.button:SetTemplate("Transparent")
 
 				header.button.title:SetTextColor(unpack(E.media.rgbvaluecolor))
 				header.button.title.SetTextColor = E.noop
