@@ -287,6 +287,12 @@ local function LoadSkin()
 	PVPQueueFrame.CapTopFrame.StatusBar.Middle:Kill()
 	PVPQueueFrame.CapTopFrame.StatusBar.Background:Kill()
 
+	hooksecurefunc(PVPQueueFrame.CapTopFrame.StatusBar, "SetBarValue", function(self, value)
+		if value then
+			local _, maxValue = self:GetMinMaxValues()
+			S:StatusBarColorGradient(self, value, maxValue)
+		end
+	end)
 
 	PVPQueueFrame.StepBottomFrame:StripTextures()
 	PVPQueueFrame.StepBottomFrame:CreateBackdrop()
@@ -432,6 +438,24 @@ local function LoadSkin()
 
 	RatedBattlegroundFrameInset:StripTextures()
 	RatedBattlegroundFrame.Container:StripTextures()
+	
+	RatedBattlegroundProgressBarFrame:CreateBackdrop()
+	RatedBattlegroundProgressBarFrame.Progress:SetTexture(E.media.normTex)
+	E:RegisterStatusBar(RatedBattlegroundProgressBarFrame.Progress)
+	RatedBattlegroundProgressBarFrame.backdrop:Point("TOPLEFT", RatedBattlegroundProgressBarFrame.Progress, -1, 1)
+	RatedBattlegroundProgressBarFrame.backdrop:Point("BOTTOMRIGHT", RatedBattlegroundProgressBarFrame.Background, -21, 0)
+	RatedBattlegroundProgressBarFrame.Frame:Kill()
+	RatedBattlegroundProgressBarFrame.Level:SetPoint("CENTER", 0, 1)
+	RatedBattlegroundProgressBarFrame.Background:Kill()
+
+	hooksecurefunc("RateBattleground_SetProgress", function(bar, value)
+		if value then
+			local r, g, b = E:ColorGradient(value * 100, 0.8,0,0, 0.8,0.8,0, 0,0.8,0)
+			bar.backdrop:SetBackdropColor(r*0.25, g*0.25, b*0.25)
+			bar.Progress:SetVertexColor(r, g, b)
+		end
+	end)
+
 	PVPUIHonorLabel:StripTextures()
 
 	RatedBattlegroundStatisticsScrollFrame:StripTextures()
