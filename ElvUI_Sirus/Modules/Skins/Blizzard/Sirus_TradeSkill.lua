@@ -117,7 +117,7 @@ local function LoadSkin()
 	TradeSkillFrame.LinkToButton:GetNormalTexture():SetTexCoord(6 / 32, 24 / 32, 12 / 32, 24 / 32)
 	TradeSkillFrame.LinkToButton:GetPushedTexture():SetTexCoord(6 / 32, 24 / 32, 14 / 32, 26 / 32)
 	TradeSkillFrame.LinkToButton:GetHighlightTexture():Kill()
-	S:HandleButton(TradeSkillFrame.LinkToButton)
+	TradeSkillFrame.LinkToButton:CreateBackdrop()
 	TradeSkillFrame.LinkToButton:SetSize(19, 14)
 	TradeSkillFrame.LinkToButton:SetPoint("BOTTOMRIGHT", TradeSkillFrame.FilterButton, "TOPRIGHT", -2, 8)
 
