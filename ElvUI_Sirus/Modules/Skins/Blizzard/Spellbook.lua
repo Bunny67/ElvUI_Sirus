@@ -94,6 +94,11 @@ local function LoadSkin()
 		button.iconTexture:SetTexCoord(unpack(E.TexCoords))
 	end
 
+	local function StatusBarColor(self, value)
+		local _, maxValue = self:GetMinMaxValues()
+		S:StatusBarColorGradient(self, value, maxValue)
+	end
+
 	for i = 1, 4 do
 		local prof = _G["PrimaryProfession"..i]
 		prof.Missing.missingText:SetTextColor(1, 1, 1)
@@ -101,13 +106,14 @@ local function LoadSkin()
 		SkinProfessionButton(prof.Learn.button2)
 		SkinProfessionButton(prof.Learn.button1)
 
---[[
-		prof.Learn.statusBar:DisableDrawLayer("BACKGROUND")
+
+		prof.Learn.statusBar:StripTextures()
+		prof.Learn.statusBar:Size(188, 12)
 		prof.Learn.statusBar:CreateBackdrop()
 		prof.Learn.statusBar:SetStatusBarTexture(E.media.normTex)
-		prof.Learn.statusBar:SetStatusBarColor(0, 1, 0)
 		E:RegisterStatusBar(prof.Learn.statusBar)
-]]
+		prof.Learn.statusBar.rankText:SetPoint("CENTER")
+		hooksecurefunc(prof.Learn.statusBar, "SetValue", StatusBarColor)
 	end
 
 	for i = 1, 3 do
@@ -116,6 +122,15 @@ local function LoadSkin()
 
 		SkinProfessionButton(prof.Learn.button1)
 		SkinProfessionButton(prof.Learn.button2)
+
+		prof.Learn.statusBar:StripTextures()
+		prof.Learn.statusBar:Size(123, 12)
+		prof.Learn.statusBar:Point("TOPLEFT", prof.Learn.rank, "BOTTOMLEFT", 2, -5)
+		prof.Learn.statusBar:CreateBackdrop()
+		prof.Learn.statusBar:SetStatusBarTexture(E.media.normTex)
+		E:RegisterStatusBar(prof.Learn.statusBar)
+		prof.Learn.statusBar.rankText:SetPoint("CENTER")
+		hooksecurefunc(prof.Learn.statusBar, "SetValue", StatusBarColor)
 	end
 end
 
