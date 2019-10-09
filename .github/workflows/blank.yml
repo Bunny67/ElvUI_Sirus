@@ -1,0 +1,22 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Luarocks
+      run: sudo apt-get install luarocks
+
+    - name: Install Luacheck
+      run: luarocks install --local luacheck
+
+    - name: Install Lanes
+      run: luarocks install --local lanes
+      
+    - name: Luacheck
+      run: /home/runner/.luarocks/bin/luacheck . -q
