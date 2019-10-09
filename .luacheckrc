@@ -10,20 +10,20 @@ max_code_line_length = false
 max_string_line_length = false
 max_comment_line_length = false
 
-allow_defined = true
-allow_defined_top = true
-
 exclude_files = {
 	"**/Libraries",
 }
 
 ignore = {
+	"111", -- Mutating an undefined global variable
 	"112", -- Mutating an undefined global variable
+	"113",
 	"142", -- Setting an undefined field of a global variable
 	"143", -- Accessing an undefined field of a global variable
 	"212", -- Unused argument
 
 	"1/SLASH_.*",			-- Setting/Mutating/Accessing an undefined global variable (Slash commands)
+	"111/[A-Z][A-Z0-9_]+",	-- Setting an undefined global variable
 	"113/[A-Z][A-Z0-9_]+",	-- Accessing an undefined global variable (GlobalStrings and Constants 2char+)
 	"131/[A-Z][A-Z0-9_]+",	-- Unused implicitly defined global variable (GlobalStrings and Constants 2char+)
 	"211/[E|L|V|P|G]",		-- Unused local variable
@@ -34,6 +34,9 @@ ignore = {
 	"131/RaidMark_HotkeyPressed",	-- Unused implicitly defined global variable
 	"131/HideBothChat",				-- Unused implicitly defined global variable
 	"131/ElvUIGUIFrame",			-- Unused implicitly defined global variable
+
+	"111/Elv[A-z0-9_]+",
+	"113/Elv[A-z0-9_]+",
 }
 
 globals = {
@@ -69,59 +72,15 @@ globals = {
 	"DatatextTooltipTextRight1",
 	"DebuffsMover",
 	"DisbandRaidButton",
-	"ElvConfigToggle",
-	"ElvDB",
-	"ElvPrivateDB",
-	"ElvUF",
-	"ElvUF_Focus",
-	"ElvUF_FocusTarget",
-	"ElvUF_Parent",
-	"ElvUF_Party",
-	"ElvUF_Pet",
-	"ElvUF_PetTarget",
-	"ElvUF_Player",
-	"ElvUF_Raid",
-	"ElvUF_Raid40",
-	"ElvUF_Raidpet",
-	"ElvUF_Target",
-	"ElvUF_TargetTarget",
-	"ElvUF_TargetTargetTarget",
-	"ElvUI",
-	"ElvUIBagMover",
-	"ElvUIBags",
-	"ElvUIBankMover",
-	"ElvUIBindPopupWindow",
-	"ElvUIBindPopupWindowCheckButton",
-	"ElvUIGUIFrame",
-	"ElvUIGrid",
-	"ElvUIInstallFrame",
-	"ElvUIKeyFrameItem1",
-	"ElvUIKeyRingButton",
-	"ElvUIMoverNudgeWindow",
-	"ElvUIMoverNudgeWindowHeader",
-	"ElvUIMoverPopupWindow",
-	"ElvUIMoverPopupWindowDropDown",
-	"ElvUIParent",
-	"ElvUIPlayerBuffs",
-	"ElvUIPlayerDebuffs",
-	"ElvUITutorialWindow",
-	"ElvUI_Bar4",
-	"ElvUI_ContainerFrame",
-	"ElvUI_ExperienceBar",
-	"ElvUI_KeyBinder",
-	"ElvUI_MenuButton",
-	"ElvUI_MicroBar",
-	"ElvUI_ReminderBuffs",
-	"ElvUI_ReputationBar",
-	"ElvUI_StanceBar",
-	"ElvUI_StaticPopup1",
-	"ElvUI_StaticPopup1Button1",
+	"FarmMode",
 	"FarmModeMap",
 	"FrameStackHighlight",
 	"GetMinimapShape",
 	"HelloKittyLeft",
 	"HelloKittyRight",
 	"HideBothChat",
+	"HideLeftChat",
+	"HideRightChat",
 	"InstallNextButton",
 	"InstallOption1Button",
 	"InstallOption2Button",
@@ -143,6 +102,7 @@ globals = {
 	"MinimapMover",
 	"PluginInstallFrame",
 	"RaidControlButton",
+	"RaidMark_HotkeyPressed",
 	"RaidUtilityPanel",
 	"RaidUtility_CloseButton",
 	"RaidUtility_ShowButton",
@@ -168,7 +128,7 @@ globals = {
 	"_TAGS",
 	"oUF_RaidDebuffs",
 
-	-- frames crated via CreateFrame
+	-- frames created via CreateFrame
 	"AchievementFrameMiniAchievement1",
 	"DeclensionFrame",
 	"DeclensionFrameCancelButton",

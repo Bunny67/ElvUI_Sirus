@@ -36,7 +36,7 @@ local function FriendsFrameTooltip_Show(self)
 		end
 		if noteText then
 			FriendsTooltipNoteIcon:Show()
-			anchor = FriendsFrameTooltip_SetLine(FriendsTooltipNoteText, anchor, noteText, -8)
+			FriendsFrameTooltip_SetLine(FriendsTooltipNoteText, anchor, noteText, -8)
 		else
 			FriendsTooltipNoteIcon:Hide()
 			FriendsTooltipNoteText:Hide()

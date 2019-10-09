@@ -438,7 +438,7 @@ local function LoadSkin()
 
 	RatedBattlegroundFrameInset:StripTextures()
 	RatedBattlegroundFrame.Container:StripTextures()
-	
+
 	RatedBattlegroundProgressBarFrame:CreateBackdrop()
 	RatedBattlegroundProgressBarFrame.Progress:SetTexture(E.media.normTex)
 	E:RegisterStatusBar(RatedBattlegroundProgressBarFrame.Progress)
