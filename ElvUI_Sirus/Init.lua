@@ -186,7 +186,7 @@ function addon:Initialize()
 			if self.FirstID > NUM_BUTTONS then
 				self.FirstID = 1
 			end
-			
+
 			local diffPoint = END_POINT - self.CurPoint
 			self.CurPoint = START_POINT - diffPoint
 			self.Time = self.Time - 1
