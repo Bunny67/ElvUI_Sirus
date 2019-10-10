@@ -50,6 +50,7 @@ local function LoadSkin()
 		button:SetTemplate("Default", true)
 		button:StyleButton()
 
+		icon:SetDrawLayer("BORDER")
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetInside()
 	end
