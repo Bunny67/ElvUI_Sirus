@@ -241,8 +241,8 @@ function addon:Initialize()
 
 		E:UIFrameFadeIn(case, 0.5, 0, 1)
 
-		case.Time = 50
-		case.Step = 50
+		case.Time = BUTTON_SIZE
+		case.Step = BUTTON_SIZE
 		case.IsPlaying = true
 		case:SetScript("OnUpdate", OnUpdate)
 	end
