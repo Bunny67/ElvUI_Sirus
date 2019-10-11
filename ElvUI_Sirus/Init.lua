@@ -41,11 +41,14 @@ function addon:Initialize()
 
 	-- Test
 	local NUM_VISIBLE_BUTTONS = 5
-	local NUM_BUTTONS = NUM_VISIBLE_BUTTONS + 1
-	local BUTTON_SIZE = 76
+	local BUTTON_SIZE = 52
 	local BUTTON_SPACING = 3
+
+	local MAX_BUTTONS = 50
+	local CHILD_WIDTH = (BUTTON_SIZE * MAX_BUTTONS) + (BUTTON_SPACING * (MAX_BUTTONS - 1))
+
 	local START_POINT = -((BUTTON_SIZE + BUTTON_SPACING) * 2)
-	local END_POINT = START_POINT - BUTTON_SIZE
+	local END_POINT = CHILD_WIDTH - ((BUTTON_SIZE + BUTTON_SPACING) * 5)
 
 	local faction = UnitFactionGroup("player")
 	local honorIcon = "PVPCurrency-Honor-"..faction
@@ -90,23 +93,20 @@ function addon:Initialize()
 	end
 
 	local function Reset(self)
-		for i = 1, NUM_BUTTONS do
-			local button = self.Child[i]
-			button:ClearAllPoints()
+		self:SetHorizontalScroll(START_POINT)
+		self:UpdateScrollChildRect()
 
-			if i == 1 then
-				button:Point("CENTER", 0, 0)
+		for i = 1, MAX_BUTTONS do
+			if i == (MAX_BUTTONS - 3) then
+				self.Child[i]:AddItem(self.Prize) -- LOL
+			elseif MAX_BUTTONS > 20 then
+				self.Child[i]:AddItem(math.random(7, #ITEMS_TABLE)) -- Added the top items :D
 			else
-				button:Point("LEFT", self.Child[i - 1], "RIGHT", BUTTON_SPACING, 0)
+				self.Child[i]:AddItem(math.random(1, #ITEMS_TABLE))
 			end
 
-			button:AddItem(math.random(1, #ITEMS_TABLE))
+			self.Child[i]:Show()
 		end
-
-		self.CurPoint = 0
-		self.FirstID = 1
-		self.LastID = NUM_BUTTONS
-		self.isFinished = nil
 	end
 
 	local function AddItem(self, id)
@@ -136,16 +136,23 @@ function addon:Initialize()
 
 	case.Child = CreateFrame("Frame", nil, case)
 	case.Child:SetPoint("TOPLEFT")
-	case.Child:Size((BUTTON_SIZE * NUM_VISIBLE_BUTTONS) + (BUTTON_SPACING * (NUM_VISIBLE_BUTTONS - 1)), BUTTON_SIZE)
+	case.Child:Size(CHILD_WIDTH, BUTTON_SIZE)
 
-	for i = 1, NUM_BUTTONS do
-		local button = CreateFrame("Frame", nil, case.Child)
+	local function CreateButton(i, parent)
+		local button = CreateFrame("Frame", nil, parent)
+		button:Hide()
 		button:SetSize(BUTTON_SIZE, BUTTON_SIZE)
 		button:SetID(i)
 
 		button.AddItem = AddItem
 
 		button:SetTemplate()
+
+		if i == 1 then
+			button:Point("TOPLEFT", 0, 0)
+		else
+			button:Point("LEFT", parent[i - 1], "RIGHT", BUTTON_SPACING, 0)
+		end
 
 		button.Icon = button:CreateTexture()
 		button.Icon:SetTexCoord(unpack(E.TexCoords))
@@ -155,7 +162,11 @@ function addon:Initialize()
 		button.Count:SetPoint("BOTTOMRIGHT", -5, 3)
 		button.Count:SetTextColor(1, 1, 1)
 
-		case.Child[i] = button
+		parent[i] = button
+	end
+
+	for i = 1, MAX_BUTTONS do
+		CreateButton(i, case.Child)
 	end
 
 	case:SetScrollChild(case.Child)
@@ -173,68 +184,41 @@ function addon:Initialize()
 		finishedFunc = FadeClosure
 	}
 
-	local function OnUpdate(self, elapsed)
-		if self.CurPoint <= END_POINT then
-			-- Old Values
-			local old_FirstID = self.FirstID
-			local old_LastID = self.LastID
+	local function InOutQuintic(t, b, c, d)
+		t = t / d * 2
 
-			-- New Values
-			self.LastID = old_FirstID
-
-			self.FirstID = old_FirstID + 1
-			if self.FirstID > NUM_BUTTONS then
-				self.FirstID = 1
-			end
-
-			local diffPoint = END_POINT - self.CurPoint
-			self.CurPoint = START_POINT - diffPoint
-			self.Time = self.Time - 1
-
-			if self.Time == 0 then
-				self.isFinished = true
-			end
-
-			-- Reposite new FirstID
-			self.Child[self.FirstID]:ClearAllPoints()
-			self.Child[self.FirstID]:Point("CENTER", self.CurPoint, 0)
-
-			-- Reposite old_FirstID
-			self.Child[old_FirstID]:ClearAllPoints()
-			self.Child[old_FirstID]:Point("LEFT", self.Child[old_LastID], "RIGHT", BUTTON_SPACING, 0)
-
-			if self.Time == 3 then
-				self.Child[old_FirstID]:AddItem(self.Prize) -- LOL
-			elseif self.Time < 10 then
-				self.Child[old_FirstID]:AddItem(math.random(7, #ITEMS_TABLE)) -- Added the top items :D
-			else
-				self.Child[old_FirstID]:AddItem(math.random(1, #ITEMS_TABLE))
-			end
+		if (t < 1) then
+			return c / 2 * t ^ 5 + b
 		else
-			if self.isFinished then
-				self.isFinished = nil
-				self.Child[self.FirstID]:Point("CENTER", START_POINT, 0)
-				self:SetScript("OnUpdate", nil)
+			t = t - 2
 
-				E:Delay(2, E.UIFrameFadeOut, E, self, 1, 1, 0)
-			else
-				self.CurPoint = self.CurPoint - (self.Time * (elapsed / 0.01))
-				self.Child[self.FirstID]:Point("CENTER", self.CurPoint, 0)
-			end
+			return c / 2 * (t ^ 5 + 2) + b
 		end
+	end
+
+	local function OnUpdate(self, elapsed)
+		self.Time = self.Time + elapsed
+		if self.Time >= self.Duration then
+			self:SetScript("OnUpdate", nil)
+			self:SetHorizontalScroll(self.EndScroll)
+			E:Delay(1, E.UIFrameFadeOut, E, self, 1, 1, 0)
+		end
+
+		self:SetHorizontalScroll(InOutQuintic(self.Time, START_POINT, self.EndScroll, self.Duration))
 	end
 
 	function OpenCase(prize)
 		if case.IsPlaying then return end
 
-		case:Reset()
 		case:SetPrize(prize or 1)
-
+		case:Reset()
 		case:Show()
 
-		E:UIFrameFadeIn(case, 0.5, 0, 1)
+		case.Time = 0
+		case.Duration = 3
+		case.EndScroll = END_POINT + ((BUTTON_SIZE / 2) + (BUTTON_SPACING * 2) + math.random(1, (BUTTON_SIZE)))
 
-		case.Time = 30
+		E:UIFrameFadeIn(case, 0.5, 0, 1)
 
 		case.IsPlaying = true
 		case:SetScript("OnUpdate", OnUpdate)
