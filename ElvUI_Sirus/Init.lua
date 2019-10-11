@@ -41,10 +41,10 @@ function addon:Initialize()
 
 	-- Test
 	local NUM_VISIBLE_BUTTONS = 5
-	local NUM_BUTTONS = NUM_VISIBLE_BUTTONS + 2
+	local NUM_BUTTONS = NUM_VISIBLE_BUTTONS + 1
 	local BUTTON_SIZE = 76
 	local BUTTON_SPACING = 3
-	local START_POINT = -((BUTTON_SIZE / 2) + ((BUTTON_SIZE + BUTTON_SPACING) * 2))
+	local START_POINT = -((BUTTON_SIZE + BUTTON_SPACING) * 2)
 	local END_POINT = START_POINT - BUTTON_SIZE
 
 	local faction = UnitFactionGroup("player")
@@ -90,12 +90,12 @@ function addon:Initialize()
 	end
 
 	local function Reset(self)
-		for i = 1, NUM_VISIBLE_BUTTONS + 2 do
+		for i = 1, NUM_BUTTONS do
 			local button = self.Child[i]
 			button:ClearAllPoints()
 
 			if i == 1 then
-				button:Point("CENTER", START_POINT, 0)
+				button:Point("CENTER", 0, 0)
 			else
 				button:Point("LEFT", self.Child[i - 1], "RIGHT", BUTTON_SPACING, 0)
 			end
@@ -103,9 +103,9 @@ function addon:Initialize()
 			button:AddItem(math.random(1, #ITEMS_TABLE))
 		end
 
-		self.CurPoint = START_POINT
+		self.CurPoint = 0
 		self.FirstID = 1
-		self.LastID = 7
+		self.LastID = NUM_BUTTONS
 		self.isFinished = nil
 	end
 
@@ -193,10 +193,6 @@ function addon:Initialize()
 
 			if self.Time == 0 then
 				self.isFinished = true
-				self.FinishPoint = self.CurPoint - math.random(BUTTON_SPACING, (BUTTON_SIZE - BUTTON_SPACING)) - diffPoint
-				self.Step = 1
-			else
-				self.Step = self.Time
 			end
 
 			-- Reposite new FirstID
@@ -214,19 +210,17 @@ function addon:Initialize()
 			else
 				self.Child[old_FirstID]:AddItem(math.random(1, #ITEMS_TABLE))
 			end
-		end
-
-		self.CurPoint = self.CurPoint - self.Step
-		self.Child[self.FirstID]:Point("CENTER", self.CurPoint, 0)
-
-		if self.isFinished then
-			if self.CurPoint <= self.FinishPoint then
+		else
+			if self.isFinished then
 				self.isFinished = nil
-				self.FinishPoint = nil
+				self.Child[self.FirstID]:Point("CENTER", START_POINT, 0)
 				self:SetScript("OnUpdate", nil)
 
 				table.insert(ChatTypeGroup.MONSTER_BOSS_EMOTE, 1, "CHAT_MSG_RAID_BOSS_EMOTE")
 				E:Delay(2, E.UIFrameFadeOut, E, self, 1, 1, 0)
+			else
+				self.CurPoint = self.CurPoint - (self.Time * (elapsed / 0.01))
+				self.Child[self.FirstID]:Point("CENTER", self.CurPoint, 0)
 			end
 		end
 	end
@@ -241,8 +235,8 @@ function addon:Initialize()
 
 		E:UIFrameFadeIn(case, 0.5, 0, 1)
 
-		case.Time = BUTTON_SIZE
-		case.Step = BUTTON_SIZE
+		case.Time = 30
+
 		case.IsPlaying = true
 		case:SetScript("OnUpdate", OnUpdate)
 	end
