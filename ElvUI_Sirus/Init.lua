@@ -216,7 +216,6 @@ function addon:Initialize()
 				self.Child[self.FirstID]:Point("CENTER", START_POINT, 0)
 				self:SetScript("OnUpdate", nil)
 
-				table.insert(ChatTypeGroup.MONSTER_BOSS_EMOTE, 1, "CHAT_MSG_RAID_BOSS_EMOTE")
 				E:Delay(2, E.UIFrameFadeOut, E, self, 1, 1, 0)
 			else
 				self.CurPoint = self.CurPoint - (self.Time * (elapsed / 0.01))
@@ -241,11 +240,23 @@ function addon:Initialize()
 		case:SetScript("OnUpdate", OnUpdate)
 	end
 
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("GOSSIP_SHOW")
+	f:RegisterEvent("GOSSIP_CLOSED")
+	f:SetScript("OnEvent", function(self, event)
+		if event == "GOSSIP_SHOW" and DEFAULT_CHAT_FRAME:IsEventRegistered("CHAT_MSG_RAID_BOSS_EMOTE") then
+			f.isRemoved = true
+			DEFAULT_CHAT_FRAME:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
+		elseif f.isRemoved then
+			DEFAULT_CHAT_FRAME:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
+			f.isRemoved = nil
+		end
+	end)
+
 	local oldScript = RaidBossEmoteFrame:GetScript("OnEvent")
 	RaidBossEmoteFrame:SetScript("OnEvent", function(self, event, ...)
 		local arg1, arg2, _, _, arg5 = ...
 		if event == "CHAT_MSG_RAID_BOSS_EMOTE" and arg2 == E.myname and arg5 == E.myname and ITEMS_MSG[arg1] then
-			table.remove(ChatTypeGroup.MONSTER_BOSS_EMOTE, 1)
 			OpenCase(ITEMS_MSG[arg1])
 		else
 			if oldScript then
