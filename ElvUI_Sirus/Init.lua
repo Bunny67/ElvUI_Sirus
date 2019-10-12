@@ -224,16 +224,10 @@ function addon:Initialize()
 		case:SetScript("OnUpdate", OnUpdate)
 	end
 
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("GOSSIP_SHOW")
-	f:RegisterEvent("GOSSIP_CLOSED")
-	f:SetScript("OnEvent", function(self, event)
-		if event == "GOSSIP_SHOW" and DEFAULT_CHAT_FRAME:IsEventRegistered("CHAT_MSG_RAID_BOSS_EMOTE") then
-			f.isRemoved = true
-			DEFAULT_CHAT_FRAME:UnregisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-		elseif f.isRemoved then
-			DEFAULT_CHAT_FRAME:RegisterEvent("CHAT_MSG_RAID_BOSS_EMOTE")
-			f.isRemoved = nil
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_BOSS_EMOTE", function(self, event, ...)
+		local arg1, arg2, _, _, arg5 = ...
+		if arg2 == E.myname and arg5 == E.myname and ITEMS_MSG[arg1] then
+			return true
 		end
 	end)
 
