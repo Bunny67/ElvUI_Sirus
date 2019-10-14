@@ -174,8 +174,13 @@ function addon:Initialize()
 	local function FadeClosure(frame)
 		if frame.fadeInfo.mode == "OUT" then
 			frame:Hide()
-			frame.IsPlaying = nil
 		end
+	end
+
+	local function UIFrameFadeOut(frame)
+		if frame.IsPlaying then return end
+
+		E:UIFrameFadeOut(frame, 1, 1, 0)
 	end
 
 	case.FadeObject = {
@@ -201,7 +206,8 @@ function addon:Initialize()
 		if self.Time >= self.Duration then
 			self:SetScript("OnUpdate", nil)
 			self:SetHorizontalScroll(self.EndScroll)
-			E:Delay(1, E.UIFrameFadeOut, E, self, 1, 1, 0)
+			self.IsPlaying = nil
+			E:Delay(1, UIFrameFadeOut, self)
 		end
 
 		self:SetHorizontalScroll(InOutQuintic(self.Time, START_POINT, self.EndScroll, self.Duration))
