@@ -1460,7 +1460,7 @@ function module:Initialize()
 		__index = PaperDollFrameStrengthenFrame.StrengthenTittle,
 		__newindex = function(table, key, value)
 			if key ~= "Current" then
-				rawset(table, key, value) 
+				rawset(table, key, value)
 			end
 		end,
 		__metatable = false
