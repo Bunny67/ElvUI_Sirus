@@ -643,13 +643,20 @@ function module:SetStat(statFrame, unit, statIndex)
 	statFrame:Show()
 end
 
+local ResistanceNames = {
+	[6] = STRING_SCHOOL_ARCANE,
+	[2] = STRING_SCHOOL_FIRE,
+	[4] = STRING_SCHOOL_FROST,
+	[3] = STRING_SCHOOL_NATURE,
+	[5] = STRING_SCHOOL_SHADOW
+}
+
 function module:SetResistance(statFrame, unit, resistanceIndex)
 	local base, resistance, positive, negative = UnitResistance(unit, resistanceIndex)
 	local petBonus = ComputePetBonus("PET_BONUS_RES", resistance)
-	local resistanceNameShort = _G["SPELL_SCHOOL"..resistanceIndex.."_CAP"]
 	local resistanceName = _G["RESISTANCE"..resistanceIndex.."_NAME"]
-	local resistanceIconCode = "|TInterface\\PaperDollInfoFrame\\SpellSchoolIcon"..(resistanceIndex + 1)..":14:14:0:0:64:64:4:60:4:60|t"
-	statFrame.Label:SetText(resistanceIconCode.." "..format(STAT_FORMAT, resistanceNameShort))
+	local resistanceIconCode = "|TInterface\\PaperDollInfoFrame\\SpellSchoolIcon"..(resistanceIndex + 1)..":18:18:0:0:64:64:4:60:4:60|t"
+	statFrame.Label:SetText(resistanceIconCode.." "..format(STAT_FORMAT, ResistanceNames[resistanceIndex]))
 	local text = _G[statFrame:GetName().."StatText"]
 	PaperDollFormatStat(resistanceName, base, positive, negative, statFrame, text)
 	statFrame.tooltip = resistanceIconCode.." "..HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, resistanceName).." "..resistance..FONT_COLOR_CODE_CLOSE
