@@ -1455,7 +1455,17 @@ function module:Initialize()
 	PaperDollSidebarTabs:Kill()
 	PaperDollFrameStrengthenFrame:Kill()
 
-	NPE_TutorialPointerFrame:SetKey("PaperDollFrame_Strengthen", true)
+	PaperDollFrameStrengthenFrame.StrengthenTittle.Current = 0
+	PaperDollFrameStrengthenFrame.StrengthenTittle = setmetatable({}, {
+		__index = PaperDollFrameStrengthenFrame.StrengthenTittle,
+		__newindex = function(table, key, value)
+			if key ~= "Current" then
+				rawset(table, key, value) 
+			end
+		end,
+		__metatable = false
+	})
+
 	SendServerMessage("GET_ALL_STRENGTHENING_STATS")
 
 	-- New frames
