@@ -47,3 +47,17 @@ function S:GetOptions()
 		desc = L["TOGGLESKIN_DESC"]
 	}
 end
+
+local EE = E:GetModule("ElvUI_Enhanced")
+if EE then
+	hooksecurefunc(EE, "GetOptions", function()
+		local enhanced = E.Options.args.enhanced
+		if enhanced then
+			enhanced.args.blizzardGroup.args.deathRecap = nil
+			enhanced.args.blizzardGroup.args.characterFrame.args.modelFrames = nil
+			enhanced.args.blizzardGroup.args.characterFrame.args.paperdollBackgrounds = nil
+			enhanced.args.blizzardGroup.args.dressingRoom = nil
+			enhanced.args.blizzardGroup.args.timerTracker = nil
+		end
+	end)
+end
