@@ -987,7 +987,7 @@ function module:PaperDollFrame_UpdateStatScrollChildHeight()
 		end
 		index = index + 1
 	end
-	CharacterStatsPaneScrollChild:Height(totalHeight + 10 -(CharacterStatsPane.initialOffsetY or 0))
+	CharacterStatsPaneScrollChild:Height(totalHeight + 10)
 end
 
 local function FindCategoryById(id)
@@ -1215,13 +1215,9 @@ end
 function module:PaperDollFrame_SetSidebar(button, index)
 	if not _G[PAPERDOLL_SIDEBARS[index].frame]:IsShown() then
 		for i = 1, #PAPERDOLL_SIDEBARS do
-			if _G[PAPERDOLL_SIDEBARS[i].frame]:IsShown() then
+			if i ~= index and _G[PAPERDOLL_SIDEBARS[i].frame]:IsShown() then
 				if E.db.enhanced.character.animations then
-					UIFrameFadeOut(_G[PAPERDOLL_SIDEBARS[i].frame], 0.2, 1, 0)
-
-					_G[PAPERDOLL_SIDEBARS[i].frame].fadeInfo.finishedFunc = function()
-						_G[PAPERDOLL_SIDEBARS[i].frame]:Hide()
-					end
+					E:UIFrameFadeOut(_G[PAPERDOLL_SIDEBARS[i].frame], 0.2, 1, 0)
 				else
 					_G[PAPERDOLL_SIDEBARS[i].frame]:Hide()
 				end
@@ -1233,7 +1229,7 @@ function module:PaperDollFrame_SetSidebar(button, index)
 
 		_G[PAPERDOLL_SIDEBARS[index].frame]:Show()
 		if E.db.enhanced.character.animations then
-			UIFrameFadeIn(_G[PAPERDOLL_SIDEBARS[index].frame], 0.2, 0, 1)
+			E:UIFrameFadeIn(_G[PAPERDOLL_SIDEBARS[index].frame], 0.2, 0, 1)
 		end
 		PaperDollFrame.currentSideBar = _G[PAPERDOLL_SIDEBARS[index].frame]
 
@@ -1455,6 +1451,20 @@ local function CreateSmoothScrollAnimation(scrollBar, hybridScroll)
 	end
 end
 
+local function PaneFadeFinishedFunc(frame)
+	if frame.fadeInfo.mode == "OUT" then
+		frame:Hide()
+	end
+end
+
+local function PaneFadeInfo(frame)
+	frame.FadeObject = {
+		finishedFuncKeep = true,
+		finishedArg1 = frame,
+		finishedFunc = PaneFadeFinishedFunc
+	}
+end
+
 function module:Initialize()
 	if not E.private.enhanced.character.enable then return end
 
@@ -1519,6 +1529,7 @@ function module:Initialize()
 	local titlePane = CreateFrame("ScrollFrame", "PaperDollTitlesPane", PaperDollFrame, "HybridScrollFrameTemplate")
 	titlePane:Hide()
 	titlePane:SetSize(239, 363)
+	PaneFadeInfo(titlePane)
 
 	titlePane.scrollBar = CreateFrame("Slider", "$parentScrollBar", titlePane, "HybridScrollBarTemplate")
 	titlePane.scrollBar:Width(20)
@@ -1555,6 +1566,7 @@ function module:Initialize()
 
 	local statsPane = CreateFrame("ScrollFrame", "CharacterStatsPane", PaperDollFrame, "UIPanelScrollFrameTemplate")
 	statsPane:SetSize(239, 363)
+	PaneFadeInfo(statsPane)
 	statsPane.Categories = {}
 
 	statsPane.scrollBar = CharacterStatsPaneScrollBar
@@ -1652,6 +1664,7 @@ function module:Initialize()
 	equipmentManagerPane:Hide()
 	equipmentManagerPane:SetSize(239, 363)
 	equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -24, -55)
+	PaneFadeInfo(equipmentManagerPane)
 
 	equipmentManagerPane.EquipSet = CreateFrame("Button", "$parentEquipSet", equipmentManagerPane, "UIPanelButtonTemplate")
 	equipmentManagerPane.EquipSet:SetText(EQUIPSET_EQUIP)
