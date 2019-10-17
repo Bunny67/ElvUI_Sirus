@@ -848,7 +848,7 @@ end
 function PaperDollFrame_CollapseStatCategory(categoryFrame)
 	if not categoryFrame.collapsed then
 		categoryFrame.collapsed = true
-		categoryFrame.Toolbar:SetTemplate("NoBackdrop")
+		categoryFrame.Toolbar.Background:Hide()
 		local index = 1
 		while categoryFrame.Stats[index] do
 			categoryFrame.Stats[index]:Hide()
@@ -862,7 +862,7 @@ end
 function PaperDollFrame_ExpandStatCategory(categoryFrame)
 	if categoryFrame.collapsed then
 		categoryFrame.collapsed = false
-		categoryFrame.Toolbar:SetTemplate("Default", true)
+		categoryFrame.Toolbar.Background:Show()
 		module:PaperDollFrame_UpdateStatCategory(categoryFrame)
 		module:PaperDollFrame_UpdateStatScrollChildHeight()
 	end
@@ -897,7 +897,7 @@ function module:PaperDollFrame_UpdateStatCategory(categoryFrame)
 
 	if categoryFrame.collapsed then return end
 
-	local totalHeight = 19
+	local totalHeight = 25
 	local numVisible = 0
 	if categoryInfo then
 		local prevStatFrame = nil
@@ -983,7 +983,7 @@ function module:PaperDollFrame_UpdateStatScrollChildHeight()
 	local totalHeight = 0
 	while CharacterStatsPane.Categories[index] do
 		if CharacterStatsPane.Categories[index]:IsShown() then
-			totalHeight = totalHeight + CharacterStatsPane.Categories[index]:GetHeight() + 3
+			totalHeight = totalHeight + CharacterStatsPane.Categories[index]:GetHeight() + 1
 		end
 		index = index + 1
 	end
@@ -1117,7 +1117,7 @@ function module:PaperDoll_UpdateCategoryPositions()
 		end
 
 		if prevFrame then
-			frame:Point("TOPLEFT", prevFrame, "BOTTOMLEFT", 0 + xOffset, -3)
+			frame:Point("TOPLEFT", prevFrame, "BOTTOMLEFT", 0 + xOffset, -1)
 		else
 			frame:Point("TOPLEFT", xOffset, 0)
 		end
@@ -1468,15 +1468,11 @@ function module:Initialize()
 	PaperDollSidebarTabs:Kill()
 	PaperDollFrameStrengthenFrame:Kill()
 
-	PaperDollFrameStrengthenFrame.StrengthenTittle.Current = 0
 	PaperDollFrameStrengthenFrame.StrengthenTittle = setmetatable({}, {
 		__index = PaperDollFrameStrengthenFrame.StrengthenTittle,
 		__newindex = function(table, key, value)
-			if key ~= "Current" then
-				rawset(table, key, value)
-			end
+			rawset(table, key, key ~= "Current" and value or nil)
 		end,
-		__metatable = false
 	})
 
 	SendServerMessage("GET_ALL_STRENGTHENING_STATS")
@@ -1486,7 +1482,7 @@ function module:Initialize()
 
 	local sidebarTabs = CreateFrame("Frame", "ElvUI_PaperDollSidebarTabs", PaperDollFrame)
 	sidebarTabs:SetSize(168, 35)
-	sidebarTabs:Point("BOTTOMRIGHT", CharacterFrame, "TOPRIGHT", -4, -62)
+	sidebarTabs:Point("BOTTOMRIGHT", CharacterFrame, "TOPRIGHT", -4, -48)
 
 	local sidebarTabs3 = CreateFrame("Button", "ElvUI_PaperDollSidebarTab3", sidebarTabs)
 	sidebarTabs3:SetID(3)
@@ -1522,7 +1518,7 @@ function module:Initialize()
 
 	local titlePane = CreateFrame("ScrollFrame", "PaperDollTitlesPane", PaperDollFrame, "HybridScrollFrameTemplate")
 	titlePane:Hide()
-	titlePane:SetSize(239, 354)
+	titlePane:SetSize(239, 363)
 
 	titlePane.scrollBar = CreateFrame("Slider", "$parentScrollBar", titlePane, "HybridScrollBarTemplate")
 	titlePane.scrollBar:Width(20)
@@ -1558,7 +1554,7 @@ function module:Initialize()
 	HybridScrollFrame_CreateButtons(PaperDollTitlesPane, "PlayerTitleButtonTemplate2", 2, -4)
 
 	local statsPane = CreateFrame("ScrollFrame", "CharacterStatsPane", PaperDollFrame, "UIPanelScrollFrameTemplate")
-	statsPane:SetSize(239, 354)
+	statsPane:SetSize(239, 363)
 	statsPane.Categories = {}
 
 	statsPane.scrollBar = CharacterStatsPaneScrollBar
@@ -1580,13 +1576,17 @@ function module:Initialize()
 
 	for i = 1, 8 do
 		local button = CreateFrame("Frame", "CharacterStatsPaneCategory"..i, statsPaneScrollChild)
-		button:Size(239, 0)
+		button:Width(239)
 
 		button.Toolbar = CreateFrame("Button", nil, button)
 		button.Toolbar:RegisterForDrag("LeftButton")
-		button.Toolbar:Size(170, 18)
+		button.Toolbar:Size(186, 24)
 		button.Toolbar:Point("TOP")
-		button.Toolbar:SetTemplate("Default", true)
+
+		button.Toolbar.Background = button.Toolbar:CreateTexture(nil, "BACKGROUND")
+		button.Toolbar.Background:SetAllPoints()
+		button.Toolbar.Background:SetTexture(E.Media.Textures.Highlight)
+		button.Toolbar.Background:SetAlpha(0.3)
 
 		button.Toolbar:SetScript("OnClick", function(self)
 			if self:GetParent().collapsed then
@@ -1609,7 +1609,7 @@ function module:Initialize()
 
 		button.Stats = {}
 		button.Stats[1] = CreateFrame("Button", "$parentStat1", button)
-		button.Stats[1]:Point("TOPLEFT", 0, -19)
+		button.Stats[1]:Point("TOPLEFT", 0, -25)
 		button.Stats[1]:Point("RIGHT", -4, 0)
 		module:CharacterStatFrame(button.Stats[1])
 
@@ -1620,26 +1620,26 @@ function module:Initialize()
 
 	CharacterStatsPaneScrollBar.Show = function(self)
 		statsPane:Width(239)
-		statsPane:Point("TOPRIGHT", CharacterFrame, -24, -64)
+		statsPane:Point("TOPRIGHT", CharacterFrame, -24, -55)
 		for _, button in next, statsPane.Categories do
 			button:Width(239)
-			button.Toolbar:Width(152)
+			button.Toolbar:Width(186 - 18)
 		end
 		getmetatable(self).__index.Show(self)
 	end
 
 	CharacterStatsPaneScrollBar.Hide = function(self)
 		statsPane:Width(257)
-		statsPane:Point("TOPRIGHT", CharacterFrame, -6, -64)
+		statsPane:Point("TOPRIGHT", CharacterFrame, -6, -55)
 		for _, button in next, statsPane.Categories do
 			button:Width(257)
-			button.Toolbar:Width(170)
+			button.Toolbar:Width(186)
 		end
 		getmetatable(self).__index.Hide(self)
 	end
 
 	statsPane:Width(239)
-	statsPane:Point("TOPRIGHT", CharacterFrame, -6, -64)
+	statsPane:Point("TOPRIGHT", CharacterFrame, -6, -55)
 	for _, button in next, statsPane.Categories do
 		button:Width(239)
 	end
@@ -1650,8 +1650,8 @@ function module:Initialize()
 
 	local equipmentManagerPane = CreateFrame("ScrollFrame", "PaperDollEquipmentManagerPane", PaperDollFrame, "HybridScrollFrameTemplate")
 	equipmentManagerPane:Hide()
-	equipmentManagerPane:SetSize(239, 354)
-	equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -24, -64)
+	equipmentManagerPane:SetSize(239, 363)
+	equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -24, -55)
 
 	equipmentManagerPane.EquipSet = CreateFrame("Button", "$parentEquipSet", equipmentManagerPane, "UIPanelButtonTemplate")
 	equipmentManagerPane.EquipSet:SetText(EQUIPSET_EQUIP)
@@ -1686,7 +1686,7 @@ function module:Initialize()
 
 	equipmentManagerPane.scrollBar.Show = function(self)
 		equipmentManagerPane:Width(239)
-		equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -24, -64)
+		equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -24, -55)
 		for _, button in next, equipmentManagerPane.buttons do
 			button:Width(239)
 		end
@@ -1695,7 +1695,7 @@ function module:Initialize()
 
 	equipmentManagerPane.scrollBar.Hide = function(self)
 		equipmentManagerPane:Width(257)
-		equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -6, -64)
+		equipmentManagerPane:Point("TOPRIGHT", CharacterFrame, -6, -55)
 		for _, button in next, equipmentManagerPane.buttons do
 			button:Width(257)
 		end
