@@ -314,8 +314,6 @@ local PAPERDOLL_STATCATEGORIES = {
 	},
 }
 
-PLAYERSTAT_STRENGTHEN = "Усиления"
-
 local PAPERDOLL_STATCATEGORY_DEFAULTORDER = {
 	"STRENGTHEN",
 	"BASE_STATS",
@@ -870,6 +868,14 @@ function PaperDollFrame_ExpandStatCategory(categoryFrame)
 	end
 end
 
+local function StrengthenCategory_OnEnter(self)
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	GameTooltip:SetText(PAPERDOLLFRAME_UPS_TOOLTIP_1, 1, 1, 1)
+	GameTooltip:AddLine(format(PAPERDOLLFRAME_UPS_TOOLTIP_2, StrengthenData.Total or 0), 1, .82, 0, 1)
+	GameTooltip:AddLine(format(PAPERDOLLFRAME_UPS_TOOLTIP_3, StrengthenData.Maximum or 0), 1, .82, 0, 1)
+	GameTooltip:Show()
+end
+
 function module:PaperDollFrame_UpdateStatCategory(categoryFrame)
 	if not categoryFrame.Category then categoryFrame:Hide() return end
 
@@ -878,13 +884,20 @@ function module:PaperDollFrame_UpdateStatCategory(categoryFrame)
 		categoryFrame.NameText:SetText(L["Resistance"])
 	elseif categoryInfo == PAPERDOLL_STATCATEGORIES["STRENGTHEN"] then
 		categoryFrame.NameText:SetFormattedText(PAPERDOLLFRAME_UPS_AVAILABLE, StrengthenData.Current or 0)
+		categoryFrame.Toolbar:SetScript("OnEnter", StrengthenCategory_OnEnter)
+		categoryFrame.Toolbar:SetScript("OnLeave", GameTooltip_Hide)
 	else
 		categoryFrame.NameText:SetText(_G["PLAYERSTAT_"..categoryFrame.Category])
 	end
 
+	if categoryInfo ~= PAPERDOLL_STATCATEGORIES["STRENGTHEN"] then
+		categoryFrame.Toolbar:SetScript("OnEnter", nil)
+		categoryFrame.Toolbar:SetScript("OnLeave", nil)
+	end
+
 	if categoryFrame.collapsed then return end
 
-	local totalHeight = categoryFrame.NameText:GetHeight() + 10
+	local totalHeight = 19
 	local numVisible = 0
 	if categoryInfo then
 		local prevStatFrame = nil
@@ -970,7 +983,7 @@ function module:PaperDollFrame_UpdateStatScrollChildHeight()
 	local totalHeight = 0
 	while CharacterStatsPane.Categories[index] do
 		if CharacterStatsPane.Categories[index]:IsShown() then
-			totalHeight = totalHeight + CharacterStatsPane.Categories[index]:GetHeight() + 4
+			totalHeight = totalHeight + CharacterStatsPane.Categories[index]:GetHeight() + 3
 		end
 		index = index + 1
 	end
@@ -1104,9 +1117,9 @@ function module:PaperDoll_UpdateCategoryPositions()
 		end
 
 		if prevFrame then
-			frame:Point("TOPLEFT", prevFrame, "BOTTOMLEFT", 0 + xOffset, -4)
+			frame:Point("TOPLEFT", prevFrame, "BOTTOMLEFT", 0 + xOffset, -3)
 		else
-			frame:Point("TOPLEFT", 1 + xOffset, -4 + (CharacterStatsPane.initialOffsetY or 0))
+			frame:Point("TOPLEFT", xOffset, 0)
 		end
 		prevFrame = frame
 	end
@@ -1596,7 +1609,7 @@ function module:Initialize()
 
 		button.Stats = {}
 		button.Stats[1] = CreateFrame("Button", "$parentStat1", button)
-		button.Stats[1]:Point("TOPLEFT", 0, -23)
+		button.Stats[1]:Point("TOPLEFT", 0, -19)
 		button.Stats[1]:Point("RIGHT", -4, 0)
 		module:CharacterStatFrame(button.Stats[1])
 
