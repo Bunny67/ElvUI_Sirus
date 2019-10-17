@@ -1812,6 +1812,7 @@ function module:Initialize()
 		module:PaperDollFrame_SetLevel()
 	end)
 
+	self:PaperDollFrame_UpdateSidebarTabs()
 
 	PetNameText:Point("CENTER", CharacterFrame, 6, 200)
 	PetLevelText:Point("TOP", CharacterFrame, 0, -20)
