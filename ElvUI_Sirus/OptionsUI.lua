@@ -48,7 +48,7 @@ function S:GetOptions()
 	}
 end
 
-local EE = E:GetModule("ElvUI_Enhanced")
+local EE = E:GetModule("ElvUI_Enhanced", true)
 if EE then
 	hooksecurefunc(EE, "GetOptions", function()
 		local enhanced = E.Options.args.enhanced
