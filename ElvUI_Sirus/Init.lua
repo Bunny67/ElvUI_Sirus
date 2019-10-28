@@ -45,8 +45,8 @@ function addon:Initialize()
 	local MAX_BUTTONS = 50
 	local CHILD_WIDTH = (BUTTON_SIZE * MAX_BUTTONS) + (BUTTON_SPACING * (MAX_BUTTONS - 1))
 
-	local START_POINT = -((BUTTON_SIZE + BUTTON_SPACING) * 2)
-	local END_POINT = CHILD_WIDTH - ((BUTTON_SIZE + BUTTON_SPACING) * 5)
+	local START_POINT = 0
+	local END_POINT = CHILD_WIDTH - ((BUTTON_SIZE + BUTTON_SPACING) * 7)
 
 	local faction = UnitFactionGroup("player")
 	local honorIcon = "PVPCurrency-Honor-"..faction
@@ -212,9 +212,13 @@ function addon:Initialize()
 	end
 
 	function OpenCase(prize)
-		if case.IsPlaying then return end
+		if case.IsPlaying then
+			case:SetScript("OnUpdate", nil)
+			case:SetHorizontalScroll(case.EndScroll)
+			case.IsPlaying = nil
+		end
 
-		case:SetPrize(prize or 1)
+		case:SetPrize(prize or math.random(1, #ITEMS_TABLE))
 		case:Reset()
 		case:Show()
 
@@ -222,7 +226,7 @@ function addon:Initialize()
 		case.Duration = 3
 		case.EndScroll = END_POINT + ((BUTTON_SIZE / 2) + (BUTTON_SPACING * 2) + math.random(1, (BUTTON_SIZE)))
 
-		E:UIFrameFadeIn(case, 0.5, 0, 1)
+		E:UIFrameFadeIn(case, 0.5, case:GetAlpha(), 1)
 
 		case.IsPlaying = true
 		case:SetScript("OnUpdate", OnUpdate)
