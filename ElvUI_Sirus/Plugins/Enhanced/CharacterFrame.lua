@@ -1411,12 +1411,12 @@ local function Animation_OnMouseWheel(self, delta, stepSize)
 	end
 
 	local minVal, maxVal = 0, self.range
-	stepSize = stepSize or self.stepSize or self.buttonHeight or self.scrollBar.scrollStep
+	stepSize = (stepSize or self.stepSize or self.buttonHeight or self.scrollBar.scrollStep) * self.times
 
 	if delta == 1 then
-		SetScrollValue(self, max(minVal, self.scrollBar:GetValue() - (stepSize * self.times)))
+		SetScrollValue(self, max(minVal, self.scrollBar:GetValue() - stepSize))
 	else
-		SetScrollValue(self, min(maxVal, self.scrollBar:GetValue() + (stepSize * self.times)))
+		SetScrollValue(self, min(maxVal, self.scrollBar:GetValue() + stepSize))
 	end
 end
 
