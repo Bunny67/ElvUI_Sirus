@@ -5,6 +5,7 @@ local addon = E:GetModule("ElvUI_Sirus")
 
 --Lua functions
 local format = string.format
+local gsub = string.gsub
 --WoW API / Variables
 local UnitAura = UnitAura
 
@@ -73,6 +74,20 @@ ElvUF.Tags.Methods["category:name"] = function(unit)
 	return nil
 end
 
+ElvUF.Tags.Events["category:name:short"] = "UNIT_NAME_UPDATE"
+ElvUF.Tags.Methods["category:name:short"] = function(unit)
+	for i = 1, 40 do
+		local name, _, _, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, "HARMFUL")
+		if not name then return nil end
+
+		if Categories[spellId] then
+			return spellId ~= 90036 and gsub(name, "%s(%S+)$", "") or name
+		end
+	end
+
+	return nil
+end
+
 ElvUF.Tags.Events["category:icon"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["category:icon"] = function(unit)
 	for i = 1, 40 do
@@ -116,6 +131,7 @@ ElvUF.Tags.Methods["vip:icon"] = function(unit)
 end
 
 E:AddTagInfo("category:name", "Sirus", "Показывает на юните категорию в виде текста")
+E:AddTagInfo("category:name:short", "Sirus", "Показывает на юните категорию в виде текста (коротко)")
 E:AddTagInfo("category:icon", "Sirus", "Показывает на юните категорию в виде иконки")
 E:AddTagInfo("vip:name", "Sirus", "Показывает на юните VIP статус в виде текста")
 E:AddTagInfo("vip:icon", "Sirus", "Показывает на юните VIP статус в виде иконки")
