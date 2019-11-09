@@ -8,6 +8,7 @@
 
 Init.lua
 Fonts.lua
+Tags.lua
 OptionsUI.lua
 Settings\Load_Config.xml
 Modules\Load_Modules.xml
