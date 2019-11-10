@@ -15,50 +15,50 @@ local UnitAura = UnitAura
 
 local Categories = {
 	[90001] = {name = "7-я Категория", icon = "INTERFACE\\ICONS\\seven"},
-	[90002] = {name = "7-я (+) Категория", icon = "INTERFACE\\ICONS\\seven"},
+	[90002] = {name = "7-я (+) Категория", icon = "INTERFACE\\ICONS\\seven", name2 = "7-я (1+)"},
 	[90003] = {name = "6-я Категория", icon = "INTERFACE\\ICONS\\six"},
-	[90004] = {name = "6-я (+) Категория", icon = "INTERFACE\\ICONS\\six"},
-	[90005] = {name = "6-я (++) Категория", icon = "INTERFACE\\ICONS\\six"},
+	[90004] = {name = "6-я (+) Категория", icon = "INTERFACE\\ICONS\\six", name2 = "6-я (1+)"},
+	[90005] = {name = "6-я (++) Категория", icon = "INTERFACE\\ICONS\\six", name2 = "6-я (2+)"},
 	[90006] = {name = "5-я Категория", icon = "INTERFACE\\ICONS\\five"},
-	[90007] = {name = "5-я (+) Категория", icon = "INTERFACE\\ICONS\\five"},
-	[90008] = {name = "5-я (++) Категория", icon = "INTERFACE\\ICONS\\five"},
-	[90009] = {name = "5-я (+++) Категория", icon = "INTERFACE\\ICONS\\five"},
+	[90007] = {name = "5-я (+) Категория", icon = "INTERFACE\\ICONS\\five", name2 = "5-я (1+)"},
+	[90008] = {name = "5-я (++) Категория", icon = "INTERFACE\\ICONS\\five", name2 = "5-я (2+)"},
+	[90009] = {name = "5-я (+++) Категория", icon = "INTERFACE\\ICONS\\five", name2 = "5-я (3+)"},
 	[90010] = {name = "4-я Категория", icon = "INTERFACE\\ICONS\\four"},
-	[90011] = {name = "4-я (+) Категория", icon = "INTERFACE\\ICONS\\four"},
-	[90012] = {name = "4-я (++) Категория", icon = "INTERFACE\\ICONS\\four"},
-	[90013] = {name = "4-я (+++) Категория", icon = "INTERFACE\\ICONS\\four"},
-	[90014] = {name = "4-я (++++) Категория", icon = "INTERFACE\\ICONS\\four"},
+	[90011] = {name = "4-я (+) Категория", icon = "INTERFACE\\ICONS\\four", name2 = "4-я (1+)"},
+	[90012] = {name = "4-я (++) Категория", icon = "INTERFACE\\ICONS\\four", name2 = "4-я (2+)"},
+	[90013] = {name = "4-я (+++) Категория", icon = "INTERFACE\\ICONS\\four", name2 = "4-я (3+)"},
+	[90014] = {name = "4-я (++++) Категория", icon = "INTERFACE\\ICONS\\four", name2 = "4-я (4+)"},
 	[90015] = {name = "3-я Категория", icon = "INTERFACE\\ICONS\\three"},
-	[90016] = {name = "3-я (+) Категория", icon = "INTERFACE\\ICONS\\three"},
-	[90017] = {name = "3-я (++) Категория", icon = "INTERFACE\\ICONS\\three"},
-	[90018] = {name = "3-я (+++) Категория", icon = "INTERFACE\\ICONS\\three"},
-	[90019] = {name = "3-я (++++) Категория", icon = "INTERFACE\\ICONS\\three"},
-	[90020] = {name = "3-я (+++++) Категория", icon = "INTERFACE\\ICONS\\three"},
+	[90016] = {name = "3-я (+) Категория", icon = "INTERFACE\\ICONS\\three", name2 = "3-я (1+)"},
+	[90017] = {name = "3-я (++) Категория", icon = "INTERFACE\\ICONS\\three", name2 = "3-я (2+)"},
+	[90018] = {name = "3-я (+++) Категория", icon = "INTERFACE\\ICONS\\three", name2 = "3-я (3+)"},
+	[90019] = {name = "3-я (++++) Категория", icon = "INTERFACE\\ICONS\\three", name2 = "3-я (4+)"},
+	[90020] = {name = "3-я (+++++) Категория", icon = "INTERFACE\\ICONS\\three", name2 = "3-я (5+)"},
 	[90021] = {name = "2-я Категория", icon = "INTERFACE\\ICONS\\two"},
-	[90022] = {name = "2-я (+) Категория", icon = "INTERFACE\\ICONS\\two"},
-	[90023] = {name = "2-я (++) Категория", icon = "INTERFACE\\ICONS\\two"},
-	[90024] = {name = "2-я (+++) Категория", icon = "INTERFACE\\ICONS\\two"},
-	[90025] = {name = "2-я (++++) Категория", icon = "INTERFACE\\ICONS\\two"},
-	[90026] = {name = "2-я (+++++) Категория", icon = "INTERFACE\\ICONS\\two"},
-	[90027] = {name = "2-я (++++++) Категория", icon = "INTERFACE\\ICONS\\two"},
+	[90022] = {name = "2-я (+) Категория", icon = "INTERFACE\\ICONS\\two", name2 = "2-я (1+)"},
+	[90023] = {name = "2-я (++) Категория", icon = "INTERFACE\\ICONS\\two", name2 = "2-я (2+)"},
+	[90024] = {name = "2-я (+++) Категория", icon = "INTERFACE\\ICONS\\two", name2 = "2-я (3+)"},
+	[90025] = {name = "2-я (++++) Категория", icon = "INTERFACE\\ICONS\\two", name2 = "2-я (4+)"},
+	[90026] = {name = "2-я (+++++) Категория", icon = "INTERFACE\\ICONS\\two", name2 = "2-я (5+)"},
+	[90027] = {name = "2-я (++++++) Категория", icon = "INTERFACE\\ICONS\\two", name2 = "2-я (6+)"},
 	[90028] = {name = "1-я Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90029] = {name = "1-я (+) Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90030] = {name = "1-я (++) Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90031] = {name = "1-я (+++) Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90032] = {name = "1-я (++++) Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90033] = {name = "1-я (+++++) Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90034] = {name = "1-я (++++++) Категория", icon = "INTERFACE\\ICONS\\one"},
-	[90035] = {name = "1-я (+++++++) Категория", icon = "INTERFACE\\ICONS\\one"},
+	[90029] = {name = "1-я (+) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (1+)"},
+	[90030] = {name = "1-я (++) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (2+)"},
+	[90031] = {name = "1-я (+++) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (3+)"},
+	[90032] = {name = "1-я (++++) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (4+)"},
+	[90033] = {name = "1-я (+++++) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (5+)"},
+	[90034] = {name = "1-я (++++++) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (6+)"},
+	[90035] = {name = "1-я (+++++++) Категория", icon = "INTERFACE\\ICONS\\one", name2 = "1-я (7+)"},
 	[90036] = {name = "Вне котегории", icon = "INTERFACE\\ICONS\\eternity"},
 
-	[302100] = {name = "Вне категории (+)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302101] = {name = "Вне категории (++)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302102] = {name = "Вне категории (+++)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302103] = {name = "Вне категории (++++)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302104] = {name = "Вне категории (+++++)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302105] = {name = "Вне категории (++++++)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302106] = {name = "Вне категории (+++++++)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302107] = {name = "Вне категории (++++++++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302100] = {name = "Вне категории (+)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (1+)"},
+	[302101] = {name = "Вне категории (++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (2+)"},
+	[302102] = {name = "Вне категории (+++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (3+)"},
+	[302103] = {name = "Вне категории (++++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (4+)"},
+	[302104] = {name = "Вне категории (+++++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (5+)"},
+	[302105] = {name = "Вне категории (++++++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (6+)"},
+	[302106] = {name = "Вне категории (+++++++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (7+)"},
+	[302107] = {name = "Вне категории (++++++++)", icon = "INTERFACE\\ICONS\\eternity", name2 = "ВК (8+)"},
 }
 addon.Categories = Categories
 
@@ -115,6 +115,20 @@ ElvUF.Tags.Methods["category:name:short"] = function(unit)
 
 		if Categories[spellID] then
 			return spellID < 90036 and gsub(name, "%s(%S+)$", "") or abbrev(name)
+		end
+	end
+
+	return nil
+end
+
+ElvUF.Tags.Events["category:name:veryshort"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Methods["category:name:veryshort"] = function(unit)
+	for i = 1, 40 do
+		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
+		if not name then return nil end
+
+		if Categories[spellID] then
+			return Categories[spellID].name2 or (spellID < 90036 and gsub(name, "%s(%S+)$", "") or abbrev(name))
 		end
 	end
 
@@ -193,6 +207,7 @@ end
 
 E:AddTagInfo("category:name", "Sirus", "Показывает на юните категорию в виде текста")
 E:AddTagInfo("category:name:short", "Sirus", "Показывает на юните категорию в виде текста (коротко)")
+E:AddTagInfo("category:name:veryshort", "Sirus", "Показывает на юните категорию в виде текста (коротко)")
 E:AddTagInfo("category:icon", "Sirus", "Показывает на юните категорию в виде иконки")
 E:AddTagInfo("vip:name", "Sirus", "Показывает на юните VIP статус в виде текста")
 E:AddTagInfo("vip:icon", "Sirus", "Показывает на юните VIP статус в виде иконки")
