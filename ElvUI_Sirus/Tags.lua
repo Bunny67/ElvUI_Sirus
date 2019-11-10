@@ -52,7 +52,6 @@ local Categories = {
 	[90036] = {name = "Вне котегории", icon = "INTERFACE\\ICONS\\eternity"},
 
 	[302100] = {name = "Вне категории (+)", icon = "INTERFACE\\ICONS\\eternity"},
-	[302100] = {name = "Вне категории (+)", icon = "INTERFACE\\ICONS\\eternity"},
 	[302101] = {name = "Вне категории (++)", icon = "INTERFACE\\ICONS\\eternity"},
 	[302102] = {name = "Вне категории (+++)", icon = "INTERFACE\\ICONS\\eternity"},
 	[302103] = {name = "Вне категории (++++)", icon = "INTERFACE\\ICONS\\eternity"},

@@ -5,7 +5,6 @@ local TT = E:GetModule("Tooltip")
 local tonumber = tonumber
 local format = string.format
 local sub = string.sub
-local targetList = targetList
 local tconcat = table.concat
 local tinsert = table.insert
 local twipe = table.wipe
