@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local TT = E:GetModule("Tooltip")
+local ElvUF = E.oUF
 
 --Lua functions
 local tonumber = tonumber
@@ -9,28 +10,53 @@ local tconcat = table.concat
 local tinsert = table.insert
 local twipe = table.wipe
 --WoW API / Variables
+local GetGuildInfo = GetGuildInfo
 local GetMouseFocus = GetMouseFocus
 local GetNumPartyMembers = GetNumPartyMembers
 local GetNumRaidMembers = GetNumRaidMembers
+local GetQuestDifficultyColor = GetQuestDifficultyColor
 local IsAltKeyDown = IsAltKeyDown
 local IsControlKeyDown = IsControlKeyDown
 local IsShiftKeyDown = IsShiftKeyDown
 local UnitClass = UnitClass
+local UnitClassification = UnitClassification
+local UnitCreatureType = UnitCreatureType
 local UnitExists = UnitExists
 local UnitGUID = UnitGUID
 local UnitHasVehicleUI = UnitHasVehicleUI
+local UnitIsAFK = UnitIsAFK
+local UnitIsDND = UnitIsDND
+local UnitIsPVP = UnitIsPVP
 local UnitIsPlayer = UnitIsPlayer
+local UnitIsTapped = UnitIsTapped
+local UnitIsTappedByPlayer = UnitIsTappedByPlayer
 local UnitIsUnit = UnitIsUnit
 local UnitLevel = UnitLevel
 local UnitName = UnitName
+local UnitPVPName = UnitPVPName
+local UnitRace = UnitRace
 local UnitReaction = UnitReaction
 local FACTION_BAR_COLORS = FACTION_BAR_COLORS
+local FOREIGN_SERVER_LABEL = FOREIGN_SERVER_LABEL
 local ID = ID
+local PVP = PVP
+local TAPPED_COLOR = TAPPED_COLOR
 local TARGET = TARGET
+local TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE
 
 TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
 
+local AFK_LABEL = " |cffFFFFFF[|r|cffE7E716"..L["AFK"].."|r|cffFFFFFF]|r"
+local DND_LABEL = " |cffFFFFFF[|r|cffFF0000"..L["DND"].."|r|cffFFFFFF]|r"
+
 local targetList = {}
+
+local classification = {
+	worldboss = format("|cffAF5050 %s|r", BOSS),
+	rareelite = format("|cffAF5050+ %s|r", ITEM_QUALITY3_DESC),
+	elite = "|cffAF5050+|r",
+	rare = format("|cffAF5050 %s|r", ITEM_QUALITY3_DESC)
+}
 
 function TT:GetItemLvL(unit)
 	ItemLevelMixIn:Request(unit)
@@ -39,6 +65,100 @@ function TT:GetItemLvL(unit)
 		local color = ItemLevelMixIn:GetColor(ilvl)
 		return string.format("%s%s|r", E:RGBToHex(color.r, color.g, color.b), ilvl)
 	end
+end
+
+function TT:SetUnitText(tt, unit, level, isShiftKeyDown)
+	local color
+	if UnitIsPlayer(unit) then
+		local localeClass, class = UnitClass(unit)
+		if not localeClass or not class then return end
+
+		local name, realm = UnitName(unit)
+		local guildName, guildRankName = GetGuildInfo(unit)
+		local pvpName = UnitPVPName(unit)
+
+		color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+
+		if not color then
+			color = RAID_CLASS_COLORS.PRIEST
+		end
+
+		if self.db.playerTitles and pvpName then
+			name = pvpName
+		end
+
+		if realm and realm ~= "" then
+			if isShiftKeyDown or self.db.alwaysShowRealm then
+				name = name.."-"..realm
+			else
+				name = name..FOREIGN_SERVER_LABEL
+			end
+		end
+
+		local category = ElvUF.Tags.Methods["category:name:short"](unit)
+		if category then
+			name = name.." "..category
+		end
+
+		if UnitIsAFK(unit) then
+			name = name..AFK_LABEL
+		elseif UnitIsDND(unit) then
+			name = name..DND_LABEL
+		end
+
+		GameTooltipTextLeft1:SetFormattedText("%s%s", E:RGBToHex(color.r, color.g, color.b), name)
+
+		local lineOffset = 2
+		if guildName then
+			if self.db.guildRanks then
+				GameTooltipTextLeft2:SetFormattedText("<|cff00ff10%s|r> [|cff00ff10%s|r]", guildName, guildRankName)
+			else
+				GameTooltipTextLeft2:SetFormattedText("<|cff00ff10%s|r>", guildName)
+			end
+
+			lineOffset = 3
+		end
+
+		local levelLine = self:GetLevelLine(tt, lineOffset)
+		if levelLine then
+			local diffColor = GetQuestDifficultyColor(level)
+			local race = UnitRace(unit)
+			levelLine:SetFormattedText("|cff%02x%02x%02x%s|r %s %s%s|r", diffColor.r * 255, diffColor.g * 255, diffColor.b * 255, level > 0 and level or "??", race or "", E:RGBToHex(color.r, color.g, color.b), localeClass)
+		end
+	else
+		if UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit) then
+			color = TAPPED_COLOR
+		else
+			local unitReaction = UnitReaction(unit, "player")
+			if E.db.tooltip.useCustomFactionColors then
+				if unitReaction then
+					color = E.db.tooltip.factionColors[unitReaction]
+				end
+			else
+				color = FACTION_BAR_COLORS[unitReaction]
+			end
+		end
+
+		if not color then
+			color = RAID_CLASS_COLORS.PRIEST
+		end
+
+		local levelLine = self:GetLevelLine(tt, 2)
+		if levelLine then
+			local creatureClassification = UnitClassification(unit)
+			local creatureType = UnitCreatureType(unit)
+			local pvpFlag = ""
+			local diffColor = GetQuestDifficultyColor(level)
+
+			if UnitIsPVP(unit) then
+				pvpFlag = format(" (%s)", PVP)
+			end
+
+			levelLine:SetFormattedText("|cff%02x%02x%02x%s|r%s %s%s", diffColor.r * 255, diffColor.g * 255, diffColor.b * 255, level > 0 and level or "??", classification[creatureClassification] or "", creatureType or "", pvpFlag)
+		end
+	end
+
+	return color
 end
 
 function TT:GameTooltip_OnTooltipSetUnit(tt)
