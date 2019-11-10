@@ -11,7 +11,7 @@ function S:GetOptions()
 		type = "description",
 		name = ""
 	}
-	E.Options.args.auras.args.general.args.hideCategorieIcon = {
+	E.Options.args.auras.args.general.args.hideCategoryIcon = {
 		order = 10,
 		type = "toggle",
 		name = E.NewSign.."Скрывать категорию"
