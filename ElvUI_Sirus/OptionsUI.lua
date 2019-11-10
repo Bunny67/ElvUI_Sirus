@@ -5,6 +5,24 @@ function S:GetOptions()
 	--ActionBars
 	E.Options.args.actionbar.args.microbar.args.buttonsPerRow.max = #SHARED_MICROMENU_BUTTONS
 
+	-- Auras
+	E.Options.args.auras.args.general.args.spacer = {
+		order = 9,
+		type = "description",
+		name = ""
+	}
+	E.Options.args.auras.args.general.args.hideCategorieIcon = {
+		order = 10,
+		type = "toggle",
+		name = E.NewSign.."Скрывать категорию"
+	}
+	E.Options.args.auras.args.general.args.hideVIPIcon = {
+		order = 11,
+		type = "toggle",
+		name = E.NewSign.."Скрывать вип статуса"
+	}
+	E.Options.args.auras.args.general.args.lbf.order = 12
+
 	--Skins
 	E.Options.args.skins.args.blizzard.args.deathRecap = {
 		type = "toggle",
