@@ -19,9 +19,14 @@ function S:GetOptions()
 	E.Options.args.auras.args.general.args.hideVIPIcon = {
 		order = 11,
 		type = "toggle",
-		name = E.NewSign.."Скрывать вип статуса"
+		name = E.NewSign.."Скрывать VIP статус"
 	}
-	E.Options.args.auras.args.general.args.lbf.order = 12
+	E.Options.args.auras.args.general.args.hidePremiumIcon = {
+		order = 12,
+		type = "toggle",
+		name = E.NewSign.."Скрывать Premium статус"
+	}
+	E.Options.args.auras.args.general.args.lbf.order = 13
 
 	--Skins
 	E.Options.args.skins.args.blizzard.args.deathRecap = {

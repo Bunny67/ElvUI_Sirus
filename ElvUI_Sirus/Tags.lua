@@ -60,13 +60,18 @@ local VIP = {
 }
 addon.VIP = VIP
 
+local Premium = {
+	[90037] = {name = "Premium", icon = "INTERFACE\\ICONS\\VIP"},
+}
+addon.Premium = Premium
+
 ElvUF.Tags.Events["category:name"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["category:name"] = function(unit)
 	for i = 1, 40 do
-		local name, _, _, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, "HARMFUL")
+		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
 		if not name then return nil end
 
-		if Categories[spellId] then
+		if Categories[spellID] then
 			return name
 		end
 	end
@@ -77,11 +82,11 @@ end
 ElvUF.Tags.Events["category:name:short"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["category:name:short"] = function(unit)
 	for i = 1, 40 do
-		local name, _, _, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, "HARMFUL")
+		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
 		if not name then return nil end
 
-		if Categories[spellId] then
-			return spellId ~= 90036 and gsub(name, "%s(%S+)$", "") or name
+		if Categories[spellID] then
+			return spellID ~= 90036 and gsub(name, "%s(%S+)$", "") or name
 		end
 	end
 
@@ -91,10 +96,10 @@ end
 ElvUF.Tags.Events["category:icon"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["category:icon"] = function(unit)
 	for i = 1, 40 do
-		local name, _, icon, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, "HARMFUL")
+		local name, _, icon, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
 		if not name then return nil end
 
-		if Categories[spellId] then
+		if Categories[spellID] then
 			return format("|T%s:18:18:0:0:64:64:4:60:4:60|t", icon)
 		end
 	end
@@ -105,10 +110,10 @@ end
 ElvUF.Tags.Events["vip:name"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["vip:name"] = function(unit)
 	for i = 1, 40 do
-		local name, _, _, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, "HARMFUL")
+		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
 		if not name then return nil end
 
-		if VIP[spellId] then
+		if VIP[spellID] then
 			return name
 		end
 	end
@@ -119,10 +124,38 @@ end
 ElvUF.Tags.Events["vip:icon"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["vip:icon"] = function(unit)
 	for i = 1, 40 do
-		local name, _, icon, _, _, _, _, _, _, _, spellId = UnitAura(unit, i, "HARMFUL")
+		local name, _, icon, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
 		if not name then return nil end
 
-		if VIP[spellId] then
+		if VIP[spellID] then
+			return format("|T%s:18:18:0:0:64:64:4:60:4:60|t", icon)
+		end
+	end
+
+	return nil
+end
+
+ElvUF.Tags.Events["premium:name"] = "UNIT_NAME_UPDATE"
+ElvUF.Tags.Methods["premium:name"] = function(unit)
+	for i = 1, 40 do
+		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
+		if not name then return nil end
+
+		if Premium[spellID] then
+			return name
+		end
+	end
+
+	return nil
+end
+
+ElvUF.Tags.Events["premium:icon"] = "UNIT_NAME_UPDATE"
+ElvUF.Tags.Methods["premium:icon"] = function(unit)
+	for i = 1, 40 do
+		local name, _, icon, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
+		if not name then return nil end
+
+		if Premium[spellID] then
 			return format("|T%s:18:18:0:0:64:64:4:60:4:60|t", icon)
 		end
 	end
@@ -135,3 +168,5 @@ E:AddTagInfo("category:name:short", "Sirus", "Показывает на юнит
 E:AddTagInfo("category:icon", "Sirus", "Показывает на юните категорию в виде иконки")
 E:AddTagInfo("vip:name", "Sirus", "Показывает на юните VIP статус в виде текста")
 E:AddTagInfo("vip:icon", "Sirus", "Показывает на юните VIP статус в виде иконки")
+E:AddTagInfo("premium:name", "Sirus", "Показывает на юните Premium статус в виде текста")
+E:AddTagInfo("premium:icon", "Sirus", "Показывает на юните Premium статус в виде иконки")

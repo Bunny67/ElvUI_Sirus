@@ -105,7 +105,7 @@ function A:UpdateHeader(header)
 			aura.index = i
 
 			if filter == "HARMFUL" then
-				if not (self.db.hideCategoryIcon and addon.Categories[spellID] or self.db.hideVIPIcon and addon.VIP[spellID]) then
+				if not (self.db.hideCategoryIcon and addon.Categories[spellID] or self.db.hideVIPIcon and addon.VIP[spellID] or self.db.hidePremiumIcon and addon.Premium[spellID]) then
 					tinsert(sortingTable, aura)
 				end
 			else
