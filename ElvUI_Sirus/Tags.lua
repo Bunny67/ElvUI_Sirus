@@ -5,7 +5,11 @@ local addon = E:GetModule("ElvUI_Sirus")
 
 --Lua functions
 local format = string.format
-local gsub = string.gsub
+local gmatch = gmatch
+local gsub = gsub
+local match = string.match
+local utf8upper = string.utf8upper
+local utf8sub = string.utf8sub
 --WoW API / Variables
 local UnitAura = UnitAura
 
@@ -46,6 +50,16 @@ local Categories = {
 	[90034] = {name = "1-я (++++++) Категория", icon = "INTERFACE\\ICONS\\one"},
 	[90035] = {name = "1-я (+++++++) Категория", icon = "INTERFACE\\ICONS\\one"},
 	[90036] = {name = "Вне котегории", icon = "INTERFACE\\ICONS\\eternity"},
+
+	[302100] = {name = "Вне категории (+)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302100] = {name = "Вне категории (+)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302101] = {name = "Вне категории (++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302102] = {name = "Вне категории (+++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302103] = {name = "Вне категории (++++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302104] = {name = "Вне категории (+++++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302105] = {name = "Вне категории (++++++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302106] = {name = "Вне категории (+++++++)", icon = "INTERFACE\\ICONS\\eternity"},
+	[302107] = {name = "Вне категории (++++++++)", icon = "INTERFACE\\ICONS\\eternity"},
 }
 addon.Categories = Categories
 
@@ -79,6 +93,21 @@ ElvUF.Tags.Methods["category:name"] = function(unit)
 	return nil
 end
 
+local function abbrev(name)
+	local letters, lastWord = "", match(name, ".+%s(%p+)$")
+	for word in gmatch(name, "%S+") do
+		local firstLetter = utf8sub(gsub(word, "^[%s%p]*", ""), 1, 1)
+		firstLetter = utf8upper(firstLetter)
+		letters = format("%s%s", letters, firstLetter)
+	end
+
+	if lastWord then
+		return format("%s %s", letters, lastWord)
+	else
+		return format("%s", letters)
+	end
+end
+
 ElvUF.Tags.Events["category:name:short"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["category:name:short"] = function(unit)
 	for i = 1, 40 do
@@ -86,7 +115,7 @@ ElvUF.Tags.Methods["category:name:short"] = function(unit)
 		if not name then return nil end
 
 		if Categories[spellID] then
-			return spellID ~= 90036 and gsub(name, "%s(%S+)$", "") or name
+			return spellID < 90036 and gsub(name, "%s(%S+)$", "") or abbrev(name)
 		end
 	end
 
