@@ -69,7 +69,8 @@ local function LoadSkin()
 
 	-- GhostFrame
 	GhostFrame:StripTextures(nil, true)
-	GhostFrameContentsFrame:SetTemplate("Transparent")
+	S:HandleButton(GhostFrame)
+	GhostFrame:SetTemplate("Transparent")
 	GhostFrameContentsFrameIcon:CreateBackdrop()
 	GhostFrameContentsFrameIcon:SetTexCoord(unpack(E.TexCoords))
 end
