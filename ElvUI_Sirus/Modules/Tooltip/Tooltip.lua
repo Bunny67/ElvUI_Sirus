@@ -97,7 +97,7 @@ function TT:SetUnitText(tt, unit, level, isShiftKeyDown)
 
 		local category = ElvUF.Tags.Methods["category:name:short"](unit)
 		if category then
-			name = name.." "..category
+			name = name.." |cffffffff"..category.."|r"
 		end
 
 		if UnitIsAFK(unit) then
