@@ -66,6 +66,12 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc("NavBar_AddButton", SkinNavBarButtons)
+
+	-- GhostFrame
+	GhostFrame:StripTextures(nil, true)
+	GhostFrameContentsFrame:SetTemplate("Transparent")
+	GhostFrameContentsFrameIcon:CreateBackdrop()
+	GhostFrameContentsFrameIcon:SetTexCoord(unpack(E.TexCoords))
 end
 
 S:AddCallback("Sirus_Misc", LoadSkin)
