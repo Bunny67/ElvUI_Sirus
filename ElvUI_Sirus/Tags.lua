@@ -78,7 +78,7 @@ local Premium = {
 }
 addon.Premium = Premium
 
-ElvUF.Tags.Events["category:name"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["category:name"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["category:name"] = function(unit)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -107,7 +107,7 @@ local function abbrev(name)
 	end
 end
 
-ElvUF.Tags.Events["category:name:short"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["category:name:short"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["category:name:short"] = function(unit)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -121,7 +121,7 @@ ElvUF.Tags.Methods["category:name:short"] = function(unit)
 	return nil
 end
 
-ElvUF.Tags.Events["category:name:veryshort"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["category:name:veryshort"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["category:name:veryshort"] = function(unit)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -135,7 +135,7 @@ ElvUF.Tags.Methods["category:name:veryshort"] = function(unit)
 	return nil
 end
 
-ElvUF.Tags.Events["category:icon"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["category:icon"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["category:icon"] = function(unit)
 	for i = 1, 40 do
 		local name, _, icon, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -149,7 +149,7 @@ ElvUF.Tags.Methods["category:icon"] = function(unit)
 	return nil
 end
 
-ElvUF.Tags.Events["vip:name"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["vip:name"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["vip:name"] = function(unit)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -163,7 +163,7 @@ ElvUF.Tags.Methods["vip:name"] = function(unit)
 	return nil
 end
 
-ElvUF.Tags.Events["vip:icon"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["vip:icon"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["vip:icon"] = function(unit)
 	for i = 1, 40 do
 		local name, _, icon, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -177,7 +177,7 @@ ElvUF.Tags.Methods["vip:icon"] = function(unit)
 	return nil
 end
 
-ElvUF.Tags.Events["premium:name"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["premium:name"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["premium:name"] = function(unit)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
@@ -191,7 +191,7 @@ ElvUF.Tags.Methods["premium:name"] = function(unit)
 	return nil
 end
 
-ElvUF.Tags.Events["premium:icon"] = "UNIT_NAME_UPDATE UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["premium:icon"] = "UNIT_NAME_UPDATE UNIT_CONNECTION UNIT_PORTRAIT_UPDATE"
 ElvUF.Tags.Methods["premium:icon"] = function(unit)
 	for i = 1, 40 do
 		local name, _, icon, _, _, _, _, _, _, _, spellID = UnitAura(unit, i, "HARMFUL")
