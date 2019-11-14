@@ -225,7 +225,7 @@ local function LoadSkin()
 		end
 	end
 
-	hooksecurefunc("PaperDollFrameItemFlyout_Show", function(self)
+	hooksecurefunc("PaperDollFrameItemFlyout_Show", function()
 		PaperDollFrameItemFlyoutButtons:StripTextures()
 	end)
 
@@ -462,7 +462,7 @@ local function LoadSkin()
 	SkillFrameCollapseAllButton:Point("LEFT", SkillFrameExpandTabLeft, "RIGHT", -40, -3)
 	SkillFrameCollapseAllButton:SetHighlightTexture(nil)
 
-	hooksecurefunc(SkillFrameCollapseAllButton, "SetNormalTexture", function(self, texture)
+	hooksecurefunc(SkillFrameCollapseAllButton, "SetNormalTexture", function(_, texture)
 		if find(texture, "MinusButton") then
 			SkillFrameCollapseAllButton:GetNormalTexture():SetTexture(E.Media.Textures.Minus)
 		else

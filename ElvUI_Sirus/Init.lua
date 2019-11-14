@@ -114,6 +114,13 @@ function addon:Initialize()
 		self:SetBackdropBorderColor(GetItemQualityColor(item.quality))
 	end
 
+	local function AddMessage(self, id)
+		if self.Message then
+			DEFAULT_CHAT_FRAME:AddMessage(self.Message, 1, 1, 0, 1)
+			self.Message = nil
+		end
+	end
+
 	local case = CreateFrame("ScrollFrame", nil, UIParent)
 	case:Size((BUTTON_SIZE * NUM_VISIBLE_BUTTONS) + (BUTTON_SPACING * (NUM_VISIBLE_BUTTONS - 1)), BUTTON_SIZE)
 	case:SetPoint("TOP", 0, -200)
@@ -131,6 +138,7 @@ function addon:Initialize()
 
 	case.Reset = Reset
 	case.SetPrize = SetPrize
+	case.AddMessage = AddMessage
 
 	case.Child = CreateFrame("Frame", nil, case)
 	case.Child:SetPoint("TOPLEFT")
@@ -205,6 +213,7 @@ function addon:Initialize()
 			self:SetScript("OnUpdate", nil)
 			self:SetHorizontalScroll(self.EndScroll)
 			self.IsPlaying = nil
+			self:AddMessage()
 			E:Delay(1, UIFrameFadeOut, self)
 		end
 
@@ -216,6 +225,7 @@ function addon:Initialize()
 			case:SetScript("OnUpdate", nil)
 			case:SetHorizontalScroll(case.EndScroll)
 			case.IsPlaying = nil
+			case:AddMessage()
 		end
 
 		case:SetPrize(prize or math.random(1, #ITEMS_TABLE))
@@ -232,9 +242,10 @@ function addon:Initialize()
 		case:SetScript("OnUpdate", OnUpdate)
 	end
 
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_BOSS_EMOTE", function(self, event, ...)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_BOSS_EMOTE", function(_, _, ...)
 		local arg1, arg2, _, _, arg5 = ...
 		if arg2 == E.myname and arg5 == E.myname and ITEMS_MSG[arg1] then
+			case.Message = arg1
 			return true
 		end
 	end)

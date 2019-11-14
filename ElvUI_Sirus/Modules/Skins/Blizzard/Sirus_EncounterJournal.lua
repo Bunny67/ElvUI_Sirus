@@ -222,7 +222,7 @@ local function LoadSkin()
 		end
 	end)
 
-	hooksecurefunc("EncounterJournal_ToggleHeaders", function(self, _, index)
+	hooksecurefunc("EncounterJournal_ToggleHeaders", function()
 		local headerCount = 1
 		local header = _G["EncounterJournalInfoHeader"..headerCount]
 		while header do

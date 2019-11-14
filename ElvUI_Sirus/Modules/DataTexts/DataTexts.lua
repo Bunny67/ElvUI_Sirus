@@ -15,8 +15,8 @@ function mod:GetPanelByDataTextName(name)
 end
 
 function mod:Initialize()
-	mod:HookFriens()
-	mod:HookGuild()
+	self:HookFriens()
+	self:HookGuild()
 end
 
 local function InitializeCallback()

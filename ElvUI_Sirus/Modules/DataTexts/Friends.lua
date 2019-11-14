@@ -210,7 +210,7 @@ end
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
 function mod:HookFriens()
-	lastPanel = mod:GetPanelByDataTextName("Friends")
+	lastPanel = self:GetPanelByDataTextName("Friends")
 	if lastPanel then
 		lastPanel:SetScript("OnEvent", OnEvent)
 		lastPanel:SetScript("OnClick", OnClick)

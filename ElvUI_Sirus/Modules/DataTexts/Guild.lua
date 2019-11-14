@@ -360,7 +360,7 @@ end
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
 function mod:HookGuild()
-	lastPanel = mod:GetPanelByDataTextName("Guild")
+	lastPanel = self:GetPanelByDataTextName("Guild")
 	if lastPanel then
 		lastPanel:SetScript("OnEvent", OnEvent)
 		lastPanel:SetScript("OnClick", OnClick)

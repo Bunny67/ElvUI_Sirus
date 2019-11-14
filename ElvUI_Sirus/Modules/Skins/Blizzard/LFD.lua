@@ -346,10 +346,10 @@ local function LoadSkin()
 		--button.SelectedTexture:SetInside()
 		button.SelectedTexture:SetAlpha(0)
 
-		hooksecurefunc(button.SelectedTexture, "Show", function(self, state)
+		hooksecurefunc(button.SelectedTexture, "Show", function()
 			button:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
 		end)
-		hooksecurefunc(button.SelectedTexture, "Hide", function(self, state)
+		hooksecurefunc(button.SelectedTexture, "Hide", function()
 			button:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		end)
 
