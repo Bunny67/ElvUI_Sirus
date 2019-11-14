@@ -62,7 +62,7 @@ function TT:GetItemLvL(unit)
 	local ilvl = ItemLevelMixIn:GetItemLevel(UnitGUID(unit))
 	if ilvl then
 		local color = ItemLevelMixIn:GetColor(ilvl)
-		return string.format("%s%s|r", E:RGBToHex(color.r, color.g, color.b), ilvl)
+		return format("%s%s|r", E:RGBToHex(color.r, color.g, color.b), ilvl)
 	end
 end
 
