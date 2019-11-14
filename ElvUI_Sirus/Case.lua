@@ -53,6 +53,8 @@ local ITEMS_MSG = {
 	["|cFFC80046Д|r|cFFC80025Ж|r|cFFC80001Е|r|cFFC82100К|r|cFFC84000П|r|cFFC85C00О|r|cFFC87700Т|r|cFFC79400!|r Вы выиграли Черный бриллиант x1!"] = 13,
 }
 
+local randonTable = {}
+
 local function SetPrize(self, prizeID)
 	self.Prize = prizeID
 end
@@ -61,11 +63,17 @@ local function Reset(self)
 	self:SetHorizontalScroll(START_POINT)
 	self:UpdateScrollChildRect()
 
+	for i = 1, 7 do
+		table.insert(randonTable, i + 6)
+	end
+
 	for i = 1, MAX_BUTTONS do
 		if i == (MAX_BUTTONS - 3) then
 			self.Child[i]:AddItem(self.Prize) -- LOL
-		elseif MAX_BUTTONS > 20 then
-			self.Child[i]:AddItem(math.random(7, #ITEMS_TABLE)) -- Added the top items :D
+		elseif i >= (MAX_BUTTONS - 7) then
+			local rnd = math.random(1, #randonTable)
+			self.Child[i]:AddItem(randonTable[rnd]) -- Added the top items :D
+			table.remove(randonTable, rnd)
 		else
 			self.Child[i]:AddItem(math.random(1, #ITEMS_TABLE))
 		end
