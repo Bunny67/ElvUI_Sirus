@@ -28,6 +28,18 @@ function S:GetOptions()
 	}
 	E.Options.args.auras.args.general.args.lbf.order = 13
 
+	-- General
+	E.Options.args.general.args.blizzUIImprovements.args.case = {
+		order = 9,
+		type = "toggle",
+		name = E.NewSign.."Улучшенная рулетка",
+		get = function(info) return E.db.sirus[info[#info]] end,
+		set = function(info, value)
+			E.db.sirus[info[#info]] = value
+			E:StaticPopup_Show("PRIVATE_RL")
+		end
+	}
+
 	--Skins
 	E.Options.args.skins.args.blizzard.args.deathRecap = {
 		type = "toggle",
