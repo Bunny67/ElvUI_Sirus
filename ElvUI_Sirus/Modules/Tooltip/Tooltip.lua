@@ -234,9 +234,18 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 
 	local isPlayerUnit = UnitIsPlayer(unit)
 	local color = self:SetUnitText(tt, unit, UnitLevel(unit), isShiftKeyDown)
+	local canInspect = CanInspect(unit)
 
 	if isPlayerUnit then
-		self:ShowInspectInfo(tt, unit, color.r, color.g, color.b)
+		if canInspect then
+			self:ShowInspectInfo(tt, unit, color.r, color.g, color.b)
+		else
+			local ilvl = self:GetItemLvL(unit)
+
+			if ilvl then
+				tt:AddDoubleLine(L["Item Level:"], self:GetItemLvL(unit), nil, nil, nil, 1, 1, 1)
+			end
+		end
 	end
 
 	if unit and self.db.npcID and not isPlayerUnit then
