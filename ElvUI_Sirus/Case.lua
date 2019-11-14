@@ -163,59 +163,59 @@ end
 local case
 
 function mod:CreateCase()
-	local case = CreateFrame("ScrollFrame", nil, UIParent)
-	case:Size((BUTTON_SIZE * NUM_VISIBLE_BUTTONS) + (BUTTON_SPACING * (NUM_VISIBLE_BUTTONS - 1)), BUTTON_SIZE)
-	case:SetPoint("TOP", 0, -200)
-	case:Hide()
+	local frame = CreateFrame("ScrollFrame", nil, UIParent)
+	frame:Size((BUTTON_SIZE * NUM_VISIBLE_BUTTONS) + (BUTTON_SPACING * (NUM_VISIBLE_BUTTONS - 1)), BUTTON_SIZE)
+	frame:SetPoint("TOP", 0, -200)
+	frame:Hide()
 
-	case.Text = case:CreateFontString()
-	case.Text:SetPoint("TOP", 0, 50)
-	case.Text:FontTemplate(nil, 22)
+	frame.Text = frame:CreateFontString()
+	frame.Text:SetPoint("TOP", 0, 50)
+	frame.Text:FontTemplate(nil, 22)
 
-	case.Line = CreateFrame("Frame", nil, case)
-	case.Line:Size(3, BUTTON_SIZE + (8 * 2))
-	case.Line:SetPoint("CENTER")
-	case.Line:SetFrameLevel(case:GetFrameLevel() + 10)
-	case.Line.Texture = case.Line:CreateTexture()
-	case.Line.Texture:SetTexture(0.8, 0, 0)
-	case.Line.Texture:SetAllPoints()
+	frame.Line = CreateFrame("Frame", nil, frame)
+	frame.Line:Size(3, BUTTON_SIZE + (8 * 2))
+	frame.Line:SetPoint("CENTER")
+	frame.Line:SetFrameLevel(frame:GetFrameLevel() + 10)
+	frame.Line.Texture = frame.Line:CreateTexture()
+	frame.Line.Texture:SetTexture(0.8, 0, 0)
+	frame.Line.Texture:SetAllPoints()
 
-	case.LeftTexture = case.Line:CreateTexture()
-	case.LeftTexture:Size((BUTTON_SIZE * 2) + 30, BUTTON_SIZE + 30)
-	case.LeftTexture:SetPoint("LEFT", case, -15, 0)
-	case.LeftTexture:SetTexture(0, 0, 0)
-	case.LeftTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,1, 0,0,0,0)
+	frame.LeftTexture = frame.Line:CreateTexture()
+	frame.LeftTexture:Size((BUTTON_SIZE * 2) + 28, BUTTON_SIZE + 28)
+	frame.LeftTexture:Point("LEFT", frame, -14, 0)
+	frame.LeftTexture:SetTexture(0, 0, 0)
+	frame.LeftTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,1, 0,0,0,0)
 
-	case.RightTexture = case.Line:CreateTexture()
-	case.RightTexture:Size((BUTTON_SIZE * 2) + 30, BUTTON_SIZE + 30)
-	case.RightTexture:SetPoint("RIGHT", case, 15, 0)
-	case.RightTexture:SetTexture(0, 0, 0)
-	case.RightTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,0, 0,0,0,1)
+	frame.RightTexture = frame.Line:CreateTexture()
+	frame.RightTexture:Size((BUTTON_SIZE * 2) + 28, BUTTON_SIZE + 28)
+	frame.RightTexture:Point("RIGHT", frame, 14, 0)
+	frame.RightTexture:SetTexture(0, 0, 0)
+	frame.RightTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,0, 0,0,0,1)
 
-	case:CreateBackdrop("Transparent")
-	case.backdrop:SetOutside(nil, 15, 15)
+	frame:CreateBackdrop("Transparent")
+	frame.backdrop:SetOutside(nil, 15, 15)
 
-	case.Reset = Reset
-	case.SetPrize = SetPrize
-	case.AddMessage = AddMessage
+	frame.Reset = Reset
+	frame.SetPrize = SetPrize
+	frame.AddMessage = AddMessage
 
-	case.Child = CreateFrame("Frame", nil, case)
-	case.Child:SetPoint("TOPLEFT")
-	case.Child:Size(CHILD_WIDTH, BUTTON_SIZE)
+	frame.Child = CreateFrame("Frame", nil, frame)
+	frame.Child:SetPoint("TOPLEFT")
+	frame.Child:Size(CHILD_WIDTH, BUTTON_SIZE)
 
 	for i = 1, MAX_BUTTONS do
-		CreateButton(i, case.Child)
+		CreateButton(i, frame.Child)
 	end
 
-	case:SetScrollChild(case.Child)
+	frame:SetScrollChild(frame.Child)
 
-	case.FadeObject = {
+	frame.FadeObject = {
 		finishedFuncKeep = true,
-		finishedArg1 = case,
+		finishedArg1 = frame,
 		finishedFunc = FadeClosure
 	}
 
-	return case
+	return frame
 end
 
 function OpenCase(prize, message, text)
