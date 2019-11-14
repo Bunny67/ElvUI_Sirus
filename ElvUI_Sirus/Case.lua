@@ -1,12 +1,12 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
-local mod = E:NewModule("ElvUI_SirusCase")
+local mod = E:NewModule("ElvUI_SirusCase", "AceEvent-3.0")
 
 --local CASE_LIST = {}
 --local ACTIVE_CASES = {}
 
 local NUM_VISIBLE_BUTTONS = 5
-local BUTTON_SIZE = 52
+local BUTTON_SIZE = 64
 local BUTTON_SPACING = 3
 
 local MAX_BUTTONS = 25
@@ -167,9 +167,22 @@ function mod:CreateCase()
 	case.Line = CreateFrame("Frame", nil, case)
 	case.Line:Size(3, BUTTON_SIZE + (8 * 2))
 	case.Line:SetPoint("CENTER")
+	case.Line:SetFrameLevel(case:GetFrameLevel() + 10)
 	case.Line.Texture = case.Line:CreateTexture()
 	case.Line.Texture:SetTexture(0.8, 0, 0)
 	case.Line.Texture:SetAllPoints()
+
+	case.LeftTexture = case.Line:CreateTexture()
+	case.LeftTexture:Size((BUTTON_SIZE * 2) + 30, BUTTON_SIZE + 30)
+	case.LeftTexture:SetPoint("LEFT", case, -15, 0)
+	case.LeftTexture:SetTexture(0, 0, 0)
+	case.LeftTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,1, 0,0,0,0)
+
+	case.RightTexture = case.Line:CreateTexture()
+	case.RightTexture:Size((BUTTON_SIZE * 2) + 30, BUTTON_SIZE + 30)
+	case.RightTexture:SetPoint("RIGHT", case, 15, 0)
+	case.RightTexture:SetTexture(0, 0, 0)
+	case.RightTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,0, 0,0,0,1)
 
 	case:CreateBackdrop("Transparent")
 	case.backdrop:SetOutside(nil, 15, 15)
@@ -197,7 +210,7 @@ function mod:CreateCase()
 	return case
 end
 
-function OpenCase(prize, message)
+function OpenCase(prize, message, text)
 	if case.IsPlaying then
 		case:SetScript("OnUpdate", nil)
 		case:SetHorizontalScroll(case.EndScroll)
@@ -207,6 +220,7 @@ function OpenCase(prize, message)
 
 	case:SetPrize(prize or math.random(1, #ITEMS_TABLE))
 	case:Reset()
+	case.Text:SetText((not message or text) and "Тестовый режим")
 	case:Show()
 
 	case.Time = 0
@@ -224,10 +238,19 @@ function OpenCase(prize, message)
 	return case
 end
 
+local noValueText = "У вас недостаточно бонусов для участия в лотерее."
+function mod:CHAT_MSG_SYSTEM(_, msg)
+	if msg == noValueText then
+		OpenCase(nil, nil, true)
+	end
+end
+
 function mod:Initialize()
 	if not E.db.sirus.case then return end
 
 	case = mod:CreateCase()
+
+	self:RegisterEvent("CHAT_MSG_SYSTEM")
 
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_BOSS_EMOTE", function(_, _, ...)
 		local arg1, arg2, _, _, arg5 = ...
