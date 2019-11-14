@@ -73,6 +73,21 @@ local function LoadSkin()
 	GhostFrame:SetTemplate("Transparent")
 	GhostFrameContentsFrameIcon:CreateBackdrop()
 	GhostFrameContentsFrameIcon:SetTexCoord(unpack(E.TexCoords))
+
+	local GhostFrameHolder = CreateFrame("Frame", "GhostFrameHolder", E.UIParent)
+	GhostFrameHolder:Size(130, 46)
+	GhostFrameHolder:Point("TOP", E.UIParent, "TOP", 0, -70)
+
+	E:CreateMover(GhostFrameHolder, "GhostFrameMover", L["Ghost Frame"])
+	GhostFrameMover:SetFrameStrata("FULLSCREEN")
+	GhostFrameHolder:SetAllPoints(GhostFrameMover)
+
+	hooksecurefunc(GhostFrame, "SetPoint", function(self, _, parent)
+		if parent ~= GhostFrameHolder then
+			self:ClearAllPoints()
+			self:SetPoint("CENTER", GhostFrameHolder, "CENTER")
+		end
+	end)
 end
 
 S:AddCallback("Sirus_Misc", LoadSkin)
