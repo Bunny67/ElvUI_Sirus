@@ -2,8 +2,8 @@ local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 
 local mod = E:NewModule("ElvUI_SirusCase", "AceEvent-3.0")
 
---local CASE_LIST = {}
---local ACTIVE_CASES = {}
+local CASE_LIST = {}
+local ACTIVE_CASES = {}
 
 local NUM_VISIBLE_BUTTONS = 5
 local BUTTON_SIZE = 64
@@ -126,13 +126,23 @@ end
 local function FadeClosure(frame)
 	if frame.fadeInfo.mode == "OUT" then
 		frame:Hide()
+
+		for i, case in ipairs(ACTIVE_CASES) do
+			if case == frame then
+				table.remove(ACTIVE_CASES, i)
+				break
+			end
+		end
+
+		table.insert(CASE_LIST, frame)
+		mod:UpdatePosition()
 	end
 end
 
 local function UIFrameFadeOut(frame)
 	if frame.IsPlaying then return end
 
-	E:UIFrameFadeOut(frame, 1, 1, 0)
+	E:UIFrameFadeOut(frame, 1.5, 1, 0)
 end
 
 local function InOutQuintic(t, b, c, d)
@@ -154,22 +164,21 @@ local function OnUpdate(self, elapsed)
 		self:SetHorizontalScroll(self.EndScroll)
 		self.IsPlaying = nil
 		self:AddMessage()
-		E:Delay(1, UIFrameFadeOut, self)
+		E:Delay(1.5, UIFrameFadeOut, self)
 	end
 
 	self:SetHorizontalScroll(InOutQuintic(self.Time, START_POINT, self.EndScroll, self.Duration))
 end
 
-local case
-
 function mod:CreateCase()
 	local frame = CreateFrame("ScrollFrame", nil, UIParent)
 	frame:Size((BUTTON_SIZE * NUM_VISIBLE_BUTTONS) + (BUTTON_SPACING * (NUM_VISIBLE_BUTTONS - 1)), BUTTON_SIZE)
 	frame:SetPoint("TOP", 0, -200)
+	frame:SetAlpha(0)
 	frame:Hide()
 
 	frame.Text = frame:CreateFontString()
-	frame.Text:SetPoint("TOP", 0, 50)
+	frame.Text:SetPoint("TOP", 0, 22)
 	frame.Text:FontTemplate(nil, 22)
 
 	frame.Line = CreateFrame("Frame", nil, frame)
@@ -218,13 +227,34 @@ function mod:CreateCase()
 	return frame
 end
 
-function OpenCase(prize, message, text)
-	if case.IsPlaying then
-		case:SetScript("OnUpdate", nil)
-		case:SetHorizontalScroll(case.EndScroll)
-		case.IsPlaying = nil
-		case:AddMessage()
+function mod:GetCaseFrame()
+	local numCases = #CASE_LIST
+	if numCases > 0 then
+		local case = CASE_LIST[numCases]
+		CASE_LIST[numCases] = nil
+		return case
 	end
+
+	return mod:CreateCase()
+end
+
+function mod:UpdatePosition()
+	local previousCase
+	for i, case in ipairs(ACTIVE_CASES) do
+		case:ClearAllPoints()
+		if i == 1 then
+			case:Point("TOP", 0, -150)
+		else
+			case:Point("TOP", previousCase, "BOTTOM", 0, -45)
+		end
+		previousCase = case
+	end
+end
+
+function OpenCase(prize, message, text)
+	local case = mod:GetCaseFrame()
+
+	table.insert(ACTIVE_CASES, case)
 
 	case:SetPrize(prize or math.random(1, #ITEMS_TABLE))
 	case:Reset()
@@ -243,6 +273,8 @@ function OpenCase(prize, message, text)
 	case.IsPlaying = true
 	case:SetScript("OnUpdate", OnUpdate)
 
+	mod:UpdatePosition()
+
 	return case
 end
 
@@ -255,8 +287,6 @@ end
 
 function mod:Initialize()
 	if not E.db.sirus.case then return end
-
-	case = mod:CreateCase()
 
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 
