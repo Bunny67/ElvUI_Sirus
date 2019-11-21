@@ -5,15 +5,21 @@ local mod = E:NewModule("ElvUI_SirusCase", "AceEvent-3.0")
 local CASE_LIST = {}
 local ACTIVE_CASES = {}
 
-local NUM_VISIBLE_BUTTONS = 5
-local BUTTON_SIZE = 64
+local BUTTON_WIDTH, BUTTON_HEIGHT = 64, 64
+local SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT = 56, 56
 local BUTTON_SPACING = 3
 
 local MAX_BUTTONS = 25
-local CHILD_WIDTH = (BUTTON_SIZE * MAX_BUTTONS) + (BUTTON_SPACING * (MAX_BUTTONS - 1))
+local CHILD_WIDTH = (BUTTON_WIDTH * MAX_BUTTONS) + (BUTTON_SPACING * (MAX_BUTTONS - 1))
+local SMAIL_CHILD_WIDTH = (SMALL_BUTTON_WIDTH * MAX_BUTTONS) + (BUTTON_SPACING * (MAX_BUTTONS - 1))
 
-local START_POINT = 0
-local END_POINT = CHILD_WIDTH - ((BUTTON_SIZE * (NUM_VISIBLE_BUTTONS + 1)) + (BUTTON_SPACING * ((NUM_VISIBLE_BUTTONS + 1) - 1)) + (BUTTON_SIZE / 2))
+local START_POINT = BUTTON_WIDTH + BUTTON_SPACING + (BUTTON_WIDTH / 2)
+local LEFT_START_POINT = 0
+local RIGHT_START_POINT = ((SMALL_BUTTON_WIDTH + BUTTON_SPACING) * 3) + (BUTTON_WIDTH / 2) - BUTTON_SPACING
+
+local END_POINT = CHILD_WIDTH - START_POINT - ((BUTTON_WIDTH + BUTTON_SPACING) * 5) + BUTTON_SPACING
+local LEFT_END_POINT = SMAIL_CHILD_WIDTH - LEFT_START_POINT - ((SMALL_BUTTON_WIDTH + BUTTON_SPACING) * 6) - (SMALL_BUTTON_WIDTH / 2)
+local RIGHT_END_POINT = SMAIL_CHILD_WIDTH - RIGHT_START_POINT - ((SMALL_BUTTON_WIDTH + BUTTON_SPACING) * 3) + BUTTON_SPACING
 
 local faction = UnitFactionGroup("player")
 local honorIcon = "PVPCurrency-Honor-"..faction
@@ -63,6 +69,12 @@ local function Reset(self)
 	self:SetHorizontalScroll(START_POINT)
 	self:UpdateScrollChildRect()
 
+	self.LeftScroll:SetHorizontalScroll(LEFT_START_POINT)
+	self.LeftScroll:UpdateScrollChildRect()
+
+	self.RightScroll:SetHorizontalScroll(RIGHT_START_POINT)
+	self.RightScroll:UpdateScrollChildRect()
+
 	for i = 1, 7 do
 		table.insert(randonTable, i + 6)
 	end
@@ -70,15 +82,24 @@ local function Reset(self)
 	for i = 1, MAX_BUTTONS do
 		if i == (MAX_BUTTONS - 3) then
 			self.Child[i]:AddItem(self.Prize) -- LOL
+			self.LeftScroll.Child[i]:AddItem(self.Prize) -- LOL
+			self.RightScroll.Child[i]:AddItem(self.Prize) -- LOL
 		elseif i >= (MAX_BUTTONS - 7) then
 			local rnd = math.random(1, #randonTable)
 			self.Child[i]:AddItem(randonTable[rnd]) -- Added the top items :D
+			self.LeftScroll.Child[i]:AddItem(randonTable[rnd]) -- Added the top items :D
+			self.RightScroll.Child[i]:AddItem(randonTable[rnd]) -- Added the top items :D
 			table.remove(randonTable, rnd)
 		else
-			self.Child[i]:AddItem(math.random(1, #ITEMS_TABLE))
+			local rnd = math.random(1, #ITEMS_TABLE)
+			self.Child[i]:AddItem(rnd)
+			self.LeftScroll.Child[i]:AddItem(rnd)
+			self.RightScroll.Child[i]:AddItem(rnd)
 		end
 
 		self.Child[i]:Show()
+		self.LeftScroll.Child[i]:Show()
+		self.RightScroll.Child[i]:Show()
 	end
 end
 
@@ -96,10 +117,10 @@ local function AddMessage(self, id)
 	end
 end
 
-local function CreateButton(i, parent)
+local function CreateButton(i, parent, isSmail)
 	local button = CreateFrame("Frame", nil, parent)
 	button:Hide()
-	button:SetSize(BUTTON_SIZE, BUTTON_SIZE)
+	button:Size(isSmail and SMALL_BUTTON_WIDTH or BUTTON_WIDTH, isSmail and SMALL_BUTTON_HEIGHT or BUTTON_HEIGHT)
 	button:SetID(i)
 
 	button.AddItem = AddItem
@@ -162,17 +183,21 @@ local function OnUpdate(self, elapsed)
 	if self.Time >= self.Duration then
 		self:SetScript("OnUpdate", nil)
 		self:SetHorizontalScroll(self.EndScroll)
+		self.LeftScroll:SetHorizontalScroll(self.LeftEndScroll)
+		self.RightScroll:SetHorizontalScroll(self.RightEndScroll)
 		self.IsPlaying = nil
 		self:AddMessage()
 		E:Delay(1.5, UIFrameFadeOut, self)
 	end
 
 	self:SetHorizontalScroll(InOutQuintic(self.Time, START_POINT, self.EndScroll, self.Duration))
+	self.LeftScroll:SetHorizontalScroll(InOutQuintic(self.Time, LEFT_START_POINT, self.LeftEndScroll, self.Duration))
+	self.RightScroll:SetHorizontalScroll(InOutQuintic(self.Time, RIGHT_START_POINT, self.RightEndScroll, self.Duration))
 end
 
 function mod:CreateCase()
 	local frame = CreateFrame("ScrollFrame", nil, UIParent)
-	frame:Size((BUTTON_SIZE * NUM_VISIBLE_BUTTONS) + (BUTTON_SPACING * (NUM_VISIBLE_BUTTONS - 1)), BUTTON_SIZE)
+	frame:Size(BUTTON_WIDTH * 2 + BUTTON_SPACING, BUTTON_HEIGHT)
 	frame:SetPoint("TOP", 0, -200)
 	frame:SetAlpha(0)
 	frame:Hide()
@@ -182,27 +207,12 @@ function mod:CreateCase()
 	frame.Text:FontTemplate(nil, 22)
 
 	frame.Line = CreateFrame("Frame", nil, frame)
-	frame.Line:Size(3, BUTTON_SIZE + (8 * 2))
+	frame.Line:Size(3, BUTTON_HEIGHT + (8 * 2))
 	frame.Line:SetPoint("CENTER")
 	frame.Line:SetFrameLevel(frame:GetFrameLevel() + 10)
 	frame.Line.Texture = frame.Line:CreateTexture()
 	frame.Line.Texture:SetTexture(0.8, 0, 0)
 	frame.Line.Texture:SetAllPoints()
-
-	frame.LeftTexture = frame.Line:CreateTexture()
-	frame.LeftTexture:Size((BUTTON_SIZE * 2) + 28, BUTTON_SIZE + 28)
-	frame.LeftTexture:Point("LEFT", frame, -14, 0)
-	frame.LeftTexture:SetTexture(0, 0, 0)
-	frame.LeftTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,1, 0,0,0,0)
-
-	frame.RightTexture = frame.Line:CreateTexture()
-	frame.RightTexture:Size((BUTTON_SIZE * 2) + 28, BUTTON_SIZE + 28)
-	frame.RightTexture:Point("RIGHT", frame, 14, 0)
-	frame.RightTexture:SetTexture(0, 0, 0)
-	frame.RightTexture:SetGradientAlpha("HORIZONTAL", 0,0,0,0, 0,0,0,1)
-
-	frame:CreateBackdrop("Transparent")
-	frame.backdrop:SetOutside(nil, 15, 15)
 
 	frame.Reset = Reset
 	frame.SetPrize = SetPrize
@@ -210,13 +220,45 @@ function mod:CreateCase()
 
 	frame.Child = CreateFrame("Frame", nil, frame)
 	frame.Child:SetPoint("TOPLEFT")
-	frame.Child:Size(CHILD_WIDTH, BUTTON_SIZE)
+	frame.Child:Size(CHILD_WIDTH, BUTTON_HEIGHT)
 
 	for i = 1, MAX_BUTTONS do
 		CreateButton(i, frame.Child)
 	end
 
 	frame:SetScrollChild(frame.Child)
+
+	local t = SMALL_BUTTON_WIDTH + (SMALL_BUTTON_WIDTH * 0.5) + BUTTON_SPACING
+	frame.LeftScroll = CreateFrame("ScrollFrame", nil, frame)
+	frame.LeftScroll:Size(t, SMALL_BUTTON_HEIGHT)
+	frame.LeftScroll:Point("RIGHT", frame, "LEFT", -BUTTON_SPACING, 0)
+
+	frame.LeftScroll.Child = CreateFrame("Frame", nil, frame.LeftScroll)
+	frame.LeftScroll.Child:SetPoint("TOPLEFT")
+	frame.LeftScroll.Child:Size(SMAIL_CHILD_WIDTH, SMALL_BUTTON_HEIGHT)
+
+	for i = 1, MAX_BUTTONS do
+		CreateButton(i, frame.LeftScroll.Child, true)
+	end
+
+	frame.LeftScroll:SetScrollChild(frame.LeftScroll.Child)
+
+	frame.RightScroll = CreateFrame("ScrollFrame", nil, frame)
+	frame.RightScroll:Size(t, SMALL_BUTTON_HEIGHT)
+	frame.RightScroll:Point("LEFT", frame, "RIGHT", BUTTON_SPACING, 0)
+
+	frame.RightScroll.Child = CreateFrame("Frame", nil, frame.RightScroll)
+	frame.RightScroll.Child:SetPoint("TOPLEFT")
+	frame.RightScroll.Child:Size(SMAIL_CHILD_WIDTH, SMALL_BUTTON_HEIGHT)
+
+	for i = 1, MAX_BUTTONS do
+		CreateButton(i, frame.RightScroll.Child, true)
+	end
+
+	frame.RightScroll:SetScrollChild(frame.RightScroll.Child)
+
+	frame:CreateBackdrop("Transparent")
+	frame.backdrop:SetOutside(frame.LeftScroll, 15, 15, frame.RightScroll)
 
 	frame.FadeObject = {
 		finishedFuncKeep = true,
@@ -262,10 +304,12 @@ function OpenCase(prize, message, text)
 	case:Show()
 
 	case.Time = 0
-	case.Duration = 3
+	case.Duration = 5
 
-	local minRandom = BUTTON_SIZE * 0.2
-	case.EndScroll = END_POINT + math.random(minRandom, BUTTON_SIZE - minRandom)
+	local rnd = math.random(BUTTON_WIDTH * 0.25, BUTTON_WIDTH * 0.75)
+	case.EndScroll = END_POINT + rnd
+	case.LeftEndScroll = LEFT_END_POINT + rnd
+	case.RightEndScroll = RIGHT_END_POINT + rnd
 	case.Message = message
 
 	E:UIFrameFadeIn(case, 0.5, case:GetAlpha(), 1)
