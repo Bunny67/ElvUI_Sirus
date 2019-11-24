@@ -3,7 +3,7 @@ local CH = E:GetModule("Chat")
 
 local ElvBlue = E:TextureString(E.Media.ChatLogos.ElvBlue, ":13:25")
 local specialChatIcons = {
-	["Крельчонок-Scourge x2 - 3.3.5a+"] = ElvBlue,
+	["Крольчонок-Scourge x2 - 3.3.5a+"] = ElvBlue,
 }
 
 local function GetChatIcon(_, name, realm)
