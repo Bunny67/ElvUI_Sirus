@@ -1478,12 +1478,14 @@ function module:Initialize()
 	PaperDollSidebarTabs:Kill()
 	PaperDollFrameStrengthenFrame:Kill()
 
+--[[
 	PaperDollFrameStrengthenFrame.StrengthenTittle = setmetatable({}, {
 		__index = PaperDollFrameStrengthenFrame.StrengthenTittle,
 		__newindex = function(table, key, value)
 			rawset(table, key, key ~= "Current" and value or nil)
 		end,
 	})
+]]
 
 	SendServerMessage("GET_ALL_STRENGTHENING_STATS")
 
