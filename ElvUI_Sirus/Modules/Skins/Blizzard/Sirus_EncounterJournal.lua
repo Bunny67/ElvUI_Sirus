@@ -5,6 +5,8 @@ local S = E:GetModule("Skins")
 --WoW API / Variables
 
 local function LoadSkin()
+	if not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal then return end
+
 	local EncounterJournal = EncounterJournal
 	S:HandlePortraitFrame(EncounterJournal)
 

@@ -82,6 +82,13 @@ local VIP = {
 	[90043] = {name = "Elite VIP Silver", icon = "Interface\\icons\\vipsilver_el"},
 	[90044] = {name = "Elite VIP Gold", icon = "interface\\icons\\vipgold_el"},
 	[90045] = {name = "Elite VIP Black", icon = "interface\\icons\\vipblack_el"},
+	[308221] = {name = "VIP Bronze", icon = "Interface\\icons\\vipbronze"},
+	[308222] = {name = "VIP Silver", icon = "interface\\icons\\vipsilver"},
+	[308223] = {name = "VIP Gold", icon = "Interface\\icons\\vipgold"},
+	[308224] = {name = "Elite VIP Bronze", icon = "interface\\icons\\vipbronze_el"},
+	[308225] = {name = "Elite VIP Silver", icon = "Interface\\icons\\vipsilver_el"},
+	[308226] = {name = "Elite VIP Gold", icon = "interface\\icons\\vipgold_el"},
+	[308227] = {name = "Elite VIP Black", icon = "interface\\icons\\vipblack_el"},
 }
 addon.VIP = VIP
 
