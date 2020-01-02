@@ -142,15 +142,18 @@ local function LoadSkin()
 	PlayerTalentFramePetShadowOverlay:Kill()
 
 	-- Side Tabs
-	for i = 1, 2 do
-		local tab = _G["PlayerSpecTab"..i]
-
-		tab:GetRegions():Hide()
-		tab:SetTemplate()
-		tab:StyleButton(nil, true)
-		tab:GetNormalTexture():SetInside()
-		tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-	end
+	PlayerTalentFrame:HookScript("OnShow", function(self)
+		for _, tab in ipairs(self.specTabs) do
+			if not tab.isSkinned then
+				tab:GetRegions():Hide()
+				tab:SetTemplate()
+				tab:StyleButton(nil, true)
+				tab:GetNormalTexture():SetInside()
+				tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+				tab.isSkinned = true
+			end
+		end
+	end)
 
 	-- Pet Talents
 	PlayerTalentFramePetTalents:StripTextures()
