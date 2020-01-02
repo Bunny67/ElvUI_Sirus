@@ -10,6 +10,18 @@ local function LoadSkin()
 	local PlayerTalentFrame = _G.PlayerTalentFrame
 	S:HandlePortraitFrame(PlayerTalentFrame)
 
+	PlayerTalentFrameTitleGlowLeft:SetAlpha(0)
+	PlayerTalentFrameTitleGlowRight:SetAlpha(0)
+	PlayerTalentFrameTitleGlowCenter:SetAlpha(0)
+
+	hooksecurefunc(PlayerTalentFrameTitleGlowCenter, "SetTexture", function(_, texture)
+		if texture == "Interface\\TalentFrame\\TalentFrame-Horizontal-purple" then
+			PlayerTalentFrame:SetBackdropBorderColor(0.64, 0.19, 0.79)
+		else
+			PlayerTalentFrame:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		end
+	end)
+
 	PlayerTalentFrameInset:StripTextures()
 	PlayerTalentFrameTalents:StripTextures()
 
@@ -150,7 +162,13 @@ local function LoadSkin()
 				tab:StyleButton(nil, true)
 				tab:GetNormalTexture():SetInside()
 				tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+
 				tab.isSkinned = true
+			end
+
+			if tab.EtherealBorder:IsShown() then
+				tab:SetBackdropBorderColor(0.64, 0.19, 0.79)
+				tab.EtherealBorder:Hide()
 			end
 		end
 	end)
