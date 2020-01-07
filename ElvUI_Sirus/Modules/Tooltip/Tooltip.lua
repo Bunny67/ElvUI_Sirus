@@ -43,8 +43,6 @@ local PVP = PVP
 local TAPPED_COLOR = TAPPED_COLOR
 local TARGET = TARGET
 
-TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
-
 local AFK_LABEL = " |cffFFFFFF[|r|cffE7E716"..L["AFK"].."|r|cffFFFFFF]|r"
 local DND_LABEL = " |cffFFFFFF[|r|cffFF0000"..L["DND"].."|r|cffFFFFFF]|r"
 
@@ -270,4 +268,8 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 	if textWidth then
 		tt:SetMinimumWidth(textWidth)
 	end
+end
+
+if E.private.tooltip.enable then
+	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
 end

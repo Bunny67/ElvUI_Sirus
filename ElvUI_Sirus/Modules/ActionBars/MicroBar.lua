@@ -10,11 +10,13 @@ local RegisterStateDriver = RegisterStateDriver
 
 local MICRO_BUTTONS = SHARED_MICROMENU_BUTTONS
 
-UIPARENT_MANAGED_FRAME_POSITIONS["MultiBarBottomLeft"] = nil
-UIPARENT_MANAGED_FRAME_POSITIONS["MultiBarRight"] = nil
-UIPARENT_MANAGED_FRAME_POSITIONS["VoiceChatTalkers"] = nil
-UIPARENT_MANAGED_FRAME_POSITIONS["ShapeshiftBarFrame"] = nil
-UIPARENT_MANAGED_FRAME_POSITIONS["PossessBarFrame"] = nil
+if E.private.actionbar.enable then
+	for _, frame in pairs({"ShapeshiftBarFrame", "PossessBarFrame", "PETACTIONBAR_YPOS", "MULTICASTACTIONBAR_YPOS", "MultiBarBottomLeft", "MultiCastActionBarFrame"}) do
+		if UIPARENT_MANAGED_FRAME_POSITIONS[frame] then
+			UIPARENT_MANAGED_FRAME_POSITIONS[frame].ignoreFramePositionManager = true
+		end
+	end
+end
 
 local function onEnter()
 	if AB.db.microbar.mouseover then
