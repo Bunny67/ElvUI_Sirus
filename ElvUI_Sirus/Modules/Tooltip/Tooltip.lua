@@ -324,7 +324,7 @@ if E.private.tooltip.enable then
 	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
 
 	hooksecurefunc(ItemLevelMixIn, "Update", function(self, unit)
-		local unit = unit or self.unit
+		unit = unit or self.unit
 		local giud = unit and UnitGUID(unit) or self.guid
 
 		if unit and giud then
