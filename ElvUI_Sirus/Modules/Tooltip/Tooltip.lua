@@ -337,7 +337,7 @@ if E.private.tooltip.enable then
 			if tooltipUNIT and giud == UnitGUID(tooltipUNIT) then
 				local itemLevel = TT:GetItemLvL(unit, giud)
 
-				for lineID = 1, GameTooltip:NumLines() do
+				for lineID = 3, GameTooltip:NumLines() do
 					local line = _G["GameTooltipTextRight"..lineID]
 					local lineText = line:GetText()
 
