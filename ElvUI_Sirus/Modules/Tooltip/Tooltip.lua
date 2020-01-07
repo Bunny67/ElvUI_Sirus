@@ -5,19 +5,24 @@ local ElvUF = E.oUF
 --Lua functions
 local tonumber = tonumber
 local format = string.format
+local find = string.find
 local sub = string.sub
+local gsub = string.gsub
 local tconcat = table.concat
 local tinsert = table.insert
 local twipe = table.wipe
 --WoW API / Variables
+local CanInspect = CanInspect
 local GetGuildInfo = GetGuildInfo
 local GetMouseFocus = GetMouseFocus
 local GetNumPartyMembers = GetNumPartyMembers
 local GetNumRaidMembers = GetNumRaidMembers
 local GetQuestDifficultyColor = GetQuestDifficultyColor
+local GetTime = GetTime
 local IsAltKeyDown = IsAltKeyDown
 local IsControlKeyDown = IsControlKeyDown
 local IsShiftKeyDown = IsShiftKeyDown
+local NotifyInspect = NotifyInspect
 local UnitClass = UnitClass
 local UnitClassification = UnitClassification
 local UnitCreatureType = UnitCreatureType
@@ -321,7 +326,7 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 end
 
 if E.private.tooltip.enable then
-	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
+	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
 
 	hooksecurefunc(ItemLevelMixIn, "Update", function(self, unit)
 		unit = unit or self.unit
@@ -336,8 +341,9 @@ if E.private.tooltip.enable then
 					local line = _G["GameTooltipTextRight"..lineID]
 					local lineText = line:GetText()
 
-					if lineText and string.find(lineText, TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL) then
-						line:SetText(string.gsub(lineText, TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL, itemLevel))
+					if lineText and find(lineText, TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL) then
+						line:SetText(gsub(lineText, TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL, itemLevel))
+						break
 					end
 				end
 			end
