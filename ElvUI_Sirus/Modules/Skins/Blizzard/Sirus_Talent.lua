@@ -160,6 +160,8 @@ local function LoadSkin()
 				tab:GetRegions():Hide()
 				tab:SetTemplate()
 				tab:StyleButton(nil, true)
+				tab:GetHighlightTexture().SetTexture = E.noop
+				tab:GetCheckedTexture().SetTexture = E.noop
 				tab:GetNormalTexture():SetInside()
 				tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 
