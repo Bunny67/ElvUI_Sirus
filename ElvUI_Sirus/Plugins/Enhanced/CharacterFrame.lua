@@ -368,17 +368,6 @@ function module:PaperDollFrame_SetLevel()
 	end
 end
 
-local function PlusButton_OnClick(self)
-	local id = self:GetParent():GetID()
-	if IsModifiedClick("SHIFT") then
-		SendAddonMessage("INCREASE_STRENGTHENING_STAT", id..":10", "WHISPER", UnitName("player"))
-	elseif IsModifiedClick("CTRL") then
-		SendAddonMessage("INCREASE_STRENGTHENING_STAT", id..":100", "WHISPER", UnitName("player"))
-	else
-		SendAddonMessage("INCREASE_STRENGTHENING_STAT", id..":1", "WHISPER", UnitName("player"))
-	end
-end
-
 local function PlusButton_OnShow(self)
 	self:GetParent().Value:SetPoint("RIGHT", -22, 0)
 end
@@ -420,7 +409,7 @@ function module:CharacterStatFrame(button)
 	button.Plus.Texture:SetAllPoints()
 	button.Plus.Texture:SetTexture(E.Media.Textures.Plus)
 
-	button.Plus:SetScript("OnClick", PlusButton_OnClick)
+	button.Plus:SetScript("OnClick", CharacterStrengthenButton_OnClick)
 	button.Plus:SetScript("OnShow", PlusButton_OnShow)
 	button.Plus:SetScript("OnHide", PlusButton_OnHide)
 	button.Plus:SetScript("OnEnter", CharacterStrengthenButton_OnEnter)
@@ -1476,7 +1465,14 @@ function module:Initialize()
 	GearManagerToggleButton:Kill()
 
 	PaperDollSidebarTabs:Kill()
-	PaperDollFrameStrengthenFrame:Kill()
+	PaperDollFrameStrengthenFrame:SetAlpha(0)
+
+	for i = 1, PaperDollFrameStrengthenFrame:GetNumChildren() do
+		local frame = select(i, PaperDollFrameStrengthenFrame:GetChildren())
+		if frame then
+			frame:Kill()
+		end
+	end
 
 --[[
 	PaperDollFrameStrengthenFrame.StrengthenTittle = setmetatable({}, {
