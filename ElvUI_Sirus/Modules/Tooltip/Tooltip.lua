@@ -55,14 +55,15 @@ local classification = {
 	rare = format("|cffAF5050 %s|r", ITEM_QUALITY3_DESC)
 }
 
-function TT:GetItemLvL(unit)
-	ItemLevelMixIn:Request(unit)
-	local ilvl = ItemLevelMixIn:GetItemLevel(UnitGUID(unit))
-	if ilvl then
+function TT:GetItemLvL(unit, giud)
+	local ilvl = ItemLevelMixIn:GetItemLevel(giud or UnitGUID(unit))
+	if ilvl and ilvl ~= -1 then
 		local color = ItemLevelMixIn:GetColor(ilvl)
 		if color then
 			return format("%s%s|r", E:RGBToHex(color.r, color.g, color.b), ilvl)
 		end
+	else
+		return TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL
 	end
 end
 
@@ -160,6 +161,61 @@ function TT:SetUnitText(tt, unit, level, isShiftKeyDown)
 	return color
 end
 
+local inspectCache = {}
+
+function TT:INSPECT_TALENT_READY(event, unit)
+	if not unit then
+		if self.lastGUID ~= UnitGUID("mouseover") then return end
+
+		self:UnregisterEvent(event)
+
+		unit = "mouseover"
+		if not UnitExists(unit) then return end
+	end
+
+	local _, specName = E:GetTalentSpecInfo(true)
+	inspectCache[self.lastGUID] = {time = GetTime()}
+
+	if specName then
+		inspectCache[self.lastGUID].specName = specName
+	end
+
+	GameTooltip:SetUnit(unit)
+end
+
+function TT:ShowInspectInfo(tt, unit, r, g, b)
+	local canInspect = CanInspect(unit)
+	if not canInspect then return end
+
+	local GUID = UnitGUID(unit)
+	if GUID == E.myguid then
+		local _, specName = E:GetTalentSpecInfo()
+
+		tt:AddDoubleLine(L["Talent Specialization:"], specName, nil, nil, nil, r, g, b)
+		return
+	elseif inspectCache[GUID] then
+		local specName = inspectCache[GUID].specName
+
+		if (GetTime() - inspectCache[GUID].time) < 900 and specName then
+			tt:AddDoubleLine(L["Talent Specialization:"], specName, nil, nil, nil, r, g, b)
+			return
+		else
+			inspectCache[GUID] = nil
+		end
+	end
+
+	if InspectFrame and InspectFrame.unit then
+		if UnitIsUnit(InspectFrame.unit, unit) then
+			self.lastGUID = GUID
+			self:INSPECT_TALENT_READY(nil, unit)
+		end
+	else
+		self.lastGUID = GUID
+		NotifyInspect(unit)
+		self:RegisterEvent("INSPECT_TALENT_READY")
+	end
+end
+
 function TT:GameTooltip_OnTooltipSetUnit(tt)
 	local isShiftKeyDown = IsShiftKeyDown()
 	local isControlKeyDown = IsControlKeyDown()
@@ -234,18 +290,12 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 
 	local isPlayerUnit = UnitIsPlayer(unit)
 	local color = self:SetUnitText(tt, unit, UnitLevel(unit), isShiftKeyDown)
-	local canInspect = CanInspect(unit)
 
 	if isPlayerUnit then
-		if canInspect then
-			self:ShowInspectInfo(tt, unit, color.r, color.g, color.b)
-		else
-			local ilvl = self:GetItemLvL(unit)
+		self:ShowInspectInfo(tt, unit, color.r, color.g, color.b)
 
-			if ilvl then
-				tt:AddDoubleLine(L["Item Level:"], self:GetItemLvL(unit), nil, nil, nil, 1, 1, 1)
-			end
-		end
+		ItemLevelMixIn:Request(unit)
+		tt:AddDoubleLine(L["Item Level:"], self:GetItemLvL(unit), nil, nil, nil, 1, 1, 1)
 	end
 
 	if unit and self.db.npcID and not isPlayerUnit then
@@ -272,4 +322,25 @@ end
 
 if E.private.tooltip.enable then
 	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = string.gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
+
+	hooksecurefunc(ItemLevelMixIn, "Update", function(self, unit)
+		local unit = unit or self.unit
+		local giud = unit and UnitGUID(unit) or self.guid
+
+		if unit and giud then
+			local _, tooltipUNIT = GameTooltip:GetUnit()
+			if tooltipUNIT and giud == UnitGUID(tooltipUNIT) then
+				local itemLevel = TT:GetItemLvL(unit, giud)
+
+				for lineID = 1, GameTooltip:NumLines() do
+					local line = _G["GameTooltipTextRight"..lineID]
+					local lineText = line:GetText()
+
+					if lineText and string.find(lineText, TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL) then
+						line:SetText(string.gsub(lineText, TOOLTIP_UNIT_LEVEL_ILEVEL_LOADING_LABEL, itemLevel))
+					end
+				end
+			end
+		end
+	end)
 end
