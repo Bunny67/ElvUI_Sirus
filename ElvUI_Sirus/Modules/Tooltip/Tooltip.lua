@@ -299,8 +299,11 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 	if isPlayerUnit then
 		self:ShowInspectInfo(tt, unit, color.r, color.g, color.b)
 
-		ItemLevelMixIn:Request(unit)
-		tt:AddDoubleLine(L["Item Level:"], self:GetItemLvL(unit), nil, nil, nil, 1, 1, 1)
+		if not UnitIsEnemy("player", unit) then
+			ItemLevelMixIn:Request(unit)
+
+			tt:AddDoubleLine(L["Item Level:"], self:GetItemLvL(unit), nil, nil, nil, 1, 1, 1)
+		end
 	end
 
 	if unit and self.db.npcID and not isPlayerUnit then
