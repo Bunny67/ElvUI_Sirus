@@ -22,6 +22,7 @@ hooksecurefunc(E, "UpdateBlizzardFonts", function(self)
 	end
 
 	if self.private.general.replaceBlizzFonts then
+		SetFont(GameFontNormal11, NORMAL, self.db.general.fontSize)
 		SetFont(GameFontNormal12, NORMAL, self.db.general.fontSize)
 		SetFont(GameFontNormal13, NORMAL, self.db.general.fontSize)
 		SetFont(GameFontNormal17, NORMAL, 18)

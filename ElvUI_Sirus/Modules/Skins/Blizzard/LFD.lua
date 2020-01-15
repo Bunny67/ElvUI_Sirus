@@ -541,6 +541,7 @@ local function LoadSkin()
 		b.Icon:CreateBackdrop()
 		b.Icon:SetParent(b.Icon.backdrop)
 		b.Icon.backdrop:SetFrameLevel(b:GetFrameLevel() + 2)
+		b.Name:FontTemplate(nil, 16)
 	end
 
 	for i = 1, 2 do
