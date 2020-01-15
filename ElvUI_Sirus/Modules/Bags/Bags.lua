@@ -6,8 +6,8 @@ hooksecurefunc(B, "UpdateSlot", function(_, frame, bagID, slotID)
 
 	local slot = frame.Bags[bagID][slotID]
 	local clink = GetContainerItemLink(bagID, slotID)
+	local found
 	if clink then
-		local found
 		for i = 1, 3 do
 			local _, glink = GetItemGem(clink, i)
 			if glink then
@@ -26,11 +26,9 @@ hooksecurefunc(B, "UpdateSlot", function(_, frame, bagID, slotID)
 				end
 			end
 		end
+	end
 
-		if not found and slot.bagNewItemGlow then
-			slot.bagNewItemGlow:Hide()
-		end
-	elseif slot.bagNewItemGlow then
+	if not found and slot.bagNewItemGlow then
 		slot.bagNewItemGlow:Hide()
 	end
 end)
