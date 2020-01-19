@@ -81,6 +81,11 @@ function S:GetOptions()
 		name = "Путеводитель",
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.roulette = {
+		type = "toggle",
+		name = ROULETTE_TITLE,
+		desc = L["TOGGLESKIN_DESC"]
+	}
 end
 
 local EE = E:GetModule("ElvUI_Enhanced", true)

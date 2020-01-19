@@ -12,3 +12,4 @@ V.skins.blizzard.timer = true
 V.skins.blizzard.transmogrify = true
 V.skins.blizzard.collections = true
 V.skins.blizzard.encounterjournal = true
+V.skins.blizzard.roulette = true
