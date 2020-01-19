@@ -9,6 +9,7 @@ local function LoadSkin()
 
 	Custom_RouletteFrame:SetParent(UIParent)
 	Custom_RouletteFrame:SetScale(1)
+	Custom_RouletteFrame:SetFrameStrata("HIGH")
 
 	Custom_RouletteFrame:StripTextures(true)
 	Custom_RouletteFrame:SetTemplate("Transparent")
