@@ -23,7 +23,7 @@ local function LoadSkin()
 	Custom_RouletteFrame.HeaderFrame:StripTextures()
 	Custom_RouletteFrame.HeaderFrame:SetPoint("TOP", 0, 6)
 	Custom_RouletteFrame.HeaderFrame.TitleText:FontTemplate(nil, 18, "NONE")
-	
+
 	Custom_RouletteFrame.ToggleCurrencyFrame.Background:SetTexture(E.Media.Textures.Highlight)
 	Custom_RouletteFrame.ToggleCurrencyFrame.Background:SetTexCoord(1, 0, 1, 0)
 	Custom_RouletteFrame.ToggleCurrencyFrame.Background:SetAlpha(0.3)
@@ -67,7 +67,7 @@ local function LoadSkin()
 
 	SkinRouletteCurrencyButto(Custom_RouletteFrame.ToggleCurrencyFrame.CurrencyBonus)
 	SkinRouletteCurrencyButto(Custom_RouletteFrame.ToggleCurrencyFrame.CurrencyLuckCoins)
-	
+
 	Custom_RouletteFrame.ToggleCurrencyFrame.CurrencySelector.Selector:SetSize(200, 48)
 	Custom_RouletteFrame.ToggleCurrencyFrame.CurrencySelector.Selector:ClearAllPoints()
 	Custom_RouletteFrame.ToggleCurrencyFrame.CurrencySelector.Selector:SetPoint("CENTER")
