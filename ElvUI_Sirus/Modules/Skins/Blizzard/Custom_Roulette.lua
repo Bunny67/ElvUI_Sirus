@@ -30,7 +30,7 @@ local function LoadSkin()
 		button.Background:SetInside()
 		button.Border:SetAlpha(0)
 		button:SetTemplate()
-		button.OverlayFrame.ChildFrame.ItemName:FontTemplate()
+		button.OverlayFrame.ChildFrame.ItemName:FontTemplate(nil, 12, "NONE")
 
 		local r, g, b = button.Border:GetVertexColor()
 		button:SetBackdropBorderColor(r, g, b)
