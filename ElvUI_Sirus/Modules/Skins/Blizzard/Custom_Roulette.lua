@@ -7,6 +7,9 @@ local S = E:GetModule("Skins")
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.roulette ~= true then return end
 
+	Custom_RouletteFrame.selectedCurrency = 2
+	Custom_RouletteFrame.ToggleCurrencyFrame.CurrencySelector:SetPoint("CENTER", 76, 0)
+
 	Custom_RouletteFrame:SetParent(UIParent)
 	Custom_RouletteFrame:SetScale(1)
 	Custom_RouletteFrame:SetFrameStrata("HIGH")
@@ -48,7 +51,7 @@ local function LoadSkin()
 	local function SkinRouletteCurrencyButto(button)
 		button.Text:FontTemplate(nil, 14, "NONE")
 
-		if button:GetID() == 1 then
+		if button:GetID() == Custom_RouletteFrame.selectedCurrency then
 			button.Text:SetTextColor(1, 1, 1)
 			button.active = true
 		else
