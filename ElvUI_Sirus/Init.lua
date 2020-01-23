@@ -20,12 +20,13 @@ local function GameMenuFrame_UpdateVisibleButtons()
 		GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() + 1)
 	end
 
-	if ElvUI_AddonListButton then
-		ElvUI_AddonListButton:ClearAllPoints()
-		ElvUI_AddonListButton:Point("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
+	local addonsButton = GameMenuButtonAddOns or ElvUI_AddonListButton
+	if addonsButton then
+		addonsButton:ClearAllPoints()
+		addonsButton:Point("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
 
 		GameMenuFrame.ElvUI:ClearAllPoints()
-		GameMenuFrame.ElvUI:Point("TOP", ElvUI_AddonListButton, "BOTTOM", 0, -1)
+		GameMenuFrame.ElvUI:Point("TOP", addonsButton, "BOTTOM", 0, -1)
 
 		GameMenuFrame:SetHeight(GameMenuFrame:GetHeight() + GameMenuButtonLogout:GetHeight() + 1)
 	end
