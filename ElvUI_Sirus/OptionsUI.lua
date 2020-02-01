@@ -100,4 +100,10 @@ if EE then
 			enhanced.args.blizzardGroup.args.timerTracker = nil
 		end
 	end)
+
+	E:GetModule("Enhanced_TimerTracker").Initialize = E.noop
+	E:GetModule("Enhanced_ModelFrames").Initialize = E.noop
+	local EB = E:GetModule("Enhanced_Blizzard")
+	EB.DressUpFrame = E.noop
+	EB.DeathRecap = E.noop
 end
