@@ -62,11 +62,30 @@ function addon:UPDATE_MOUSEOVER_UNIT()
 	end
 end
 
+function addon:FixArenaTaint()
+	ArenaEnemyFrames.ClearAllPoints = E.noop
+	ArenaEnemyFrames.SetPoint = E.noop
+end
+
+function addon:ADDON_LOADED(_, addonName)
+	if addonName == "Blizzard_ArenaUI" then
+		self:FixArenaTaint()
+	end
+end
+
 function addon:Initialize()
 	ElvSirusDB = ElvSirusDB or {}
 	ElvSirusDB[E.myrealm] = ElvSirusDB[E.myrealm] or {}
 
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
+
+	if E.private.unitframe.disabledBlizzardFrames.arena then
+		if not IsAddOnLoaded("Blizzard_ArenaUI") then
+			self:RegisterEvent("ADDON_LOADED")
+		else
+			self:FixArenaTaint()
+		end
+	end
 
 	hooksecurefunc("WorldStateScoreFrame_Update", function()
 		local offset = FauxScrollFrame_GetOffset(WorldStateScoreScrollFrame)
