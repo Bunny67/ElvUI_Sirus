@@ -529,15 +529,26 @@ local function LoadSkin()
 		S:HandleTab(_G["PVPLadderFrameTab"..i])
 	end
 
+	local c = .035
+	local tc = {
+		{.253906 + c, 0.503906 - c, 0.507813 + c, 0.757813 - c},
+		{c, 0.25 - c, c, 0.25 - c},
+		{c, 0.250000 - c, 0.253906 + c, 0.503906 - c},
+		{.507813 + c, 0.757813 - c, c, 0.25 - c},
+	}
+
 	for i = 1, 4 do
 		local b = _G["PVPLadderFrameCategoryButton"..i]
-		b.Ring:Kill()
-		b.Background:Kill()
+		b.Ring:SetAlpha(0)
+		b.Background:SetAlpha(0)
 		S:HandleButton(b)
 		b.Icon:Size(45)
 		b.Icon:ClearAllPoints()
 		b.Icon:Point("LEFT", 10, 0)
-		--b.Icon:SetTexCoord(unpack(E.TexCoords))
+		local texture = b.Icon:GetTexture()
+		SetPortraitToTexture(b.Icon, "")
+		b.Icon:SetTexture(texture)
+		b.Icon:SetTexCoord(unpack(tc[i]))
 		b.Icon:CreateBackdrop()
 		b.Icon:SetParent(b.Icon.backdrop)
 		b.Icon.backdrop:SetFrameLevel(b:GetFrameLevel() + 2)
