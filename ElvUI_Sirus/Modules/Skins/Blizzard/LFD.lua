@@ -596,6 +596,16 @@ local function LoadSkin()
 	PVPLadderInfoFrame.CentralContainer.ScrollFrame.ShadowOverlay:StripTextures()
 	PVPLadderInfoFrame.TopContainer.ShadowOverlay:StripTextures()
 	PVPLadderInfoFrame.TopContainer.StatisticsFrame:StripTextures()
+
+	PVPLadderFrame:HookScript("OnShow", function(self)
+		local buttons = self.Container.RightContainer.CentralContainer.ScrollFrame.buttons
+		local childFrameLevel = self.Container.RightContainer.CentralContainer.ScrollFrame.ScrollChild:GetFrameLevel()
+		if buttons[1]:GetFrameLevel() < childFrameLevel then
+			for i = 1, #buttons do
+				buttons[i]:SetFrameLevel(childFrameLevel + 1)
+			end
+		end
+	end)
 end
 
 S:RemoveCallback("Skin_LFD")
