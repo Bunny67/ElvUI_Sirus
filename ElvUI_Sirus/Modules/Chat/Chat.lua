@@ -2,8 +2,10 @@ local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 local CH = E:GetModule("Chat")
 
 local ElvBlue = E:TextureString(E.Media.ChatLogos.ElvBlue, ":13:25")
+local ElvRainbow = E:TextureString(E.Media.ChatLogos.ElvRainbow, ":13:25")
 local specialChatIcons = {
 	["Крольчонок-Scourge x2 - 3.3.5a+"] = ElvBlue,
+	["Vakh-Scourge x2 - 3.3.5a+"] = ElvRainbow,
 }
 
 local function GetChatIcon(_, name, realm)
