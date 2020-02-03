@@ -22,8 +22,11 @@ local function GameMenuFrame_UpdateVisibleButtons()
 
 	local addonsButton = GameMenuButtonAddOns or ElvUI_AddonListButton
 	if addonsButton then
---		addonsButton:ClearAllPoints()
---		addonsButton:Point("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
+		GameMenuButtonMacros:ClearAllPoints()
+		GameMenuButtonMacros:Point("TOP", GameMenuButtonKeybindings, "BOTTOM", 0, -1)
+
+		addonsButton:ClearAllPoints()
+		addonsButton:Point("TOP", GameMenuButtonMacros, "BOTTOM", 0, -1)
 
 		GameMenuFrame.ElvUI:ClearAllPoints()
 		GameMenuFrame.ElvUI:Point("TOP", addonsButton, "BOTTOM", 0, -1)
