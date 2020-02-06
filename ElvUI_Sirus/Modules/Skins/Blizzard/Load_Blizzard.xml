@@ -29,5 +29,7 @@
 	<Script file="Sirus_Trainer.lua"/>
 	<Script file="Sirus_Transmogrify.lua"/>
 	<Script file="Sirus_Collections.lua"/>
+
+	<Script file="Custom_ExtraActionButton.lua"/>
 	<Script file="Custom_Roulette.lua"/>
 </Ui>

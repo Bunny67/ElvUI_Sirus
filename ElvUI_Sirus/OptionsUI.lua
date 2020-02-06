@@ -86,6 +86,22 @@ function S:GetOptions()
 		name = ROULETTE_TITLE,
 		desc = L["TOGGLESKIN_DESC"]
 	}
+
+	E.Options.args.skins.args.blizzard.args.extraButton = {
+		type = "toggle",
+		name = "Кнопки действий",
+		desc = L["TOGGLESKIN_DESC"]
+	}
+	E.Options.args.skins.args.cleanExtraButton = {
+		order = 9,
+		type = "toggle",
+		name = E.NewSign.."Упроценые кнопки действий",
+		get = function(info) return E.private.skins.cleanExtraButton end,
+		set = function(info, value)
+			E.private.skins.cleanExtraButton = value
+			E:StaticPopup_Show("PRIVATE_RL")
+		end
+	}
 end
 
 local EE = E:GetModule("ElvUI_Enhanced", true)

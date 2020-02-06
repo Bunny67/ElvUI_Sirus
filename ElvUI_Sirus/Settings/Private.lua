@@ -4,6 +4,8 @@ local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Profi
 
 
 --Skins
+V.skins.cleanExtraButton = false
+
 V.skins.blizzard.deathRecap = true
 V.skins.blizzard.guild = true
 V.skins.blizzard.losscontrol = true
@@ -13,3 +15,4 @@ V.skins.blizzard.transmogrify = true
 V.skins.blizzard.collections = true
 V.skins.blizzard.encounterjournal = true
 V.skins.blizzard.roulette = true
+V.skins.blizzard.extraButton = true
