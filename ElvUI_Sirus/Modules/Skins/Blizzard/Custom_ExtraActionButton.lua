@@ -26,6 +26,8 @@ local function LoadSkin()
 
 		button.cooldown:SetInside()
 		E:RegisterCooldown(button.cooldown)
+		E:CreateCooldownTimer(button.cooldown)
+		button.cooldown.timer:SetAlpha(1)
 	end
 end
 
