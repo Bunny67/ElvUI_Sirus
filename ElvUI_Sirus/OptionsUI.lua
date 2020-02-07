@@ -95,7 +95,7 @@ function S:GetOptions()
 	E.Options.args.skins.args.cleanExtraButton = {
 		order = 9,
 		type = "toggle",
-		name = E.NewSign.."Упроценые кнопки действий",
+		name = E.NewSign.."Упрощенные кнопки действий",
 		get = function(info) return E.private.skins.cleanExtraButton end,
 		set = function(info, value)
 			E.private.skins.cleanExtraButton = value

@@ -81,6 +81,8 @@ local function LoadSkin()
 	Custom_RouletteFrame.OverlayFrame.Background:SetAlpha(0)
 	Custom_RouletteFrame.OverlayFrame.ArtOverlay:StripTextures()
 
+	S:HandleCheckBox(Custom_RouletteFrameSkipAnimation)
+
 	local lineTexture = Custom_RouletteFrame.OverlayFrame.ArtOverlay:CreateTexture()
 	lineTexture:Size(3, 122)
 	lineTexture:SetPoint("CENTER")
