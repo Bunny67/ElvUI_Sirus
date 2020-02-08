@@ -31,6 +31,27 @@ local menuList = {
 	func = function() ToggleFrame(LFDParentFrame) end},
 	{text = LOOKING_FOR_RAID,
 	func = function() ToggleFrame(LFRParentFrame) end},
+	{text = MAINMENU_BUTTON,
+	func = function()
+		if not GameMenuFrame:IsShown() then
+			if VideoOptionsFrame:IsShown() then
+				VideoOptionsFrameCancel:Click()
+			elseif AudioOptionsFrame:IsShown() then
+				AudioOptionsFrameCancel:Click()
+			elseif InterfaceOptionsFrame:IsShown() then
+				InterfaceOptionsFrameCancel:Click()
+			end
+
+			CloseMenus()
+			CloseAllWindows()
+			PlaySound("igMainMenuOpen")
+			ShowUIPanel(GameMenuFrame)
+		else
+			PlaySound("igMainMenuQuit")
+			HideUIPanel(GameMenuFrame)
+			MainMenuMicroButton_SetNormal()
+		end
+	end},
 	{text = HELP_BUTTON,
 	func = ToggleHelpFrame}
 }
