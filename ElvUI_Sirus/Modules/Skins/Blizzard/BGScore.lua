@@ -44,7 +44,7 @@ local function LoadSkin()
 	WorldStateScoreFrame.EfficiencyFrame.EfficiencyBar.Border:SetAlpha(0)
 
 	WorldStateScoreFrame.EfficiencyFrame.EfficiencyBar:HookScript("OnValueChanged", function(self, value)
-		local r, g, b = E:ColorGradient(value / 1, .65,0,0, .65,.65,0, 0,.65,0)
+		local r, g, b = E:ColorGradient(value, .65,0,0, .65,.65,0, 0,.65,0)
 		self:SetStatusBarColor(r, g, b)
 		self.Background:SetTexture(r * 0.25, g * 0.25, b * 0.25)
 	end)
