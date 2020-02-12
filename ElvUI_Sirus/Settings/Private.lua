@@ -15,4 +15,5 @@ V.skins.blizzard.transmogrify = true
 V.skins.blizzard.collections = true
 V.skins.blizzard.encounterjournal = true
 V.skins.blizzard.roulette = true
+V.skins.blizzard.mountChest = true
 V.skins.blizzard.extraButton = true

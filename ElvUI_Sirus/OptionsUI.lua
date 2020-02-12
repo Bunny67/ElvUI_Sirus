@@ -86,6 +86,11 @@ function S:GetOptions()
 		name = ROULETTE_TITLE,
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.mountChest = {
+		type = "toggle",
+		name = MOUNT_CHEST_LABEL,
+		desc = L["TOGGLESKIN_DESC"]
+	}
 
 	E.Options.args.skins.args.blizzard.args.extraButton = {
 		type = "toggle",
