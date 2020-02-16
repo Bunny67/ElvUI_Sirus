@@ -27,6 +27,9 @@ local function LoadSkin()
 		end
 	end
 
+	StoreFrame:SetParent(UIParent)
+	StoreFrame:SetScale(1)
+
 	StoreFrame:StripTextures()
 	StoreFrame:SetTemplate("Transparent")
 	StoreFrame:SetFrameStrata("DIALOG")
@@ -42,11 +45,22 @@ local function LoadSkin()
 
 	S:HandleCloseButton(StoreFrameCloseButton)
 
-
-
-
+	--StoreSpecialOfferFrame
 	StoreSpecialOfferTopFrame:StripTextures()
 	StoreSpecialOfferBanner:SetTemplate()
+	S:HandleButton(StoreSpecialOfferBanner.LeftPanel.BuyButton)
+
+	for _, frame in pairs(SpecialOfferCustomBanners) do
+		frame = _G[frame]
+		if frame and frame.BuyButton then
+			S:HandleButton(frame.BuyButton)
+		end
+	end
+
+	S:HandleNextPrevButton(StoreSpecialOfferBanner.NavigationBar.PrevPageButton, nil, nil, true)
+	StoreSpecialOfferBanner.NavigationBar.PrevPageButton:Size(32)
+	S:HandleNextPrevButton(StoreSpecialOfferBanner.NavigationBar.NextPageButton, nil, nil, true)
+	StoreSpecialOfferBanner.NavigationBar.NextPageButton:Size(32)
 
 	StoreSpecialOfferBottomFrame:StripTextures()
 
@@ -56,6 +70,14 @@ local function LoadSkin()
 --
 --		end
 --	end
+
+	-- StoreItemCardFrame
+	S:HandleNextPrevButton(StoreItemCardFrameNavigationBarPrevPageButton, nil, nil, true)
+	StoreItemCardFrameNavigationBarPrevPageButton:Size(32)
+	S:HandleNextPrevButton(StoreItemCardFrameNavigationBarNextPageButton, nil, nil, true)
+	StoreItemCardFrameNavigationBarNextPageButton:Size(32)
+
+	S:HandleButton(StoreRefreshMountListButton)
 
 	-- StoreModelPreviewFrame
 	StoreModelPreviewFrame:StripTextures()
@@ -115,8 +137,6 @@ local function LoadSkin()
 
 	S:HandleButton(StoreErrorFrame.AcceptButton)
 
-
-
 	-- StoreBuyPremiumFrame
 	RemoveGoldBorder(StoreBuyPremiumFrame)
 	S:HandleCloseButton(StoreBuyPremiumFrame.CloseButton)
@@ -135,9 +155,65 @@ local function LoadSkin()
 
 	S:HandleButton(StoreBuyPremiumFrame.BuyButton)
 
+	-- StoreSubscribeFrame
+	StoreSubscribeContainer.HeaderBackground:SetAlpha(0)
+	StoreSubscribeContainer.BackgroundColor:SetAlpha(0)
+	StoreSubscribeContainer.HeaderBackgroundAlpha:SetAlpha(0)
+	StoreSubscribeContainer.HeaderText:SetTextColor(1, 1, 1)
 
+	local function StoreSubscribeItemTemplate(button)
+		button:SetTemplate()
+		button:StyleButton()
 
+		button.iconTexture:SetDrawLayer("BORDER")
+		button.iconTexture:SetTexCoord(unpack(E.TexCoords))
+		button.iconTexture:SetInside()
 
+		button.slotFrameCollected:Kill()
+		button.glow:Kill()
+		button.glow2:Kill()
+		button.CountBackground:Kill()
+		button.count:FontTemplate(nil, nil, "OUTLINE")
+		button.count:ClearAllPoints()
+		button.count:SetPoint("BOTTOMRIGHT", button, 5, 0)
+	end
+
+	for i = 1, 3 do
+		local button = _G["StoreSubscribeItemButton"..i]
+		StoreSubscribeItemTemplate(button)
+	end
+
+	StoreSubscribeItemTemplate(StoreSubscribeSubItemButton1)
+
+	hooksecurefunc("StoreSubscribeSetup", function()
+		for i = 1, 3 do
+			local button = _G["StoreSubscribeItemButton"..i]
+			if button and button.Link then
+				local _, _, quality = GetItemInfo(button.Link)
+
+				if quality then
+					button:SetBackdropBorderColor(GetItemQualityColor(quality))
+				else
+					button:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				end
+			end
+		end
+		
+		local subItemButton = StoreSubscribeSubItemButton1
+		if subItemButton and subItemButton.Link then
+			local _, _, quality = GetItemInfo(subItemButton.Link)
+
+			if quality then
+				subItemButton:SetBackdropBorderColor(GetItemQualityColor(quality))
+			else
+				subItemButton:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			end
+		end
+	end)
+
+	S:HandleButton(StoreSubscribeContainer.BuyButton1)
+	S:HandleButton(StoreSubscribeContainer.BuyButton2)
+	S:HandleButton(StoreSubscribeContainer.BuyButton3)
 
 	hooksecurefunc("StoreFrame_UpdateCategories", function(self)
 		for i, button in pairs(self.CategoryFrames) do
