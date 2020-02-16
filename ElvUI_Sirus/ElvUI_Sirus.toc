@@ -5,7 +5,7 @@
 ## Notes: User Interface replacement AddOn for World of Warcraft.
 ## SavedVariables: ElvSirusDB
 ## RequiredDeps: ElvUI
-## OptionalDeps: ElvUI_Enhanced
+## OptionalDeps: ElvUI_Enhanced, ElvUI_VisualProcs
 
 Libraries\LibDualSpec-1.0\LibDualSpec-1.0.lua
 Init.lua
