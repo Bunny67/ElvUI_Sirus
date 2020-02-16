@@ -43,6 +43,29 @@ local function LoadSkin()
 	StoreFrameTopInset:StripTextures()
 	--StoreFrameTopInset:SetTemplate("Transparent")
 
+	for i = 1, 4 do
+		local button = _G["StoreMoneyButton"..i]
+		button:CreateBackdrop("Transparent")
+		button.backdrop:Point("TOPLEFT", 26, -6)
+		button.backdrop:Point("BOTTOMRIGHT", -10, 6)
+
+		button.Background:SetAlpha(0)
+		button.Highlight:SetTexture(1, 1, 1, 0.3)
+		button.Highlight:SetInside(button.backdrop)
+		button.Selected:SetTexture(0.9, 0.8, 0.1, .3)
+		button.Selected:SetInside(button.backdrop)
+	end
+
+	StorePremiumButtons:CreateBackdrop("Transparent")
+	StorePremiumButtons.backdrop:Point("TOPLEFT", 20, -3)
+	StorePremiumButtons.backdrop:Point("BOTTOMRIGHT", 5, 0)
+
+	StorePremiumButtons.Background:SetAlpha(0)
+	StorePremiumButtons.Border:SetAlpha(0)
+	StorePremiumButtons.BorderHighlight:SetAlpha(0)
+	StorePremiumButtons.IconBorder:SetAlpha(0)
+	StorePremiumButtons.IconBorderHighlight:SetAlpha(0)
+
 	S:HandleCloseButton(StoreFrameCloseButton)
 
 	-- StoreItemListFrame
@@ -353,7 +376,7 @@ local function LoadSkin()
 	StoreTransmogrifyFrame.RightContainer:StripTextures()
 	StoreTransmogrifyFrame.RightContainer.Background:Kill()
 	StoreTransmogrifyFrame.RightContainer.ShadowOverlay:StripTextures()
-	StoreTransmogrifyFrame.RightContainer.ContentFrame:StripTextures()
+	StoreTransmogrifyFrame.RightContainer.ContentFrame.IconRowBackground:SetAlpha(0)
 
 	S:HandleButton(StoreTransmogrifyFrame.RightContainer.ContentFrame.BuyButton)
 
