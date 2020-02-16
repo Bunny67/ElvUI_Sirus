@@ -35,10 +35,10 @@ local function LoadSkin()
 	StoreFrame:SetFrameStrata("DIALOG")
 
 	StoreFrameLeftInset:StripTextures()
-	StoreFrameLeftInset:SetTemplate("Transparent")
+--	StoreFrameLeftInset:SetTemplate("Transparent")
 
 	StoreFrameRightInset:StripTextures()
-	StoreFrameRightInset:SetTemplate("Transparent")
+--	StoreFrameRightInset:SetTemplate("Transparent")
 
 	StoreFrameTopInset:StripTextures()
 	--StoreFrameTopInset:SetTemplate("Transparent")
@@ -144,6 +144,27 @@ local function LoadSkin()
 --		end
 --	end
 
+	-- StoreSubCategorySelectFrame
+	StoreSubCategorySelectFrame:StripTextures()
+
+	StoreSubCategorySelectContainer.Background:SetAlpha(0)
+	StoreSubCategorySelectContainer.HeaderText:SetTextColor(1, 1, 1)
+
+	local slots = {"HeadSlot", "NeckSlot", "ShoulderSlot", "BackSlot", "ChestSlot", "WristSlot",
+		"HandsSlot", "WaistSlot", "LegsSlot", "FeetSlot", "Finger0Slot", "Trinket0Slot",
+		"MainHandSlot", "SecondaryHandSlot", "RangedSlot"
+	}
+
+	for _, slot in pairs(slots) do
+		local button = _G["StoreSubCategorySelectContainer"..slot]
+		button.Background:Hide()
+		button.IconBorder:SetAlpha(0)
+--		button.IconBorderHighlight:SetAlpha(0)
+--		button.BackgroundHighlight:SetAlpha(0)
+
+		S:HandleIcon(button.Icon)
+	end
+
 	-- StoreItemCardFrame
 	S:HandleNextPrevButton(StoreItemCardFrameNavigationBarPrevPageButton, nil, nil, true)
 	StoreItemCardFrameNavigationBarPrevPageButton:Size(32)
@@ -229,6 +250,7 @@ local function LoadSkin()
 	S:HandleButton(StoreBuyPremiumFrame.BuyButton)
 
 	-- StoreSubscribeFrame
+	StoreSubscribeFrame:StripTextures()
 	StoreSubscribeContainer.HeaderBackground:SetAlpha(0)
 	StoreSubscribeContainer.BackgroundColor:SetAlpha(0)
 	StoreSubscribeContainer.HeaderBackgroundAlpha:SetAlpha(0)
@@ -288,10 +310,85 @@ local function LoadSkin()
 	S:HandleButton(StoreSubscribeContainer.BuyButton2)
 	S:HandleButton(StoreSubscribeContainer.BuyButton3)
 
+	-- StoreTransmogrifyFrame
+	S:HandleEditBox(StoreTransmogrifyFrame.LeftContainer.searchBox)
+
+	StoreTransmogrifyFrame.LeftContainer:StripTextures()
+	S:HandleButton(StoreTransmogrifyFrame.LeftContainer.FilterButton)
+	StoreTransmogrifyFrame.LeftContainer.FilterButton:Point("LEFT", StoreTransmogrifyFrame.LeftContainer.searchBox, "RIGHT", 3, 0)
+	StoreTransmogrifyFrame.LeftContainer.FilterButton:StripTextures(nil, true)
+	StoreTransmogrifyFrame.LeftContainer.FilterButton.Icon:SetAlpha(1)
+
+	S:HandleScrollBar(StoreTransmogrifyFrameLeftContainerScrollFrameScrollBar)
+	local up = StoreTransmogrifyFrameLeftContainerScrollFrameScrollBarScrollUpButton
+	local upNormal, upDisabled, upPushed = up:GetNormalTexture(), up:GetDisabledTexture(), up:GetPushedTexture()
+	upNormal:SetRotation(S.ArrowRotation.up)
+	upPushed:SetRotation(S.ArrowRotation.up)
+	upDisabled:SetRotation(S.ArrowRotation.up)
+	local down = StoreTransmogrifyFrameLeftContainerScrollFrameScrollBarScrollDownButton
+	local downNormal, downDisabled, downPushed = down:GetNormalTexture(), down:GetDisabledTexture(), down:GetPushedTexture()
+	downNormal:SetRotation(S.ArrowRotation.down)
+	downPushed:SetRotation(S.ArrowRotation.down)
+	downDisabled:SetRotation(S.ArrowRotation.down)
+
+	for i = 1, #StoreTransmogrifyFrameLeftContainerScrollFrame.buttons do
+		local button = StoreTransmogrifyFrameLeftContainerScrollFrame.buttons[i]
+		button.Background:SetAlpha(0)
+		button.IconBorder:SetAlpha(0)
+		S:HandleIcon(button.Icon)
+		button.Icon:SetDrawLayer("BORDER")
+
+		local highlight = button:GetHighlightTexture()
+		button:SetHighlightTexture(E.Media.Textures.Highlight)
+		highlight:SetTexCoord(0, 1, 0, 1)
+		highlight:SetVertexColor(1, 1, 1, .35)
+		highlight:SetInside()
+
+		button.selectedTexture:SetTexture(E.Media.Textures.Highlight)
+		button.selectedTexture:SetTexCoord(0, 1, 0, 1)
+		button.selectedTexture:SetVertexColor(1, .8, .1, .35)
+		button.selectedTexture:SetInside()
+	end
+
+	StoreTransmogrifyFrame.RightContainer:StripTextures()
+	StoreTransmogrifyFrame.RightContainer.Background:Kill()
+	StoreTransmogrifyFrame.RightContainer.ShadowOverlay:StripTextures()
+	StoreTransmogrifyFrame.RightContainer.ContentFrame:StripTextures()
+
+	S:HandleButton(StoreTransmogrifyFrame.RightContainer.ContentFrame.BuyButton)
+
+	for i = 1, 9 do
+		local button = StoreTransmogrifyFrame.RightContainer.ContentFrame["ItemButton"..i]
+		button:SetTemplate()
+		button.IconBorder:Hide()
+		button.Icon:SetTexCoord(unpack(E.TexCoords))
+		button.Icon:SetInside()
+	end
+
+	hooksecurefunc("StoreTransmogrifyButtonSetIconBorder", function(button, quality)
+		local backdrop = button.backdrop or button
+		backdrop:SetBackdropBorderColor(GetItemQualityColor(quality or 1))
+	end)
+
+	-- Temp
+	local categoryIcons = {
+		[1] = "Interface\\Icons\\achievement_guildperk_mrpopularity",
+		[2] = "Interface\\Icons\\inv_helmet_25",
+		[3] = "Interface\\Icons\\Ability_Mount_RidingHorse",
+		[4] = "Interface\\Icons\\inv_egg_03",
+		[5] = "Interface\\Icons\\Spell_Fire_Fire",
+		[6] = "Interface\\Icons\\INV_Scroll_03",
+		[7] = "Interface\\Icons\\inv_misc_note_02",
+		[8] = "Interface\\Icons\\inv_misc_bag_10",
+		[9] = "Interface\\Icons\\inv_crate_01",
+		[10] = "Interface\\Icons\\INV_Shirt_Blue_01",
+	}
+
 	hooksecurefunc("StoreFrame_UpdateCategories", function(self)
 		for i, button in pairs(self.CategoryFrames) do
 			if not button.isElvUI then
-				button:SetTemplate()
+				button:Size(176 + 10, 36 + 2)
+				button:SetTemplate("Transparent")
 				button:StyleButton()
 
 				button.SelectedTexture:SetTexture(.9, .8, .1, .3)
@@ -304,12 +401,12 @@ local function LoadSkin()
 				button.Category:Hide()
 				button.PulseTexture:Hide()
 				button.NewItems:Hide()
+				button.Text:Point("LEFT", 37, 0)
 
-				button.Icon:Point("LEFT", 7, 0)
-				button.Icon:Size(24)
+				button.Icon:Point("LEFT", 5, 0)
+				button.Icon:Size(28)
 				S:HandleIcon(button.Icon)
 				button.backdrop:SetFrameLevel(button:GetFrameLevel() + 1)
-				button.Icon:SetTexCoord(0.38, 0.60, 0.38, 0.60)
 
 				if i == 1 then
 					button:Point("TOP", 0, -9)
@@ -318,6 +415,13 @@ local function LoadSkin()
 				end
 
 				button.isElvUI = true
+			end
+
+			if categoryIcons[i] then
+				button.Icon:SetTexture(categoryIcons[i])
+				button.Icon:SetTexCoord(unpack(E.TexCoords))
+			else
+				button.Icon:SetTexCoord(0.38, 0.60, 0.38, 0.60)
 			end
 		end
 	end)

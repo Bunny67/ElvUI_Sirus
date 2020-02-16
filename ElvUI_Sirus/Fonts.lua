@@ -34,6 +34,7 @@ hooksecurefunc(E, "UpdateBlizzardFonts", function(self)
 		SetFont(QuestFont_Super_Huge, NORMAL, 22)
 		SetFont(Fancy15Font, NORMAL, 16)
 		SetFont(Fancy16Font, NORMAL, 16)
+		SetFont(Fancy17Font, NORMAL, 18)
 		SetFont(QuestFont15, NORMAL, 16)
 	end
 end)
