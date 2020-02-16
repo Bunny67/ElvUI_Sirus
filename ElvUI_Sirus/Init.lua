@@ -13,6 +13,9 @@ function IsAddOnLoaded(name)
 	end
 end
 
+NPE_TutorialPointerFrame.Show = E.noop
+
+
 local function GameMenuFrame_UpdateVisibleButtons()
 	if not GameMenuFrame.isSirus then
 		GameMenuFrame.isSirus = true
@@ -127,3 +130,165 @@ local function InitializeCallback()
 end
 
 E:RegisterModule(addon:GetName(), InitializeCallback)
+
+
+
+
+
+
+if true then return end
+
+local mod = E:NewModule("ElvUI_BattlegroundTargets", "AceEvent-3.0")
+BTar = mod
+
+local bgData = {
+	[444] = {},
+	[541] = {},
+	[513] = {},
+	[402] = {},
+	[462] = {},
+	[483] = {}, -- Око бури
+	[611] = {}, -- Долина узников
+	[861] = {}, -- Сверкающие копи
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mod.Units = {}
+mod.UnitToIndex = {}
+mod.IndexToButton = {}
+mod.Buttons = {}
+
+local isDebug = true
+
+function mod:Debug(...)
+	if not isDebug then return end
+
+	E:Print("BT: ", ...)
+end
+
+local i = 1
+function mod:CreateButton(index)
+	if not self.Buttons[i] then
+		self.Buttons[i] = CreateFrame("Frame", nil, self.frame)
+		self.Buttons[i]:SetSize(100, 20)
+		self.Buttons[i]:SetPoint("TOP", 0, -(i * 20))
+		self.Buttons[i]:SetTemplate()
+		self.Buttons[i].text = self.Buttons[i]:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		self.Buttons[i].text:SetAllPoints()
+	end
+end
+
+function mod:UpdateButton(id, index, name, classToken)
+	if not self.Buttons[id] then return end
+
+	self.Buttons[id]:Show()
+	self.Buttons[id].text:SetText(name)
+end
+
+function mod:HideButton(id)
+	if not self.Buttons[id] then return end
+
+	self.Buttons[id]:Hide()
+end
+
+function mod:UPDATE_BATTLEFIELD_SCORE()
+	table.wipe(self.Units)
+
+	for index = 1, GetNumBattlefieldScores() do
+		local name, _, _, _, _, faction, _, _, _, classToken = GetBattlefieldScore(index)
+		if name then
+			if name == E.myname and faction and self.PlayerFaction ~= faction then
+				self.PlayerFaction = faction
+
+self:Debug("Получена инфа о фракции игрока", faction)
+
+				self:UPDATE_BATTLEFIELD_SCORE()
+				break
+			end
+
+			if self.PlayerFaction and faction ~= self.PlayerFaction then
+				self.Units[name] = true
+
+				local oldButton, oldIndex = self.IndexToButton[index], self.UnitToIndex[name]
+				if not self.UnitToIndex[name] then -- Add new unit
+					self.UnitToIndex[name] = index
+					self.IndexToButton[index] = i
+
+self:Debug("Добавляем игрока", index, name, faction)
+
+					self:CreateButton(index)
+					self:UpdateButton(i, index, name, classToken)
+
+					i = i + 1
+				end
+				
+				if self.UnitToIndex[name] ~= index then -- Update unit index
+					self.UnitToIndex[name] = index
+					self.IndexToButton[index] = oldButton
+
+self:Debug("Обновляем игрока", index, name, faction)
+
+					self:UpdateButton(oldButton, index, name, classToken)
+				end
+			end
+		end
+	end
+	
+	for name, index in pairs(self.UnitToIndex) do
+		if not self.Units[name] then
+			self:HideButton(self.IndexToButton[index])
+
+			self.UnitToIndex[name] = nil
+		end
+	end
+end
+
+function mod:PLAYER_ENTERING_WORLD()
+	local inInstance, instanceType = IsInInstance()
+	local isInPVP = inInstance and (instanceType == "pvp")
+	if isInPVP then
+		local mapAreaID = GetCurrentMapAreaID()
+		local mapData = bgData[mapAreaID]
+
+		self:RegisterEvent("UPDATE_BATTLEFIELD_SCORE")
+
+		self:UPDATE_BATTLEFIELD_SCORE()
+	else
+		self:UnregisterEvent("UPDATE_BATTLEFIELD_SCORE")
+
+		self.PlayerFaction = nil
+	end
+end
+
+function mod:Initialize()
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	
+	self.frame = CreateFrame("Frame", "Test Frame", UIParent)
+	self.frame:SetPoint("CENTER", 300, 0)
+	self.frame:SetSize(200, 200)
+	self.frame:SetTemplate("Transparent")
+
+	E:CreateMover(self.frame, self.frame:GetName().."Mover", "Test Frame")
+end
+
+local function InitializeCallback()
+	mod:Initialize()
+end
+
+E:RegisterModule(mod:GetName(), InitializeCallback)
+
+
+
