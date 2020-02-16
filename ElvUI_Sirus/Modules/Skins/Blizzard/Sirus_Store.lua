@@ -45,7 +45,80 @@ local function LoadSkin()
 
 	S:HandleCloseButton(StoreFrameCloseButton)
 
-	--StoreSpecialOfferFrame
+	-- StoreItemListFrame
+	S:HandleScrollBar(StoreItemListScrollFrameScrollBar)
+	StoreItemListScrollFrameScrollBar.BG:SetAlpha(0)
+
+	for i = 1, #StoreItemListScrollFrame.buttons do
+		local button = StoreItemListScrollFrame.buttons[i]
+
+		button.Background:SetAlpha(0)
+		button.Shadow:SetAlpha(0)
+		button.IconBorder:SetAlpha(0)
+
+		button:SetTemplate("Transparent")
+
+		S:HandleIcon(button.Icon)
+
+		button.Highlight = button:GetHighlightTexture()
+		button.Highlight:SetTexture(E.Media.Textures.Highlight)
+		button.Highlight:SetTexCoord(0, 1, 0, 1)
+		button.Highlight:SetInside()
+	end
+
+	local function StoreFrame_UpdateItemList()
+		local buttons = StoreItemListScrollFrame.buttons
+
+		for i = 1, #buttons do
+			local button = buttons[i]
+			local data = button.data
+			if data then
+				if data.Quality then
+					local r, g, b = GetItemQualityColor(data.Quality)
+					button.backdrop:SetBackdropBorderColor(r, g, b)
+					button.Highlight:SetVertexColor(r, g, b, .35)
+				else
+					button.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+					button.Highlight:SetVertexColor(1, 1, 1, .35)
+				end
+
+				SetPortraitToTexture(button.Icon, "")
+				button.Icon:SetTexture(data.Texture)
+				button.Icon:SetTexCoord(unpack(E.TexCoords))
+			else
+				button.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				button.Highlight:SetVertexColor(r, g, b, .35)
+			end
+		end
+	end
+	hooksecurefunc(StoreItemListScrollFrame, "update", StoreFrame_UpdateItemList)
+	hooksecurefunc("StoreFrame_UpdateItemList", StoreFrame_UpdateItemList)
+
+	S:HandleCheckBox(StoreShowAllItemCheckButton)
+
+	local sortButtons = {
+		"StoreItemListFrameContainerResetSort",
+		"StoreItemListFrameContainerSortName",
+		"StoreItemListFrameContainerSortDiscount",
+		"StoreItemListFrameContainerSortItemlevel",
+		"StoreItemListFrameContainerSortPVP",
+		"StoreItemListFrameContainerSortPrice"
+	}
+
+	for i = 1, #sortButtons do
+		local button = _G[sortButtons[i]]
+		if button then
+			button:StripTextures()
+			button:StyleButton()
+			button:CreateBackdrop()
+			button.backdrop:Point("TOPLEFT", 3, -1)
+			button.backdrop:Point("BOTTOMRIGHT", -3, 5)
+			button.hover:SetInside(button.backdrop)
+			button.pushed:SetInside(button.backdrop)
+		end
+	end
+
+	-- StoreSpecialOfferFrame
 	StoreSpecialOfferTopFrame:StripTextures()
 	StoreSpecialOfferBanner:SetTemplate()
 	S:HandleButton(StoreSpecialOfferBanner.LeftPanel.BuyButton)
@@ -198,7 +271,7 @@ local function LoadSkin()
 				end
 			end
 		end
-		
+
 		local subItemButton = StoreSubscribeSubItemButton1
 		if subItemButton and subItemButton.Link then
 			local _, _, quality = GetItemInfo(subItemButton.Link)
