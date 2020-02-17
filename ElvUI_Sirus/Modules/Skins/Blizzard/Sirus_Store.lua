@@ -50,9 +50,11 @@ local function LoadSkin()
 		button.backdrop:Point("BOTTOMRIGHT", -10, 6)
 
 		button.Background:SetAlpha(0)
-		button.Highlight:SetTexture(1, 1, 1, 0.3)
+		button.Highlight:SetTexture(1, 1, 1)
+		button.Highlight:SetVertexColor(1, 1, 1, .3)
 		button.Highlight:SetInside(button.backdrop)
-		button.Selected:SetTexture(0.9, 0.8, 0.1, .3)
+		button.Selected:SetTexture(0.9, 0.8, 0.1)
+		button.Selected:SetVertexColor(1, 1, 1, .3)
 		button.Selected:SetInside(button.backdrop)
 	end
 
@@ -180,12 +182,34 @@ local function LoadSkin()
 
 	for _, slot in pairs(slots) do
 		local button = _G["StoreSubCategorySelectContainer"..slot]
-		button.Background:Hide()
-		button.IconBorder:SetAlpha(0)
---		button.IconBorderHighlight:SetAlpha(0)
---		button.BackgroundHighlight:SetAlpha(0)
-
 		S:HandleIcon(button.Icon)
+		button.backdrop:SetFrameLevel(button:GetFrameLevel() + 2)
+
+		button.Background:SetWidth(124)
+		button.Background:SetTexture(E.Media.Textures.Highlight)
+		button.Background:SetVertexColor(1, 1, 1, .3)
+
+		button.IconBorder:SetAlpha(0)
+		button.IconBorderHighlight:SetAlpha(0)
+
+		button.BackgroundHighlight:SetWidth(124)
+		button.BackgroundHighlight:SetTexture(E.Media.Textures.Highlight)
+		button.BackgroundHighlight:SetVertexColor(.9, .8, .1, .3)
+
+		button.Text:ClearAllPoints()
+
+		local id = button:GetID()
+		if id >= 7 and id <= 13 then
+			button.Background:SetTexCoord(0, .7, 0, 1)
+			button.BackgroundHighlight:SetTexCoord(0, .7, 0, 1)
+			button.Text:SetJustifyH("RIGHT")
+			button.Text:SetPoint("RIGHT", button.Icon, "LEFT", -5, 0)
+		else
+			button.Background:SetTexCoord(.3, 1, 0, 1)
+			button.BackgroundHighlight:SetTexCoord(.3, 1, 0, 1)
+			button.Text:SetJustifyH("LEFT")
+			button.Text:SetPoint("LEFT", button.Icon, "RIGHT", 5, 0)
+		end
 	end
 
 	-- StoreItemCardFrame
