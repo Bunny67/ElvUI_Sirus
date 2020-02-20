@@ -84,6 +84,7 @@ local function LoadSkin()
 		button:SetTemplate("Transparent")
 
 		S:HandleIcon(button.Icon)
+		button.Count:SetParent(button.backdrop)
 
 		button.Highlight = button:GetHighlightTexture()
 		button.Highlight:SetTexture(E.Media.Textures.Highlight)
