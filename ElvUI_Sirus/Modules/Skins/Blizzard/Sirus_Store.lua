@@ -46,8 +46,8 @@ local function LoadSkin()
 	for i = 1, 4 do
 		local button = _G["StoreMoneyButton"..i]
 		button:CreateBackdrop("Transparent")
-		button.backdrop:Point("TOPLEFT", 26, -6)
-		button.backdrop:Point("BOTTOMRIGHT", -10, 6)
+		button.backdrop:Point("TOPLEFT", 28, -7)
+		button.backdrop:Point("BOTTOMRIGHT", -10, 7)
 
 		button.Background:SetAlpha(0)
 		button.Highlight:SetTexture(1, 1, 1)
@@ -56,17 +56,42 @@ local function LoadSkin()
 		button.Selected:SetTexture(0.9, 0.8, 0.1)
 		button.Selected:SetVertexColor(1, 1, 1, .3)
 		button.Selected:SetInside(button.backdrop)
+
+		button.Icon:Size(20)
+		button.Icon:ClearAllPoints()
+		button.Icon:Point("LEFT", 6, 0)
+		button.Icon:SetDrawLayer("BORDER")
+		button.Icon:SetTexCoord(0.296875, 0.703125, 0.3125, 0.71875)
+
+		button.iconBackdrop = CreateFrame("Frame", nil, button)
+		button.iconBackdrop:SetTemplate()
+		button.iconBackdrop:SetOutside(button.Icon)
+		button.Icon:SetParent(button.iconBackdrop)
 	end
 
+	StorePremiumButtons:SetSize(143, 36)
+	StorePremiumButtons:ClearAllPoints()
+	StorePremiumButtons:SetPoint("LEFT", StoreMoneyButton4, "RIGHT", 1, 0)
 	StorePremiumButtons:CreateBackdrop("Transparent")
-	StorePremiumButtons.backdrop:Point("TOPLEFT", 20, -3)
-	StorePremiumButtons.backdrop:Point("BOTTOMRIGHT", 5, 0)
+	StorePremiumButtons.backdrop:Point("TOPLEFT", 28, -7)
+	StorePremiumButtons.backdrop:Point("BOTTOMRIGHT", -10, 7)
 
 	StorePremiumButtons.Background:SetAlpha(0)
 	StorePremiumButtons.Border:SetAlpha(0)
 	StorePremiumButtons.BorderHighlight:SetAlpha(0)
 	StorePremiumButtons.IconBorder:SetAlpha(0)
 	StorePremiumButtons.IconBorderHighlight:SetAlpha(0)
+	StorePremiumButtons.Text:SetPoint("CENTER", 6, 0)
+
+	StorePremiumButtons.Icon:Size(20)
+	StorePremiumButtons.Icon:Point("LEFT", 6, 0)
+	StorePremiumButtons.Icon:SetTexture("INTERFACE\\ICONS\\VIP")
+	StorePremiumButtons.Icon:SetTexCoord(unpack(E.TexCoords))
+
+	StorePremiumButtons.iconBackdrop = CreateFrame("Frame", nil, StorePremiumButtons)
+	StorePremiumButtons.iconBackdrop:SetTemplate()
+	StorePremiumButtons.iconBackdrop:SetOutside(StorePremiumButtons.Icon)
+	StorePremiumButtons.Icon:SetParent(StorePremiumButtons.iconBackdrop)
 
 	S:HandleCloseButton(StoreFrameCloseButton)
 
