@@ -13,8 +13,6 @@ function IsAddOnLoaded(name)
 	end
 end
 
-NPE_TutorialPointerFrame.Show = E.noop
-
 local function GameMenuFrame_UpdateVisibleButtons()
 	if not GameMenuFrame.isSirus then
 		GameMenuFrame.isSirus = true
