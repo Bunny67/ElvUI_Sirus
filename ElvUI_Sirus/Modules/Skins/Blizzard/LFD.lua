@@ -537,8 +537,8 @@ local function LoadSkin()
 		{.507813 + c, 0.757813 - c, c, 0.25 - c},
 	}
 
-	for i = 1, 4 do
-		local b = _G["PVPLadderFrameCategoryButton"..i]
+	for i = 1, #PVPLadderFrame.categoryButtons do
+		local b = PVPLadderFrame.categoryButtons[i]
 		b.Ring:SetAlpha(0)
 		b.Background:SetAlpha(0)
 		S:HandleButton(b)
@@ -578,13 +578,13 @@ local function LoadSkin()
 
 	PVPLadderFrame.Container.RightContainer.CentralContainer:StripTextures(true)
 
-	S:HandleScrollBar(PVPLadderFrameRightContainerCentralContainerScrollFrameScrollBar)
-	local up = PVPLadderFrameRightContainerCentralContainerScrollFrameScrollBarScrollUpButton
+	S:HandleScrollBar(PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBar)
+	local up = PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollUpButton
 	local upNormal, upDisabled, upPushed = up:GetNormalTexture(), up:GetDisabledTexture(), up:GetPushedTexture()
 	upNormal:SetRotation(S.ArrowRotation.up)
 	upPushed:SetRotation(S.ArrowRotation.up)
 	upDisabled:SetRotation(S.ArrowRotation.up)
-	local down = PVPLadderFrameRightContainerCentralContainerScrollFrameScrollBarScrollDownButton
+	local down = PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollDownButton
 	local downNormal, downDisabled, downPushed = down:GetNormalTexture(), down:GetDisabledTexture(), down:GetPushedTexture()
 	downNormal:SetRotation(S.ArrowRotation.down)
 	downPushed:SetRotation(S.ArrowRotation.down)
@@ -598,6 +598,7 @@ local function LoadSkin()
 	S:HandleEditBox(PVPLadderFrame.Container.RightContainer.TopContainer.SearchBox)
 	S:HandleButton(PVPLadderFrame.Container.RightContainer.TopContainer.SearchButton)
 
+	PVPLadderFrame.Container.RightContainer.TopContainer.TitleFrame:StripTextures()
 	PVPLadderFrame.Container.RightContainer.TopContainer.ShadowOverlay:StripTextures()
 
 	S:HandlePortraitFrame(PVPLadderInfoFrame)
