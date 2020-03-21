@@ -660,6 +660,7 @@ local function LoadSkin()
 		tab.Icon:SetTexCoord(unpack(E.TexCoords))
 		tab.Icon:SetInside()
 	end
+	RenegadeLadderFrame.Container.RightSmallTab1:Point("TOPLEFT", RenegadeLadderFrame.Container, "TOPRIGHT", -E.Border, -130)
 
 	RenegadeLadderFrame.Container.RightContainer.BottomContainer:StripTextures()
 	RenegadeLadderFrame.Container.RightContainer.CentralContainer:StripTextures(true)
