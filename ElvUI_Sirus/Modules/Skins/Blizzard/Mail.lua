@@ -36,6 +36,10 @@ local function LoadSkin()
 		end
 	end)
 
+	local function OpenMail_Delete(self)
+		DeleteInboxItem(self:GetParent().Button.index)
+	end
+
 	for i = 1, INBOXITEMS_TO_DISPLAY do
 		local mail = _G["MailItem"..i]
 		local button = _G["MailItem"..i.."Button"]
@@ -43,9 +47,12 @@ local function LoadSkin()
 
 		mail:StripTextures(true)
 		mail:CreateBackdrop("Default")
-		--mail.backdrop:Point("TOPLEFT", 2, 1)
-		--mail.backdrop:Point("BOTTOMRIGHT", -2, 2)
+		mail.backdrop:Point("TOPLEFT", 45, 0)
+		mail.backdrop:Point("BOTTOMRIGHT", 0, 0)
 
+		button:Size(45)
+		button:ClearAllPoints()
+		button:Point("LEFT", mail, -1, 0)
 		button:StripTextures()
 		button:SetTemplate("Default", true)
 		button:StyleButton()
@@ -53,6 +60,18 @@ local function LoadSkin()
 		icon:SetDrawLayer("BORDER")
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetInside()
+		
+		_G["MailItem"..i.."ExpireTime"]:Point("TOPRIGHT", -4, -5)
+		
+		local deleteButton = CreateFrame("Button", "$parentDeleteButton", mail)
+		deleteButton:Size(16, 16)
+		deleteButton:Point("BOTTOMRIGHT", -4, 5)
+		deleteButton:SetScript("OnClick", OpenMail_Delete)
+
+		deleteButton.Texture = deleteButton:CreateTexture(nil, "OVERLAY")
+		deleteButton.Texture:Size(12)
+		deleteButton.Texture:Point("CENTER")
+		deleteButton.Texture:SetTexture(E.Media.Textures.Close)
 	end
 
 	InboxFrame.WaitFrame:StripTextures()
@@ -79,8 +98,9 @@ local function LoadSkin()
 
 		for i = 1, INBOXITEMS_TO_DISPLAY do
 			if index <= numItems then
-				local packageIcon, _, _, _, _, _, _, _, _, _, _, _, isGM = GetInboxHeaderInfo(index)
+				local packageIcon, stationeryIcon, sender, subject, money, CODAmount, daysLeft, itemCount, wasRead, wasReturned, textCreated, canReply, isGM = GetInboxHeaderInfo(index)
 				local button = _G["MailItem"..i.."Button"]
+				local deleteButton = _G["MailItem"..i.."DeleteButton"]
 
 				button:SetBackdropBorderColor(unpack(E.media.bordercolor))
 				if packageIcon and not isGM then
@@ -97,6 +117,12 @@ local function LoadSkin()
 					end
 				elseif isGM then
 					button:SetBackdropBorderColor(0, 0.56, 0.94)
+				end
+
+				if InboxItemCanDelete(index) and money == 0 and not GetInboxItem(index, 1) then
+					deleteButton:Show()
+				else
+					deleteButton:Hide()
 				end
 			end
 
