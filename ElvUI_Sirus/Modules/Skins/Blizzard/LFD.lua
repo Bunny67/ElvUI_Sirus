@@ -19,6 +19,8 @@ local function LoadSkin()
 	BattlegroundsData[30].backgroundCoords = {308 / imageSize, 0.59765625, 0.59765625, 0.896484375}
 	BattlegroundsData[31].backgroundCoords = {614 / imageSize, 0.896484375, 0, 0.298828125}
 	BattlegroundsData[12].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
+	BattlegroundsData[18].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
+	BattlegroundsData[19].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
 
 	S:HandlePortraitFrame(LFDParentFrame)
 	S:HandleCloseButton(LFDParentFrameCloseButton)
@@ -33,7 +35,7 @@ local function LoadSkin()
 		end
 	end
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		S:HandleTab(_G["LFDParentFrameTab"..i])
 	end
 
@@ -259,7 +261,7 @@ local function LoadSkin()
 		end
 	end
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		S:HandleTab(_G["PVPUIFrameTab"..i])
 	end
 
@@ -525,7 +527,7 @@ local function LoadSkin()
 		end
 	end
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		S:HandleTab(_G["PVPLadderFrameTab"..i])
 	end
 
@@ -537,8 +539,7 @@ local function LoadSkin()
 		{.507813 + c, 0.757813 - c, c, 0.25 - c},
 	}
 
-	for i = 1, #PVPLadderFrame.categoryButtons do
-		local b = PVPLadderFrame.categoryButtons[i]
+	local function SkinCategoryButton(b, i)
 		b.Ring:SetAlpha(0)
 		b.Background:SetAlpha(0)
 		S:HandleButton(b)
@@ -553,6 +554,10 @@ local function LoadSkin()
 		b.Icon:SetParent(b.Icon.backdrop)
 		b.Icon.backdrop:SetFrameLevel(b:GetFrameLevel() + 2)
 		b.Name:FontTemplate(nil, 16)
+	end
+
+	for i = 1, #PVPLadderFrame.categoryButtons do
+		SkinCategoryButton(PVPLadderFrame.categoryButtons[i], i)
 	end
 
 	for i = 1, 2 do
@@ -579,16 +584,8 @@ local function LoadSkin()
 	PVPLadderFrame.Container.RightContainer.CentralContainer:StripTextures(true)
 
 	S:HandleScrollBar(PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBar)
-	local up = PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollUpButton
-	local upNormal, upDisabled, upPushed = up:GetNormalTexture(), up:GetDisabledTexture(), up:GetPushedTexture()
-	upNormal:SetRotation(S.ArrowRotation.up)
-	upPushed:SetRotation(S.ArrowRotation.up)
-	upDisabled:SetRotation(S.ArrowRotation.up)
-	local down = PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollDownButton
-	local downNormal, downDisabled, downPushed = down:GetNormalTexture(), down:GetDisabledTexture(), down:GetPushedTexture()
-	downNormal:SetRotation(S.ArrowRotation.down)
-	downPushed:SetRotation(S.ArrowRotation.down)
-	downDisabled:SetRotation(S.ArrowRotation.down)
+	S:SetNextPrevButtonDirection(PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollUpButton, "up")
+	S:SetNextPrevButtonDirection(PVPLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollDownButton, "down")
 
 	PVPLadderFrame.Container.RightContainer.CentralContainer.ScrollFrame.ShadowOverlay:StripTextures()
 
@@ -618,6 +615,68 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	S:HandlePortraitFrame(RenegadeLadderFrame)
+	S:HandleCloseButton(RenegadeLadderFrameCloseButton)
+	RenegadeLadderFrame:SetTemplate("Transparent")
+	RenegadeLadderFrame.LeftInset:StripTextures()
+	RenegadeLadderFrameArt:StripTextures()
+	RenegadeLadderFrame.Shadows:StripTextures()
+
+	for i = 1, RenegadeLadderFrame:GetNumChildren() do
+		local child = select(i, RenegadeLadderFrame:GetChildren())
+		if child and child:GetName() and find(child:GetName(), "Art") then
+			child:StripTextures()
+		end
+	end
+
+	for i = 1, 4 do
+		S:HandleTab(_G["RenegadeLadderFrameTab"..i])
+	end
+
+	SkinCategoryButton(RenegadeLadderFrame.Container.CategoryButton1, 1)
+
+	for i = 1, #RenegadeLadderFrame.kingFrames do
+		local frame = RenegadeLadderFrame.kingFrames[i]
+		frame.Background:SetAlpha(0)
+		frame.Crown:Point("LEFT", 6, 0)
+		S:HandleButton(frame)
+	end
+
+	for i = 1, 2 do
+		local tab = RenegadeLadderFrame.Container["RightBigTab"..i]
+		tab:SetTemplate()
+		tab:StyleButton()
+		tab:GetRegions():Hide()
+		tab.Icon:SetTexCoord(unpack(E.TexCoords))
+		tab.Icon:SetInside()
+	end
+	RenegadeLadderFrame.Container.RightBigTab1:Point("TOPLEFT", RenegadeLadderFrame.Container, "TOPRIGHT", -E.Border, -34)
+	for i = 1, 10 do
+		local tab = RenegadeLadderFrame.Container["RightSmallTab"..i]
+		tab:SetTemplate()
+		tab:StyleButton()
+		tab:GetRegions():Hide()
+		tab.Icon:SetTexCoord(unpack(E.TexCoords))
+		tab.Icon:SetInside()
+	end
+
+	RenegadeLadderFrame.Container.RightContainer.BottomContainer:StripTextures()
+	RenegadeLadderFrame.Container.RightContainer.CentralContainer:StripTextures(true)
+	RenegadeLadderFrame.Container.RightContainer.CentralContainer.ScrollFrame.ShadowOverlay:StripTextures()
+
+	S:HandleScrollBar(RenegadeLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBar)
+	S:SetNextPrevButtonDirection(RenegadeLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollUpButton, "up")
+	S:SetNextPrevButtonDirection(RenegadeLadderFrameContainerRightContainerCentralContainerScrollFrameScrollBarScrollDownButton, "down")
+
+	RenegadeLadderFrame.Container.RightContainer.TopContainer:StripTextures()
+	RenegadeLadderFrame.Container.RightContainer.TopContainer.RegionMask.TextureMask:StripTextures()
+
+	S:HandleEditBox(RenegadeLadderFrame.Container.RightContainer.TopContainer.SearchFrame.SearchBox)
+	S:HandleButton(RenegadeLadderFrame.Container.RightContainer.TopContainer.SearchFrame.SearchButton)
+
+	RenegadeLadderFrame.Container.RightContainer.TopContainer.TitleFrame:StripTextures()
+	RenegadeLadderFrame.Container.RightContainer.TopContainer.ShadowOverlay:StripTextures()
 end
 
 S:RemoveCallback("Skin_LFD")
