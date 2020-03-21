@@ -60,9 +60,9 @@ local function LoadSkin()
 		icon:SetDrawLayer("BORDER")
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetInside()
-		
+
 		_G["MailItem"..i.."ExpireTime"]:Point("TOPRIGHT", -4, -5)
-		
+
 		local deleteButton = CreateFrame("Button", "$parentDeleteButton", mail)
 		deleteButton:Size(16, 16)
 		deleteButton:Point("BOTTOMRIGHT", -4, 5)
@@ -98,7 +98,7 @@ local function LoadSkin()
 
 		for i = 1, INBOXITEMS_TO_DISPLAY do
 			if index <= numItems then
-				local packageIcon, stationeryIcon, sender, subject, money, CODAmount, daysLeft, itemCount, wasRead, wasReturned, textCreated, canReply, isGM = GetInboxHeaderInfo(index)
+				local packageIcon, _, _, _, money, _, _, _, _, _, _, _, isGM = GetInboxHeaderInfo(index)
 				local button = _G["MailItem"..i.."Button"]
 				local deleteButton = _G["MailItem"..i.."DeleteButton"]
 
