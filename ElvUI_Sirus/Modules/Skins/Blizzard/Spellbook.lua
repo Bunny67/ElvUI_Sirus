@@ -25,6 +25,8 @@ local function LoadSkin()
 	S:HandleCheckBox(ShowUnassignedSpellBorderCheckBox)
 	ShowUnassignedSpellBorderCheckBox:SetPoint("BOTTOMLEFT", 95, 28)
 
+	S:HandleEditBox(SpellBookSearchBox)
+
 	SpellBookPageText:SetTextColor(1, 1, 1)
 	SpellBookPageText:SetPoint("BOTTOMRIGHT", -110, 36)
 	S:HandleNextPrevButton(SpellBookPrevPageButton, nil, nil, true)
