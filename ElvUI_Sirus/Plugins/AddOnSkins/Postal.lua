@@ -14,25 +14,30 @@ local function LoadSkin()
 		local inboxCB = _G["PostalInboxCB"..i]
 
 		button:SetScale(1)
+		mail:Size(302, 45)
 
 		if i == 1 then
-			mail:Point("TOPLEFT", 21, -7)
+			mail:Point("TOPLEFT", 25, -8)
+		elseif i == 7 then
+			mail:Point("TOPLEFT", InboxFrameRightContainer, 22, -8)
 		end
 
 		if expire then
-			expire:Point("TOPRIGHT", mail, "TOPRIGHT", -1, 2)
+			expire:Point("TOPRIGHT", -4, -2)
 
 			if expire.returnicon then
 				expire.returnicon:StripTextures(true)
 				S:HandleCloseButton(expire.returnicon)
-				expire.returnicon:Point("TOPRIGHT", expire, "TOPRIGHT", 7, -18)
-				expire.returnicon:Size(28)
+				expire.returnicon:ClearAllPoints()
+				expire.returnicon:Point("BOTTOMRIGHT", mail, -4, 2)
+				expire.returnicon:Size(16)
 			end
 		end
 
 		if inboxCB then
 			S:HandleCheckBox(inboxCB)
-			inboxCB:Point("RIGHT", mail, "LEFT", 1, 1)
+			inboxCB:ClearAllPoints()
+			inboxCB:Point("RIGHT", mail, "LEFT", -2, 0)
 		end
 	end
 

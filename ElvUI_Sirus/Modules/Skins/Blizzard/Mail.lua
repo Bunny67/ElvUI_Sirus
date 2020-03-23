@@ -101,6 +101,7 @@ local function LoadSkin()
 				local packageIcon, _, _, _, money, _, _, _, _, _, _, _, isGM = GetInboxHeaderInfo(index)
 				local button = _G["MailItem"..i.."Button"]
 				local deleteButton = _G["MailItem"..i.."DeleteButton"]
+				local expireTime = _G["MailItem"..i.."ExpireTime"]
 
 				button:SetBackdropBorderColor(unpack(E.media.bordercolor))
 				if packageIcon and not isGM then
@@ -119,7 +120,9 @@ local function LoadSkin()
 					button:SetBackdropBorderColor(0, 0.56, 0.94)
 				end
 
-				if InboxItemCanDelete(index) and money == 0 and not GetInboxItem(index, 1) then
+				if expireTime.returnicon then
+					deleteButton:Hide()
+				elseif InboxItemCanDelete(index) and money == 0 and not GetInboxItem(index, 1) then
 					deleteButton:Show()
 				else
 					deleteButton:Hide()
