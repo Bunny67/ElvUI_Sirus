@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="AddOnSkins\Load_AddOnSkins.xml"/>
 	<Include file="Enhanced\Load_Enhanced.xml"/>
 	<Include file="VisualProcs\Load_VisualProcs.xml"/>
 </Ui>
