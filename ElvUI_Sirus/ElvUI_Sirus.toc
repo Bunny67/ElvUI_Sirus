@@ -1,6 +1,6 @@
 ﻿## Interface: 30300
 ## Author: Bunny
-## Version: 1.16
+## Version: 1.17
 ## Title: |cff1784d1E|r|cffe5e3e3lvUI|r |cff1784d1S|r|cffe5e3e3irus|r
 ## Notes: User Interface replacement AddOn for World of Warcraft.
 ## SavedVariables: ElvSirusDB
