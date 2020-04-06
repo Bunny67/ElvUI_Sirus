@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- https://www.wowace.com/projects/postal/files/454610
 
 local function LoadSkin()
-	if not E.private.addOnSkins.Postal then return end
+	if E.private.addOnSkins and not E.private.addOnSkins.Postal then return end
 
 	for i = 1, INBOXITEMS_TO_DISPLAY do
 		local mail = _G["MailItem"..i]
@@ -28,6 +28,7 @@ local function LoadSkin()
 			if expire.returnicon then
 				expire.returnicon:StripTextures(true)
 				S:HandleCloseButton(expire.returnicon)
+				expire.returnicon:SetHitRectInsets(0, 0, 0, 0)
 				expire.returnicon:ClearAllPoints()
 				expire.returnicon:Point("BOTTOMRIGHT", mail, -4, 2)
 				expire.returnicon:Size(16)

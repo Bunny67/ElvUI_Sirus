@@ -19,7 +19,7 @@ local function LoadSkin()
 	BattlegroundsData[30].backgroundCoords = {308 / imageSize, 0.59765625, 0.59765625, 0.896484375}
 	BattlegroundsData[31].backgroundCoords = {614 / imageSize, 0.896484375, 0, 0.298828125}
 	BattlegroundsData[12].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
-	BattlegroundsData[18].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
+	BattlegroundsData[18].backgroundCoords = {614 / imageSize, 0.896484375, 614 / imageSize, 0.896484375}
 	BattlegroundsData[19].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
 
 	S:HandlePortraitFrame(LFDParentFrame)

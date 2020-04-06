@@ -13,6 +13,22 @@ function IsAddOnLoaded(name)
 	end
 end
 
+PVPUIFrame:HookScript("OnHide", function(self)
+	if self.TitleTimer then
+		self.TitleTimer:Cancel()
+		self.TitleTimer = nil
+	end
+end)
+
+PVPHonorFrame:HookScript("OnHide", function(self)
+	local worldPVP2Button = self.BottomInset.WorldPVPContainer.WorldPVP2Button
+
+	if worldPVP2Button.Timer then
+		worldPVP2Button.Timer:Cancel()
+		worldPVP2Button.Timer = nil
+	end
+end)
+
 local function GameMenuFrame_UpdateVisibleButtons()
 	if not GameMenuFrame.isSirus then
 		GameMenuFrame.isSirus = true
