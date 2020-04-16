@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- https://www.wowace.com/projects/postal/files/454610
 
 local function LoadSkin()
-	if E.private.addOnSkins and not E.private.addOnSkins.Postal then return end
+	if not E.private.addOnSkins or not E.private.addOnSkins.Postal then return end
 
 	for i = 1, INBOXITEMS_TO_DISPLAY do
 		local mail = _G["MailItem"..i]
