@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI) --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local TT = E:GetModule("Tooltip")
+local S = E:GetModule("Skins")
 local ElvUF = E.oUF
 
 --Lua functions
@@ -328,7 +329,25 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 	end
 end
 
+function TT:RepositionSocialToast(frame, _, anchor)
+	if anchor ~= SocialToastMover then
+		frame:ClearAllPoints()
+		frame:Point("TOPLEFT", SocialToastMover, "TOPLEFT")
+	end
+end
+
 if E.private.tooltip.enable then
+	SocialToastFrame:SetTemplate("Transparent")
+	S:HandleIcon(SocialToastFrame.Icon)
+	TT:SecureHook(SocialToastFrame, "ShowToast", function(self) self.Icon:SetTexCoord(unpack(E.TexCoords)) end)
+	SocialToastFrame.backdrop:SetFrameLevel(SocialToastFrame:GetFrameLevel() + 2)
+	SocialToastFrame.Icon:SetParent(SocialToastFrame.backdrop)
+	S:HandleCloseButton(SocialToastFrame.CloseButton)
+	SocialToastFrame:ClearAllPoints()
+	SocialToastFrame:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 195)
+	E:CreateMover(SocialToastFrame, "SocialToastMover", L["Social Toast Frame"])
+	TT:SecureHook(SocialToastFrame, "SetPoint", "RepositionSocialToast")
+
 	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
 
 	hooksecurefunc(ItemLevelMixIn, "Update", function(self, unit)
