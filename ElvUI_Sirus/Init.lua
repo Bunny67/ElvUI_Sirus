@@ -4,6 +4,38 @@ local EP = E.Libs.EP
 
 local addon = E:NewModule("ElvUI_Sirus", "AceEvent-3.0")
 
+do -- temp fix extra ab
+	local LAB = E.Libs.LAB
+	local function Update(self)
+		local name = self:GetName()
+
+		if self:HasAction() then
+			local actionType, id, _, spellID = GetActionInfo(self._state_action)
+			if spellID then
+				SPELL_ACTION_DATA[name] = spellID
+			elseif actionType == "item" and id then
+				ITEM_ACTION_DATA[name] = id
+			end
+		else
+			SPELL_ACTION_DATA[name] = false
+			ITEM_ACTION_DATA[name] = false
+		end
+	end
+
+	local old_script = ExtraActionBarFrame:GetScript("OnEvent")
+	ExtraActionBarFrame:SetScript("OnEvent", function(self, event)
+		if event == "ACTIONBAR_SLOT_CHANGED" then
+			for button in next, LAB.buttonRegistry do
+				if button._state_type == "action" and (arg1 == 0 or arg1 == tonumber(button._state_action)) then
+					Update(button)
+				end
+			end
+		end
+
+		old_script(self, event)
+	end)
+end
+
 local oldIsAddOnLoaded = IsAddOnLoaded
 function IsAddOnLoaded(name)
 	if name == "Blizzard_TimeManager" then
