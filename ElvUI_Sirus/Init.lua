@@ -22,18 +22,16 @@ do -- temp fix extra ab
 		end
 	end
 
-	local old_script = ExtraActionBarFrame:GetScript("OnEvent")
-	ExtraActionBarFrame:SetScript("OnEvent", function(self, event)
-		if event == "ACTIONBAR_SLOT_CHANGED" then
-			for button in next, LAB.buttonRegistry do
-				if button._state_type == "action" and (arg1 == 0 or arg1 == tonumber(button._state_action)) then
-					Update(button)
-				end
+	local old_script = ExtraActionBarFrame.FindOnActionBar
+	function ExtraActionBarFrame:FindOnActionBar(...)
+		for button in next, LAB.buttonRegistry do
+			if button._state_type == "action" then
+				Update(button)
 			end
 		end
 
-		old_script(self, event)
-	end)
+		return old_script(ExtraActionBarFrame, ...)
+	end
 end
 
 local oldIsAddOnLoaded = IsAddOnLoaded
