@@ -5,7 +5,6 @@ local S = E:GetModule("Skins")
 
 local _G = _G
 local unpack = unpack
-local find, gsub = string.find, string.gsub
 
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
