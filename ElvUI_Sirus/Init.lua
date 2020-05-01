@@ -7,7 +7,7 @@ local addon = E:NewModule("ElvUI_Sirus", "AceEvent-3.0")
 do
 	local oldPlayerTalentFrame_Refresh = PlayerTalentFrame_Refresh
 	function PlayerTalentFrame_Refresh()
-		if not WorldMapFrame:IsShown() then return end
+		if not PlayerTalentFrame:IsShown() then return end
 
 		return oldPlayerTalentFrame_Refresh()
 	end
