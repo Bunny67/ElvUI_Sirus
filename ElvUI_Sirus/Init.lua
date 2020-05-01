@@ -4,6 +4,15 @@ local EP = E.Libs.EP
 
 local addon = E:NewModule("ElvUI_Sirus", "AceEvent-3.0")
 
+do
+	local oldPlayerTalentFrame_Refresh = PlayerTalentFrame_Refresh
+	function PlayerTalentFrame_Refresh()
+		if not WorldMapFrame:IsShown() then return end
+
+		return oldPlayerTalentFrame_Refresh()
+	end
+end
+
 do -- temp fix extra ab
 	local LAB = E.Libs.LAB
 	local function Update(self)
