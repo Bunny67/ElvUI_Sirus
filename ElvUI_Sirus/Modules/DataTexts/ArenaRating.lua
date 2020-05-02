@@ -4,7 +4,6 @@ local DT = E:GetModule("DataTexts")
 --Lua functions
 local ipairs = ipairs
 local join = string.join
-local gsub = string.gsub
 local format = string.format
 local tinsert = table.insert
 local tconcat = table.concat
@@ -15,8 +14,6 @@ local TogglePVPUIFrame = TogglePVPUIFrame
 
 local displayNumberString = ""
 local lastPanel
-
-local textFormat = "%s: %d"
 
 local brackets = {
 	[1] = "Solo",
@@ -32,12 +29,10 @@ local function OnEvent(self)
 
 	table.wipe(tbl)
 
-	textFormat = gsub(textFormat, "%%d", displayNumberString)
-
 	local _, _, _, _, currRating = GetRatedBattlegroundRankInfo()
 	for i, enabled in ipairs(E.db.datatexts.ArenaRating) do
 		if enabled then
-			tinsert(tbl, format(textFormat, brackets[i], (i == 4 and currRating or GetArenaRating(i)) or 0))
+			tinsert(tbl, format(displayNumberString, brackets[i], (i == 4 and currRating or GetArenaRating(i)) or 0))
 		end
 	end
 
@@ -49,7 +44,7 @@ local function OnClick()
 end
 
 local function ValueColorUpdate(hex)
-	displayNumberString = join("", hex, "%%d|r")
+	displayNumberString = join("", "%s: ", hex, "%d|r")
 
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
@@ -57,4 +52,4 @@ local function ValueColorUpdate(hex)
 end
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext("ArenaRating", {"PLAYER_ENTERING_WORLD"}, OnEvent, nil, OnClick, nil, nil, PVP_YOUR_RATING)
+DT:RegisterDatatext("ArenaRating", {"PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA"}, OnEvent, nil, OnClick, nil, nil, PVP_YOUR_RATING)
