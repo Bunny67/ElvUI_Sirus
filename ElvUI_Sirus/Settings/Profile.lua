@@ -11,3 +11,10 @@ P.actionbar.microbar.buttonsPerRow = 12
 P.sirus = {
 	case = true
 }
+
+P.datatexts.ArenaRating = {
+	[1] = false,
+	[2] = true,
+	[3] = false,
+	[4] = false,
+}

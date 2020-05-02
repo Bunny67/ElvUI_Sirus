@@ -2,4 +2,5 @@
 	<Script file="DataTexts.lua"/>
 	<Script file="Friends.lua"/>
 	<Script file="Guild.lua"/>
+	<Script file="ArenaRating.lua"/>
 </Ui>

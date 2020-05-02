@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("ElvUI_Sirus")
+local DT = E:GetModule("DataTexts")
 
 function S:GetOptions()
 	--ActionBars
@@ -106,6 +107,39 @@ function S:GetOptions()
 			E.private.skins.cleanExtraButton = value
 			E:StaticPopup_Show("PRIVATE_RL")
 		end
+	}
+
+	E.Options.args.datatexts.args.ArenaRating = {
+		order = 7,
+		type = "group",
+		name = PVP_YOUR_RATING,
+		get = function(info) return E.db.datatexts.ArenaRating[tonumber(info[#info])] end,
+		set = function(info, value)
+			E.db.datatexts.ArenaRating[tonumber(info[#info])] = value
+			DT:LoadDataTexts()
+		end,
+		args = {
+			["1"] = {
+				order = 1,
+				type = "toggle",
+				name = "Solo",
+			},
+			["2"] = {
+				order = 2,
+				type = "toggle",
+				name = "2x2",
+			},
+			["3"] = {
+				order = 3,
+				type = "toggle",
+				name = "3x3",
+			},
+			["4"] = {
+				order = 4,
+				type = "toggle",
+				name = "RGB",
+			}
+		}
 	}
 end
 
