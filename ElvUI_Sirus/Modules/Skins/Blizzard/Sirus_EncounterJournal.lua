@@ -172,6 +172,10 @@ local function LoadSkin()
 		end)
 	end
 
+	for i = 1, 2 do
+		S:HandleTab(_G["EncounterJournalTab"..i])
+	end
+
 	hooksecurefunc("EncounterJournal_ListInstances", function()
 		local scrollFrame = EncounterJournal.instanceSelect.scroll.child
 
