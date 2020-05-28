@@ -5,7 +5,39 @@ local S = E:GetModule("Skins")
 local _G = _G
 local ipairs = ipairs
 local tremove = table.remove
+local find = string.find
 --WoW API / Variables
+
+function S:HandleEditBox(frame)
+	if frame.backdrop then return end
+
+	frame:CreateBackdrop()
+	frame.backdrop:SetFrameLevel(frame:GetFrameLevel())
+
+	if frame.Left then frame.Left:SetAlpha(0) end
+	if frame.Middle then frame.Middle:SetAlpha(0) end
+	if frame.Right then frame.Right:SetAlpha(0) end
+
+	if frame.IncrementButton and frame.DecrementButton then
+		S:HandleNextPrevButton(frame.IncrementButton, nil, nil, true)
+		frame.IncrementButton:Size(24)
+		S:HandleNextPrevButton(frame.DecrementButton, nil, nil, true)
+		frame.DecrementButton:Size(24)
+		frame.DecrementButton:Point("RIGHT", frame, "LEFT", 0, 0)
+	end
+
+	local EditBoxName = frame.GetName and frame:GetName()
+	if EditBoxName then
+		if _G[EditBoxName.."Left"] then _G[EditBoxName.."Left"]:SetAlpha(0) end
+		if _G[EditBoxName.."Middle"] then _G[EditBoxName.."Middle"]:SetAlpha(0) end
+		if _G[EditBoxName.."Right"] then _G[EditBoxName.."Right"]:SetAlpha(0) end
+		if _G[EditBoxName.."Mid"] then _G[EditBoxName.."Mid"]:SetAlpha(0) end
+
+		if find(EditBoxName, "Silver") or find(EditBoxName, "Copper") then
+			frame.backdrop:Point("BOTTOMRIGHT", -12, -2)
+		end
+	end
+end
 
 function S:HandleInsetFrame(frame)
 	assert(frame, "doesn't exist!")
