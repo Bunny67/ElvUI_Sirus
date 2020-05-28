@@ -92,6 +92,11 @@ function S:GetOptions()
 		name = MOUNT_CHEST_LABEL,
 		desc = L["TOGGLESKIN_DESC"]
 	}
+	E.Options.args.skins.args.blizzard.args.headhunting = {
+		type = "toggle",
+		name = HEADHUNTING,
+		desc = L["TOGGLESKIN_DESC"]
+	}
 
 	E.Options.args.skins.args.blizzard.args.extraButton = {
 		type = "toggle",

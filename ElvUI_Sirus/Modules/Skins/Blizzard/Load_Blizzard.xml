@@ -33,5 +33,6 @@
 
 	<Script file="Custom_ExtraActionButton.lua"/>
 	<Script file="Custom_MountChest.lua"/>
+	<Script file="Custom_Headhunting.lua"/>
 	<Script file="Custom_Roulette.lua"/>
 </Ui>
