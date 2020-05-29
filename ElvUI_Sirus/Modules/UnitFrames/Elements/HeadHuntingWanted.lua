@@ -52,7 +52,7 @@ function UF:Update_HeadHuntingWanted(frame, dontSendRequest)
 		if guid then
 			local wantedStorage = C_CacheInstance:Get("ASMSG_HEADHUNTING_IS_PLAYER_WANTED", {})
 			isWanted = wantedStorage[tonumber(guid)]
-			
+
 			if not dontSendRequest then
 				SendServerMessage("ACMSG_HEADHUNTING_IS_PLAYER_WANTED", guid)
 			end
