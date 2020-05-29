@@ -11,6 +11,7 @@ local function LoadSkin()
 	DeathRecapFrame:StripTextures()
 	S:HandleCloseButton(DeathRecapFrame.CloseXButton)
 	S:HandleButton(DeathRecapFrame.CloseButton)
+	S:HandleButton(DeathRecapFrame.HeadHuntingButton)
 	DeathRecapFrame:SetTemplate("Transparent")
 
 	for i = 1, 5 do
