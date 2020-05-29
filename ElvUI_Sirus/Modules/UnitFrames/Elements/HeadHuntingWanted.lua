@@ -30,8 +30,10 @@ end
 Mixin(event, HeadHuntingWantedFrameMixin)
 event:OnLoad()
 
-local function PostUpdate(frame)
-	UF:Update_HeadHuntingWanted(frame)
+local function PostUpdate(frame, e)
+	if e == "OnShow" or e == "PLAYER_TARGET_CHANGED" then
+		UF:Update_HeadHuntingWanted(frame)
+	end
 end
 
 function UF:Construct_HeadHuntingWanted(frame)
