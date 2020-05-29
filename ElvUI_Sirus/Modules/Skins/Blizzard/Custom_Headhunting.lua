@@ -81,19 +81,26 @@ local function LoadSkin()
 	S:HandleCloseButton(YouTargetsPanel.DetailsFrame.CloseButton)
 	S:HandleButton(YouTargetsPanel.DetailsFrame.RemoveContractButton)
 
-	S:HandlePortraitFrame(YouTargetsPanel.SetRewardFrame)
-	S:HandleEditBox(YouTargetsPanel.SetRewardFrame.SearchFrame.SearchBox)
-	S:HandleButton(YouTargetsPanel.SetRewardFrame.SearchFrame.SearchButton)
-	YouTargetsPanel.SetRewardFrame.CentralContainer:StripTextures()
-	YouTargetsPanel.SetRewardFrame.CentralContainer.ScrollFrame.ShadowOverlay:SetAlpha(0)
-	S:HandleScrollBar(HeadHuntingFrameContainerYouTargetsPanelSetRewardFrameCentralContainerScrollFrameScrollBar)
-	S:HandleEditBox(YouTargetsPanel.SetRewardFrame.NumKills)
-	S:HandleEditBox(YouTargetsPanel.SetRewardFrame.GoldPerKillsEditBox)
-	S:HandleButton(YouTargetsPanel.SetRewardFrame.SetRewardButton)
+	local function SkinRewardFrame(frame)
+		S:HandlePortraitFrame(frame)
+		S:HandleEditBox(frame.SearchFrame.SearchBox)
+		S:HandleButton(frame.SearchFrame.SearchButton)
+		frame.CentralContainer:StripTextures()
+		frame.CentralContainer.ScrollFrame.ShadowOverlay:SetAlpha(0)
+		S:HandleScrollBar(_G[frame:GetName().."CentralContainerScrollFrameScrollBar"])
+		S:HandleEditBox(frame.NumKills)
+		S:HandleEditBox(frame.GoldPerKillsEditBox)
+		S:HandleButton(frame.SetRewardButton)
+	end
+
+	SkinRewardFrame(YouTargetsPanel.SetRewardFrame)
 
 	for i = 1, 2 do
 		S:HandleTab(_G["HeadHuntingFrameTab"..i])
 	end
+
+	HeadHuntingSetRewardExternalFrame:SetParent(UIParent)
+	SkinRewardFrame(HeadHuntingSetRewardExternalFrame)
 end
 
 S:AddCallback("Custom_Headhunting", LoadSkin)
