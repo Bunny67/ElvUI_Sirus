@@ -37,10 +37,9 @@ end
 function UF:Construct_HeadHuntingWanted(frame)
 	frame.PostUpdate = PostUpdate
 
-	local wantedFrame = CreateFrame("PlayerModel", nil, frame)
-	wantedFrame:SetSize(240, 240)
-	wantedFrame:SetPoint("CENTER")
-	wantedFrame:SetFrameLevel(frame.RaisedElementParent:GetFrameLevel() + 10)
+	local wantedFrame = CreateFrame("PlayerModel", nil, frame.RaisedElementParent)
+	wantedFrame:SetSize(100, 100)
+	wantedFrame:SetPoint("CENTER", frame.Health)
 
 	tinsert(frames, frame)
 	return wantedFrame
@@ -63,7 +62,7 @@ function UF:Update_HeadHuntingWanted(frame, dontSendRequest)
 	if isWanted then
 		frame.HeadHuntingWantedFrame:Show()
 		frame.HeadHuntingWantedFrame:SetModel("SPELLS\\HuntersMark_Impact_Chest.m2")
---		frame.HeadHuntingWantedFrame:SetPosition(4, 0, 2)
+		frame.HeadHuntingWantedFrame:SetPosition(3, 0, 1.3)
 	else
 		frame.HeadHuntingWantedFrame:Hide()
 	end
