@@ -13,7 +13,6 @@ do
 	end
 end
 
---[[
 do -- temp fix extra ab
 	local LAB = E.Libs.LAB
 	local function Update(self)
@@ -43,7 +42,6 @@ do -- temp fix extra ab
 		return old_script(ExtraActionBarFrame, ...)
 	end
 end
-]]
 
 local oldIsAddOnLoaded = IsAddOnLoaded
 function IsAddOnLoaded(name)
