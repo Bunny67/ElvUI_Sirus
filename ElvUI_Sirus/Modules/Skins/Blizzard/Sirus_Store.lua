@@ -383,6 +383,19 @@ local function LoadSkin()
 	S:HandleButton(StoreSubscribeContainer.BuyButton2)
 	S:HandleButton(StoreSubscribeContainer.BuyButton3)
 
+	-- StoreDressUPFrame
+	StoreDressUPFrame:StripTextures()
+	StoreDressUPFrame.Inset:StripTextures()
+	StoreDressUPFrame:SetTemplate("Transparent")
+	S:HandleCloseButton(StoreDressUPFrameCloseButton)
+	StoreDressUPFrame.Display.YesMountsTex:SetAlpha(0)
+	StoreDressUPFrame.Display.ShadowOverlay:StripTextures()
+	StoreDressUPFrame.Display.DressUPModel:SetTemplate("Transparent")
+	S:HandleControlFrame(StoreDressUPFrame.Display.DressUPModel.controlFrame)
+
+	S:HandleButton(StoreDressUPFrame.CloseButton, true)
+	S:HandleButton(StoreDressUPFrame.ResetButton, true)
+
 	-- StoreTransmogrifyFrame
 	S:HandleEditBox(StoreTransmogrifyFrame.LeftContainer.searchBox)
 
@@ -428,6 +441,7 @@ local function LoadSkin()
 	StoreTransmogrifyFrame.RightContainer.Background:Kill()
 	StoreTransmogrifyFrame.RightContainer.ShadowOverlay:StripTextures()
 	StoreTransmogrifyFrame.RightContainer.ContentFrame.OverlayElements.IconRowBackground:SetAlpha(0)
+	S:HandleCheckBox(StoreTransmogrifyFrame.RightContainer.ContentFrame.OverlayElements.ShowShoulders)
 
 	S:HandleButton(StoreTransmogrifyFrame.RightContainer.ContentFrame.BuyButton)
 
