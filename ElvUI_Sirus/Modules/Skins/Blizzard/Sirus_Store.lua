@@ -410,6 +410,7 @@ local function LoadSkin()
 		button.IconBorder:SetAlpha(0)
 		S:HandleIcon(button.Icon)
 		button.Icon:SetDrawLayer("BORDER")
+		button.NewItems:SetParent(button.backdrop)
 
 		local highlight = button:GetHighlightTexture()
 		button:SetHighlightTexture(E.Media.Textures.Highlight)
@@ -426,7 +427,7 @@ local function LoadSkin()
 	StoreTransmogrifyFrame.RightContainer:StripTextures()
 	StoreTransmogrifyFrame.RightContainer.Background:Kill()
 	StoreTransmogrifyFrame.RightContainer.ShadowOverlay:StripTextures()
-	StoreTransmogrifyFrame.RightContainer.ContentFrame.IconRowBackground:SetAlpha(0)
+	StoreTransmogrifyFrame.RightContainer.ContentFrame.OverlayElements.IconRowBackground:SetAlpha(0)
 
 	S:HandleButton(StoreTransmogrifyFrame.RightContainer.ContentFrame.BuyButton)
 
@@ -442,6 +443,16 @@ local function LoadSkin()
 		local backdrop = button.backdrop or button
 		backdrop:SetBackdropBorderColor(GetItemQualityColor(quality or 1))
 	end)
+
+	-- StoreTransmogrifySubCategoryFrame
+	StoreTransmogrifySubCategoryFrame.Background:SetAlpha(0)
+
+	for i = 1, 4 do
+		local frame = _G["StoreTransmogrifySubCategoryFrameCategory"..i]
+		frame:SetTemplate("Transparent")
+		frame.BackgroundTexture:SetAlpha(0)
+		S:HandleButton(frame.Button)
+	end
 
 	-- Temp
 	local categoryIcons = {
