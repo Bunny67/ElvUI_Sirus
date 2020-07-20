@@ -6,6 +6,7 @@ P.auras.hidePremiumIcon = true
 
 P.actionbar.microbar.buttonsPerRow = 12
 
+P.chat.maxLines = 999
 
 -- Sirus
 P.sirus = {
