@@ -4,6 +4,48 @@ local EP = E.Libs.EP
 
 local addon = E:NewModule("ElvUI_Sirus", "AceEvent-3.0")
 
+local wipe = table.wipe
+local tinsert = table.insert
+
+local GetNumBattlefieldStats = GetNumBattlefieldStats
+
+C_BattlefieldScoreManager.scoreData = {}
+
+function C_BattlefieldScoreManager:GenerateScoreData()
+	wipe(self.scoreData)
+
+	local factionID = C_FactionManager:GetFactionOverride()
+
+    for i = 1, self._GetNumBattlefieldScores() do
+        local name, killingBlows, honorableKills, deaths, honorGained, faction, rank, race, class, classToken, damageDone, healingDone = self._GetBattlefieldScore(i)
+        local additionalStatData = {}
+
+        if self:IsValidation() then
+            for statID = 1, GetNumBattlefieldStats() do
+                tinsert(additionalStatData, GetBattlefieldStatData(i, statID))
+            end
+
+            if factionID then
+				if name then
+					local GUID = UnitGUID(name)
+
+					if GUID then
+						faction = factionID
+					else
+						faction = factionID == PLAYER_FACTION_GROUP.Alliance and PLAYER_FACTION_GROUP.Horde or PLAYER_FACTION_GROUP.Alliance
+					end
+                else
+                    faction = factionID == PLAYER_FACTION_GROUP.Alliance and PLAYER_FACTION_GROUP.Horde or PLAYER_FACTION_GROUP.Alliance
+                end
+            end
+        end
+
+        if not self.selectedFaction or self.selectedFaction == faction then
+            tinsert(self.scoreData, {name, killingBlows, honorableKills, deaths, honorGained, faction, rank, race, class, classToken, damageDone, healingDone, additionalStatData})
+        end
+    end
+end
+
 do
 	local oldPlayerTalentFrame_Refresh = PlayerTalentFrame_Refresh
 	function PlayerTalentFrame_Refresh()
