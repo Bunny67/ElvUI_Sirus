@@ -1,11 +1,14 @@
 local E, L, V, P, G = unpack(ElvUI)
+local AS = E:GetModule("AddOnSkins", true)
+if not AS then return end
+
+if not AS:IsAddonLODorEnabled("Postal") then return end
+
 local S = E:GetModule("Skins")
 
--- Postal r299
--- https://www.wowace.com/projects/postal/files/454610
-
-local function LoadSkin()
-	if not E.private.addOnSkins or not E.private.addOnSkins.Postal then return end
+S:RemoveCallbackForAddon("Postal", "Postal")
+S:AddCallbackForAddon("Postal", "Postal", function()
+	if not E.private.addOnSkins.Postal then return end
 
 	for i = 1, INBOXITEMS_TO_DISPLAY do
 		local mail = _G["MailItem"..i]
@@ -93,7 +96,4 @@ local function LoadSkin()
 			end
 		end
 	end)
-end
-
-S:RemoveCallbackForAddon("Postal", "Postal")
-S:AddCallbackForAddon("Postal", "Postal", LoadSkin)
+end)
