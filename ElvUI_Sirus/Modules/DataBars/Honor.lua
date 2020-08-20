@@ -131,7 +131,7 @@ function DB:LoadHonorBar()
 	self.honorBar.eventFrame:SetScript("OnEvent", function(_, event, unit) self:UpdateHonor(event, unit) end)
 
 	self:UpdateHonorDimensions()
-	E:CreateMover(self.honorBar, "HonorBarMover", L["Honor Bar"], nil, nil, nil, nil, nil, "databars,honor")
+	E:CreateMover(self.honorBar, "HonorBarMover", PVP_TAB_SERVICES, nil, nil, nil, nil, nil, "databars,honor")
 
 	self:EnableDisable_HonorBar()
 end
