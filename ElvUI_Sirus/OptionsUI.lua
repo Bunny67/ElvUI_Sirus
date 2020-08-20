@@ -118,7 +118,7 @@ function S:GetOptions()
 	E.Options.args.databars.args.honor = {
 		order = 5,
 		type = "group",
-		name = "PvP Ранк",
+		name = PVP_TAB_SERVICES,
 		get = function(info) return DB.db.honor[info[#info]] end,
 		set = function(info, value)
 			DB.db.honor[info[#info]] = value
@@ -128,7 +128,7 @@ function S:GetOptions()
 			header = {
 				order = 1,
 				type = "header",
-				name = "PvP Ранк"
+				name = PVP_TAB_SERVICES
 			},
 			enable = {
 				order = 2,
