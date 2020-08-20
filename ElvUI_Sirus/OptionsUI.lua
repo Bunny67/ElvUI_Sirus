@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("ElvUI_Sirus")
 local DT = E:GetModule("DataTexts")
+local DB = E:GetModule("DataBars")
 
 function S:GetOptions()
 	--ActionBars
@@ -112,6 +113,135 @@ function S:GetOptions()
 			E.private.skins.cleanExtraButton = value
 			E:StaticPopup_Show("PRIVATE_RL")
 		end
+	}
+
+	E.Options.args.databars.args.honor = {
+		order = 5,
+		type = "group",
+		name = "PvP Ранк",
+		get = function(info) return DB.db.honor[info[#info]] end,
+		set = function(info, value)
+			DB.db.honor[info[#info]] = value
+			DB:UpdateHonorDimensions()
+		end,
+		args = {
+			header = {
+				order = 1,
+				type = "header",
+				name = "PvP Ранк"
+			},
+			enable = {
+				order = 2,
+				type = "toggle",
+				name = L["Enable"],
+				set = function(info, value)
+					DB.db.honor[info[#info]] = value
+					DB:EnableDisable_HonorBar()
+				end
+			},
+			mouseover = {
+				order = 3,
+				type = "toggle",
+				name = L["Mouseover"]
+			},
+			hideOutsidePvP = {
+				order = 4,
+				type = "toggle",
+				name = L["Hide Outside PvP"],
+				set = function(info, value)
+					DB.db.honor[info[#info]] = value
+					DB:UpdateHonor()
+				end
+			},
+			hideInVehicle = {
+				order = 5,
+				type = "toggle",
+				name = L["Hide In Vehicle"],
+				set = function(info, value)
+					DB.db.honor[info[#info]] = value
+					DB:UpdateHonor()
+				end
+			},
+			hideInCombat = {
+				order = 6,
+				type = "toggle",
+				name = L["Hide In Combat"],
+				set = function(info, value)
+					DB.db.honor[info[#info]] = value
+					DB:UpdateHonor()
+				end
+			},
+			spacer = {
+				order = 7,
+				type = "description",
+				name = " "
+			},
+			orientation = {
+				order = 8,
+				type = "select",
+				name = L["Statusbar Fill Orientation"],
+				desc = L["Direction the bar moves on gains/losses"],
+				values = {
+					["HORIZONTAL"] = L["Horizontal"],
+					["VERTICAL"] = L["Vertical"]
+				}
+			},
+			width = {
+				order = 9,
+				type = "range",
+				name = L["Width"],
+				min = 5, max = ceil(GetScreenWidth() or 800), step = 1
+			},
+			height = {
+				order = 10,
+				type = "range",
+				name = L["Height"],
+				min = 5, max = ceil(GetScreenHeight() or 800), step = 1
+			},
+			font = {
+				order = 11,
+				type = "select", dialogControl = "LSM30_Font",
+				name = L["Font"],
+				values = AceGUIWidgetLSMlists.font
+			},
+			textSize = {
+				order = 12,
+				type = "range",
+				name = L["FONT_SIZE"],
+				min = 6, max = 22, step = 1
+			},
+			fontOutline = {
+				order = 13,
+				type = "select",
+				name = L["Font Outline"],
+				values = {
+					["NONE"] = L["NONE"],
+					["OUTLINE"] = "OUTLINE",
+					["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
+					["THICKOUTLINE"] = "THICKOUTLINE"
+				}
+			},
+			textFormat = {
+				order = 14,
+				type = "select",
+				name = L["Text Format"],
+				width = "double",
+				values = {
+					NONE = L["NONE"],
+					CUR = L["Current"],
+					REM = L["Remaining"],
+					PERCENT = L["Percent"],
+					CURMAX = L["Current - Max"],
+					CURPERC = L["Current - Percent"],
+					CURREM = L["Current - Remaining"],
+					CURPERCREM = L["Current - Percent (Remaining)"],
+				},
+				set = function(info, value)
+					DB.db.honor[info[#info]] = value
+					DB:UpdateHonor()
+				end
+			}
+		}
 	}
 
 	E.Options.args.datatexts.args.ArenaRating = {

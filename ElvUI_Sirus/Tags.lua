@@ -224,7 +224,7 @@ ElvUF.Tags.Methods["premium:icon"] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events["pvp:name"] = "UNIT_FACTION"
+ElvUF.Tags.Events["pvp:name"] = "UNIT_FACTION UNIT_TARGET"
 ElvUF.Tags.Methods["pvp:name"] = function(unit)
 	if unit and UnitIsPlayer(unit) then
 		local currTitle, _, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
@@ -234,7 +234,7 @@ ElvUF.Tags.Methods["pvp:name"] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events["pvp:id"] = "UNIT_FACTION"
+ElvUF.Tags.Events["pvp:id"] = "UNIT_FACTION UNIT_TARGET"
 ElvUF.Tags.Methods["pvp:id"] = function(unit)
 	if unit and UnitIsPlayer(unit) then
 		local _, currRankID, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
@@ -244,7 +244,7 @@ ElvUF.Tags.Methods["pvp:id"] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events["pvp:icon"] = "UNIT_FACTION"
+ElvUF.Tags.Events["pvp:icon"] = "UNIT_FACTION UNIT_TARGET"
 ElvUF.Tags.Methods["pvp:icon"] = function(unit)
 	if unit and UnitIsPlayer(unit) then
 		local _, _, currRankIconCoord, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
