@@ -7,7 +7,6 @@ local UnitIsPVP = UnitIsPVP
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
-local HONOR = HONOR
 
 function DB:UpdateHonor(event, unit)
 	if not DB.db.honor.enable then return end
@@ -66,15 +65,18 @@ function DB:HonorBar_OnEnter()
 	GameTooltip:ClearLines()
 	GameTooltip:SetOwner(self, "ANCHOR_CURSOR", 0, -4)
 
-	local _, _, level, _, cur, _, _, _, max = GetRatedBattlegroundRankInfo()
+	local currTitle, _, level, _, cur, _, _, _, max = GetRatedBattlegroundRankInfo()
 
-	GameTooltip:AddLine(HONOR)
+	GameTooltip:AddLine(PVP_TAB_SERVICES)
 
-	GameTooltip:AddDoubleLine(L["Current Level:"], level, 1, 1, 1)
-	GameTooltip:AddLine(" ")
+	GameTooltip:AddDoubleLine(PVP_YOUR_RATING..":", format(RBG_SCORE_TOOLTIP_RANK, currTitle, level), 1, 1, 1)
 
-	GameTooltip:AddDoubleLine(L["Honor XP:"], format(" %d / %d (%d%%)", cur, max, cur/max * 100), 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["Honor Remaining:"], format(" %d (%d%% - %d "..L["Bars"]..")", max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)
+	if level < 14 then
+		GameTooltip:AddLine(" ")
+
+		GameTooltip:AddDoubleLine(RATED_BATTLEGROUND_TOOLTIP_NEXTRANK, format(" %d / %d (%d%%)", cur, max, cur/max * 100), 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Remaining:"], format(" %d (%d%% - %d "..L["Bars"]..")", max - cur, (max - cur) / max * 100, 20 * (max - cur) / max), 1, 1, 1)
+	end
 
 	GameTooltip:Show()
 end
@@ -137,3 +139,11 @@ end
 hooksecurefunc(DB, "Initialize", function()
 	DB:LoadHonorBar()
 end)
+
+-- Temp
+function DB:OnLeave()
+	if (self == ElvUI_ExperienceBar and DB.db.experience.mouseover) or (self == ElvUI_ReputationBar and DB.db.reputation.mouseover) or (self == ElvUI_HonorBar and DB.db.honor.mouseover) then
+		E:UIFrameFadeOut(self, 1, self:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
+end
