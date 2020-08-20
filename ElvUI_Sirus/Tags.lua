@@ -4,6 +4,7 @@ local ElvUF = E.oUF
 local addon = E:GetModule("ElvUI_Sirus")
 
 --Lua functions
+local unpack = unpack
 local format = string.format
 local gmatch = gmatch
 local gsub = gsub
@@ -11,7 +12,10 @@ local match = string.match
 local utf8upper = string.utf8upper
 local utf8sub = string.utf8sub
 --WoW API / Variables
+local GetUnitRatedBattlegroundRankInfo = GetUnitRatedBattlegroundRankInfo
 local UnitAura = UnitAura
+local UnitGUID = UnitGUID
+local UnitIsPlayer = UnitIsPlayer
 
 local CategoriesIDs = {
 	90001, 90002,
@@ -220,6 +224,37 @@ ElvUF.Tags.Methods["premium:icon"] = function(unit)
 	end
 end
 
+ElvUF.Tags.Events["pvp:name"] = "UNIT_FACTION"
+ElvUF.Tags.Methods["pvp:name"] = function(unit)
+	if unit and UnitIsPlayer(unit) then
+		local currTitle, _, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
+		if (unit2 == unit or UnitGUID(unit2) == UnitGUID(unit)) and currTitle then
+			return currTitle
+		end
+	end
+end
+
+ElvUF.Tags.Events["pvp:id"] = "UNIT_FACTION"
+ElvUF.Tags.Methods["pvp:id"] = function(unit)
+	if unit and UnitIsPlayer(unit) then
+		local _, currRankID, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
+		if (unit2 == unit or UnitGUID(unit2) == UnitGUID(unit)) and currRankID then
+			return currRankID
+		end
+	end
+end
+
+ElvUF.Tags.Events["pvp:icon"] = "UNIT_FACTION"
+ElvUF.Tags.Methods["pvp:icon"] = function(unit)
+	if unit and UnitIsPlayer(unit) then
+		local _, _, currRankIconCoord, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
+		if (unit2 == unit or UnitGUID(unit2) == UnitGUID(unit)) and currRankIconCoord then
+			local left, right, top, bottom = unpack(currRankIconCoord)
+			return format("|T%s:18:18:0:0:1024:512:%d:%d:%d:%d|t", "Interface\\PVPFrame\\PvPPrestigeIcons", left * 1024, right * 1024, top * 512, bottom * 512)
+		end
+	end
+end
+
 E:AddTagInfo("category:name", "Sirus", "Показывает на юните категорию в виде текста")
 E:AddTagInfo("category:name:short", "Sirus", "Показывает на юните категорию в виде текста (коротко)")
 E:AddTagInfo("category:name:veryshort", "Sirus", "Показывает на юните категорию в виде текста (коротко)")
@@ -229,3 +264,6 @@ E:AddTagInfo("vip:icon", "Sirus", "Показывает на юните VIP ст
 E:AddTagInfo("premium:name", "Sirus", "Показывает на юните Premium статус в виде текста")
 E:AddTagInfo("premium:name:short", "Sirus", "Показывает на юните Premium статус в виде текста (коротко)")
 E:AddTagInfo("premium:icon", "Sirus", "Показывает на юните Premium статус в виде иконки")
+E:AddTagInfo("pvp:name", "Sirus", "Показывает на юните PvP ранк в виде текста")
+E:AddTagInfo("pvp:id", "Sirus", "Показывает на юните PvP ранк в виде ID")
+E:AddTagInfo("pvp:icon", "Sirus", "Показывает на юните PvP ранк в виде иконки")
