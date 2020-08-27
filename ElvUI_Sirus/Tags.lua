@@ -4,6 +4,8 @@ local ElvUF = E.oUF
 local addon = E:GetModule("ElvUI_Sirus")
 
 --Lua functions
+local ipairs = ipairs
+local tonumber = tonumber
 local unpack = unpack
 local format = string.format
 local gmatch = gmatch
@@ -12,6 +14,7 @@ local match = string.match
 local utf8upper = string.utf8upper
 local utf8sub = string.utf8sub
 --WoW API / Variables
+local C_Split = C_Split
 local GetUnitRatedBattlegroundRankInfo = GetUnitRatedBattlegroundRankInfo
 local UnitAura = UnitAura
 local UnitGUID = UnitGUID
@@ -224,12 +227,34 @@ ElvUF.Tags.Methods["premium:icon"] = function(unit)
 	end
 end
 
+local await = {}
+hooksecurefunc(EventHandler.events, "ASMSG_CHARACTER_BG_INFO", function(_, msg)
+	local currGUID = unpack(C_Split(msg, "|"))
+	local GUID = tonumber(currGUID)
+	if await[GUID] then
+		for _, frame in ipairs(ElvUF.objects) do
+			if frame.unit == await[GUID] and frame.__tags then
+				for _, tag in ipairs(frame.__tags) do
+					tag:UpdateTag()
+				end
+				break
+			end
+		end
+		await[GUID] = nil
+	end
+end)
+
 ElvUF.Tags.Events["pvp:name"] = "UNIT_FACTION UNIT_TARGET"
 ElvUF.Tags.Methods["pvp:name"] = function(unit)
 	if unit and UnitIsPlayer(unit) then
+		local GUID = UnitGUID(unit)
 		local currTitle, _, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
-		if (unit2 == unit or UnitGUID(unit2) == UnitGUID(unit)) and currTitle then
-			return currTitle
+		if currTitle then
+			if (unit2 == unit or UnitGUID(unit2) == GUID) and currTitle then
+				return currTitle
+			end
+		else
+			await[tonumber(GUID)] = unit
 		end
 	end
 end
@@ -237,9 +262,14 @@ end
 ElvUF.Tags.Events["pvp:id"] = "UNIT_FACTION UNIT_TARGET"
 ElvUF.Tags.Methods["pvp:id"] = function(unit)
 	if unit and UnitIsPlayer(unit) then
-		local _, currRankID, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
-		if (unit2 == unit or UnitGUID(unit2) == UnitGUID(unit)) and currRankID then
-			return currRankID
+		local GUID = UnitGUID(unit)
+		local currTitle, currRankID, _, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
+		if currTitle then
+			if (unit2 == unit or UnitGUID(unit2) == GUID) and currRankID then
+				return currRankID
+			end
+		else
+			await[tonumber(GUID)] = unit
 		end
 	end
 end
@@ -247,10 +277,15 @@ end
 ElvUF.Tags.Events["pvp:icon"] = "UNIT_FACTION UNIT_TARGET"
 ElvUF.Tags.Methods["pvp:icon"] = function(unit)
 	if unit and UnitIsPlayer(unit) then
-		local _, _, currRankIconCoord, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
-		if (unit2 == unit or UnitGUID(unit2) == UnitGUID(unit)) and currRankIconCoord then
-			local left, right, top, bottom = unpack(currRankIconCoord)
-			return format("|T%s:18:18:0:0:1024:512:%d:%d:%d:%d|t", "Interface\\PVPFrame\\PvPPrestigeIcons", left * 1024, right * 1024, top * 512, bottom * 512)
+		local GUID = UnitGUID(unit)
+		local currTitle, _, currRankIconCoord, _, _, _, _, _, _, _, unit2 = GetUnitRatedBattlegroundRankInfo(unit)
+		if currTitle then
+			if (unit2 == unit or UnitGUID(unit2) == GUID) and currRankIconCoord then
+				local left, right, top, bottom = unpack(currRankIconCoord)
+				return format("|T%s:18:18:0:0:1024:512:%d:%d:%d:%d|t", "Interface\\PVPFrame\\PvPPrestigeIcons", left * 1024, right * 1024, top * 512, bottom * 512)
+			end
+		else
+			await[tonumber(GUID)] = unit
 		end
 	end
 end
