@@ -7,6 +7,7 @@ local addon = E:GetModule("ElvUI_Sirus")
 local ipairs = ipairs
 local tonumber = tonumber
 local unpack = unpack
+local find = string.find
 local format = string.format
 local gmatch = gmatch
 local gsub = gsub
@@ -14,7 +15,6 @@ local match = string.match
 local utf8upper = string.utf8upper
 local utf8sub = string.utf8sub
 --WoW API / Variables
-local C_Split = C_Split
 local GetUnitRatedBattlegroundRankInfo = GetUnitRatedBattlegroundRankInfo
 local UnitAura = UnitAura
 local UnitGUID = UnitGUID
@@ -229,8 +229,8 @@ end
 
 local await = {}
 hooksecurefunc(EventHandler.events, "ASMSG_CHARACTER_BG_INFO", function(_, msg)
-	local currGUID = unpack(C_Split(msg, "|"))
-	local GUID = tonumber(currGUID)
+	local _, _, GUID = find(msg, "^(.-)|")
+	GUID = tonumber(GUID)
 	if await[GUID] then
 		for _, frame in ipairs(ElvUF.objects) do
 			if frame.unit == await[GUID] and frame.__tags then
