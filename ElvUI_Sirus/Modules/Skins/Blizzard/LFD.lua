@@ -10,18 +10,6 @@ local find = string.find
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfd ~= true then return end
 
-	local imageSize = 1024
-	BattlegroundsData[2].backgroundCoords = {0, 0.298828125, 308 / imageSize, 0.59765625}
-	BattlegroundsData[3].backgroundCoords = {0, 0.298828125, 614 / imageSize, 0.896484375}
---	BattlegroundsData[1].backgroundCoords = {0, 0.298828125, 0, 0.298828125}
-	BattlegroundsData[7].backgroundCoords = {308 / imageSize, 0.59765625, 0, 0.298828125}
-	BattlegroundsData[9].backgroundCoords = {308 / imageSize, 0.59765625, 0.298828125, 0.59765625}
-	BattlegroundsData[30].backgroundCoords = {308 / imageSize, 0.59765625, 0.59765625, 0.896484375}
-	BattlegroundsData[31].backgroundCoords = {614 / imageSize, 0.896484375, 0, 0.298828125}
-	BattlegroundsData[12].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
-	BattlegroundsData[18].backgroundCoords = {614 / imageSize, 0.896484375, 614 / imageSize, 0.896484375}
-	BattlegroundsData[19].backgroundCoords = {614 / imageSize, 0.896484375, 310 / imageSize, 0.59765625}
-
 	S:HandlePortraitFrame(LFDParentFrame)
 	S:HandleCloseButton(LFDParentFrameCloseButton)
 	LFDParentFrame:SetTemplate("Transparent")
@@ -249,6 +237,7 @@ local function LoadSkin()
 	-- End ElvUI
 
 	S:HandlePortraitFrame(PVPUIFrame)
+	PVPUIFrame.Art.portraitFrame:Kill()
 	S:HandleCloseButton(PVPUIFrameCloseButton)
 	PVPUIFrame:SetTemplate("Transparent")
 	PVPUIFrame.LeftInset:StripTextures()
@@ -278,6 +267,19 @@ local function LoadSkin()
 		b.Icon:SetParent(b.Icon.backdrop)
 		b.Icon.backdrop:SetFrameLevel(b:GetFrameLevel() + 2)
 	end
+
+	PVPQueueFrameBattlePassToggleButton.Ring:Kill()
+	PVPQueueFrameBattlePassToggleButton.Background:Kill()
+	S:HandleButton(PVPQueueFrameBattlePassToggleButton)
+	PVPQueueFrameBattlePassToggleButton.Icon:Size(45)
+	PVPQueueFrameBattlePassToggleButton.Icon:ClearAllPoints()
+	PVPQueueFrameBattlePassToggleButton.Icon:Point("LEFT", 10, 0)
+	PVPQueueFrameBattlePassToggleButton.Icon:SetTexCoord(0.15, .85, .15, .85)
+	PVPQueueFrameBattlePassToggleButton.Icon:CreateBackdrop()
+	PVPQueueFrameBattlePassToggleButton.Icon:SetParent(PVPQueueFrameBattlePassToggleButton.Icon.backdrop)
+	PVPQueueFrameBattlePassToggleButton.Name:SetParent(PVPQueueFrameBattlePassToggleButton.Icon.backdrop)
+	PVPQueueFrameBattlePassToggleButton.Icon.backdrop:SetFrameLevel(PVPQueueFrameBattlePassToggleButton:GetFrameLevel() + 2)
+	PVPQueueFrameBattlePassToggleButton.LevelFrame:SetFrameLevel(PVPQueueFrameBattlePassToggleButton:GetFrameLevel() + 3)
 
 	PVPQueueFrame.CapTopFrame:StripTextures()
 
