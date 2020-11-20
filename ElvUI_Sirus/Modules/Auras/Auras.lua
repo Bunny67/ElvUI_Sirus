@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local addon = E:GetModule("ElvUI_Sirus")
 local A = E:GetModule("Auras")
 
 --Lua functions
@@ -110,9 +109,7 @@ function A:UpdateHeader(header)
 				local spellList = aurafilter.spells
 				local spell = spellList and (spellList[spellID] or spellList[aura.name])
 
-				if filterType and (filterType == "Blacklist") and (spell and spell.enable) then
-					--
-				else
+				if not ((filterType == "Blacklist") and (spell and spell.enable)) then
 					tinsert(sortingTable, aura)
 				end
 			else

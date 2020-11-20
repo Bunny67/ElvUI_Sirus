@@ -16,10 +16,12 @@ function S:GetOptions()
 		desc = L["These filters use a list of spells to determine if an aura should be allowed or blocked. The content of these filters can be modified in the 'Filters' section of the config."],
 		values = function()
 			local filters = {}
+			filters[""] = NONE
 			local list = E.global.unitframe.aurafilters
-			if not list then return end
-			for filter in pairs(list) do
-				filters[filter] = filter
+			if list then
+				for filter in pairs(list) do
+					filters[filter] = filter
+				end
 			end
 
 			return filters
@@ -33,10 +35,12 @@ function S:GetOptions()
 		desc = L["These filters use a list of spells to determine if an aura should be allowed or blocked. The content of these filters can be modified in the 'Filters' section of the config."],
 		values = function()
 			local filters = {}
+			filters[""] = NONE
 			local list = E.global.unitframe.aurafilters
-			if not list then return end
-			for filter in pairs(list) do
-				filters[filter] = filter
+			if list then
+				for filter in pairs(list) do
+					filters[filter] = filter
+				end
 			end
 
 			return filters
