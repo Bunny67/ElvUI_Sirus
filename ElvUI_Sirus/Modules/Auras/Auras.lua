@@ -104,8 +104,15 @@ function A:UpdateHeader(header)
 			aura.filter = filter
 			aura.index = i
 
-			if filter == "HARMFUL" then
-				if not (self.db.hideCategoryIcon and addon.Categories[spellID] or self.db.hideVIPIcon and addon.VIP[spellID] or self.db.hidePremiumIcon and addon.Premium[spellID]) then
+			if db.filter ~= "" and E.global.unitframe.aurafilters[db.filter] then
+				local aurafilter = E.global.unitframe.aurafilters[db.filter]
+				local filterType = aurafilter.type
+				local spellList = aurafilter.spells
+				local spell = spellList and (spellList[spellID] or spellList[aura.name])
+
+				if filterType and (filterType == "Blacklist") and (spell and spell.enable) then
+					--
+				else
 					tinsert(sortingTable, aura)
 				end
 			else

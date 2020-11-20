@@ -1,8 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
-P.auras.hideCategoryIcon = true
-P.auras.hideVIPIcon = true
-P.auras.hidePremiumIcon = true
+P.auras.buffs.filter = NONE
+P.auras.debuffs.filter = NONE
 
 P.actionbar.microbar.buttonsPerRow = 12
 

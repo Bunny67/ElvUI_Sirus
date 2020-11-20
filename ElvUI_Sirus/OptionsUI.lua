@@ -8,27 +8,40 @@ function S:GetOptions()
 	E.Options.args.actionbar.args.microbar.args.buttonsPerRow.max = #SHARED_MICROMENU_BUTTONS
 
 	-- Auras
-	E.Options.args.auras.args.general.args.spacer = {
-		order = 9,
-		type = "description",
-		name = ""
+	E.Options.args.auras.args.buffs.args.filter = {
+		order = 15,
+		type = "select",
+		sortByValue = true,
+		name = L["Add Regular Filter"],
+		desc = L["These filters use a list of spells to determine if an aura should be allowed or blocked. The content of these filters can be modified in the 'Filters' section of the config."],
+		values = function()
+			local filters = {}
+			local list = E.global.unitframe.aurafilters
+			if not list then return end
+			for filter in pairs(list) do
+				filters[filter] = filter
+			end
+
+			return filters
+		end
 	}
-	E.Options.args.auras.args.general.args.hideCategoryIcon = {
-		order = 10,
-		type = "toggle",
-		name = E.NewSign.."Скрывать категорию"
+	E.Options.args.auras.args.debuffs.args.filter = {
+		order = 15,
+		type = "select",
+		sortByValue = true,
+		name = L["Add Regular Filter"],
+		desc = L["These filters use a list of spells to determine if an aura should be allowed or blocked. The content of these filters can be modified in the 'Filters' section of the config."],
+		values = function()
+			local filters = {}
+			local list = E.global.unitframe.aurafilters
+			if not list then return end
+			for filter in pairs(list) do
+				filters[filter] = filter
+			end
+
+			return filters
+		end
 	}
-	E.Options.args.auras.args.general.args.hideVIPIcon = {
-		order = 11,
-		type = "toggle",
-		name = E.NewSign.."Скрывать VIP статус"
-	}
-	E.Options.args.auras.args.general.args.hidePremiumIcon = {
-		order = 12,
-		type = "toggle",
-		name = E.NewSign.."Скрывать Premium статус"
-	}
-	E.Options.args.auras.args.general.args.lbf.order = 13
 
 	-- General
 	E.Options.args.general.args.blizzUIImprovements.args.case = {
