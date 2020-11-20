@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
-P.auras.buffs.filter = NONE
-P.auras.debuffs.filter = NONE
+P.auras.buffs.filter = ""
+P.auras.debuffs.filter = ""
 
 P.actionbar.microbar.buttonsPerRow = 12
 
