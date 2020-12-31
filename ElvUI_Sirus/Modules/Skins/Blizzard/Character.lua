@@ -145,11 +145,8 @@ local function LoadSkin()
 	PlayerTitleFrameButton:ClearAllPoints()
 	PlayerTitleFrameButton:Point("RIGHT", PlayerTitleFrame.backdrop, "RIGHT", -2, 0)
 
-	PlayerTitlePickerFrame:StripTextures()
-	PlayerTitlePickerFrame:CreateBackdrop("Transparent")
-	PlayerTitlePickerFrame.backdrop:Point("TOPLEFT", 6, -10)
-	PlayerTitlePickerFrame.backdrop:Point("BOTTOMRIGHT", -10, 6)
-	PlayerTitlePickerFrame.backdrop:SetFrameLevel(PlayerTitlePickerFrame:GetFrameLevel())
+	PlayerTitlePickerScrollFrame:StripTextures()
+	PlayerTitlePickerScrollFrame:CreateBackdrop("Transparent")
 
 	for i = 1, #PlayerTitlePickerScrollFrame.buttons do
 		PlayerTitlePickerScrollFrame.buttons[i].text:FontTemplate()
