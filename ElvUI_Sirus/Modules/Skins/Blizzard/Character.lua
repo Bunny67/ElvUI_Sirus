@@ -122,7 +122,7 @@ local function LoadSkin()
 
 	PaperDollFrame.NewPanel:StripTextures()
 	ColorizeStatPane(PaperDollFrameStrengthenFrame.StrengthenTittle)
-	PaperDollFrameStrengthenFrame.StrengthenTittle.tittleBackground:SetAlpha(0)
+	PaperDollFrameStrengthenFrame.StrengthenTittle.Background:SetAlpha(0)
 
 	PaperDollSidebarTabs:StripTextures()
 	PaperDollFrame.StatsInset:StripTextures()
