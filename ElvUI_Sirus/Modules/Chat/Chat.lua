@@ -7,7 +7,8 @@ local Dodzo = E:TextureString([[Interface\AddOns\ElvUI_Sirus\Media\ChatLogos\Dod
 local specialChatIcons = {
 	["Крольчонок-Scourge x2 - 3.3.5a+"] = ElvBlue,
 	["Vakh-Scourge x2 - 3.3.5a+"] = Vakh,
-	["Додзё-Frostmourne x1 - 3.3.5a+"] = Dodzo,
+	["Долболоб-Neltharion x3 - 3.3.5a+"] = Vakh,
+	["Додзё-Scourge x2 - 3.3.5a+"] = Dodzo,
 }
 
 local function GetChatIcon(_, name, realm)
