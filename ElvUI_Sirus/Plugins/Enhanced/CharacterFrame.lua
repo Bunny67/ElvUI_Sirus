@@ -1532,15 +1532,15 @@ function module:Initialize()
 	titlePane.scrollBar = CreateFrame("Slider", "$parentScrollBar", titlePane, "HybridScrollBarTemplate")
 	titlePane.scrollBar:Width(20)
 	titlePane.scrollBar:ClearAllPoints()
-	titlePane.scrollBar:Point("TOPLEFT", titlePane, "TOPRIGHT", 1, -14)
-	titlePane.scrollBar:Point("BOTTOMLEFT", titlePane, "BOTTOMRIGHT", 1, 14)
+	titlePane.scrollBar:Point("TOPLEFT", titlePane, "TOPRIGHT", 3, -16)
+	titlePane.scrollBar:Point("BOTTOMLEFT", titlePane, "BOTTOMRIGHT", 3, 16)
 	S:HandleScrollBar(titlePane.scrollBar)
 
 	CreateSmoothScrollAnimation(titlePane.scrollBar, true)
 
 	titlePane.scrollBar.Show = function(self)
 		titlePane:Width(239)
-		titlePane:Point("TOPRIGHT", CharacterFrame, -24, -64)
+		titlePane:Point("TOPRIGHT", CharacterFrame, -24, -55)
 		for _, button in next, titlePane.buttons do
 			button:Width(239)
 		end
@@ -1549,7 +1549,7 @@ function module:Initialize()
 
 	titlePane.scrollBar.Hide = function(self)
 		titlePane:Width(257)
-		titlePane:Point("TOPRIGHT", CharacterFrame, -6, -64)
+		titlePane:Point("TOPRIGHT", CharacterFrame, -6, -55)
 		for _, button in next, titlePane.buttons do
 			button:Width(257)
 		end
@@ -1689,8 +1689,8 @@ function module:Initialize()
 	equipmentManagerPane.scrollBar = CreateFrame("Slider", "$parentScrollBar", equipmentManagerPane, "HybridScrollBarTemplate")
 	equipmentManagerPane.scrollBar:Width(20)
 	equipmentManagerPane.scrollBar:ClearAllPoints()
-	equipmentManagerPane.scrollBar:Point("TOPLEFT", equipmentManagerPane, "TOPRIGHT", 1, -14)
-	equipmentManagerPane.scrollBar:Point("BOTTOMLEFT", equipmentManagerPane, "BOTTOMRIGHT", 1, 14)
+	equipmentManagerPane.scrollBar:Point("TOPLEFT", equipmentManagerPane, "TOPRIGHT", 3, -16)
+	equipmentManagerPane.scrollBar:Point("BOTTOMLEFT", equipmentManagerPane, "BOTTOMRIGHT", 3, 16)
 	S:HandleScrollBar(equipmentManagerPane.scrollBar)
 
 	CreateSmoothScrollAnimation(equipmentManagerPane.scrollBar, true)
