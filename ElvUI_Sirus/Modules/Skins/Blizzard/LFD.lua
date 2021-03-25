@@ -464,27 +464,31 @@ local function LoadSkin()
 
 	RatedBattlegroundStatisticsScrollFrame:StripTextures()
 	S:HandleScrollBar(RatedBattlegroundStatisticsScrollFrameScrollBar)
---[[
-	RatedBattlegroundStatisticsScrollFrame.buttons[1]:Point("TOPLEFT", RatedBattlegroundStatisticsScrollFrame.scrollChild, "TOPLEFT", 1, 0)
 
-	for i = 1, #RatedBattlegroundStatisticsScrollFrame.buttons do
-		local button = RatedBattlegroundStatisticsScrollFrame.buttons[i]
-		button:SetTemplate("Transparent")
+	RatedBattlegroundStatisticsScrollFrame:HookScript("OnShow", function()
+		for i = 1, #RatedBattlegroundStatisticsScrollFrame.buttons do
+			local button = RatedBattlegroundStatisticsScrollFrame.buttons[i]
+			if not button.isSkinned then
+				button:SetTemplate("Transparent")
 
-		button.Background:SetDrawLayer("BORDER")
-		button.Background:SetInside()
-		button.Background:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, 1, 1, 1, 1)
+				button.Background:SetDrawLayer("BORDER")
+				button.Background:SetInside()
+				button.Background:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, 1, 1, 1, 1)
 
-		S:HandleButton(button.TogglePlus)
-		button.TogglePlus:SetNormalTexture(E.Media.Textures.Plus)
-		button.TogglePlus:SetPushedTexture(E.Media.Textures.Plus)
-		button.TogglePlus:SetHighlightTexture("")
-		S:HandleButton(button.ToggleMinus)
-		button.ToggleMinus:SetNormalTexture(E.Media.Textures.Minus)
-		button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
-		button.ToggleMinus:SetHighlightTexture("")
-	end
-]]
+				S:HandleButton(button.TogglePlus)
+				button.TogglePlus:SetNormalTexture(E.Media.Textures.Plus)
+				button.TogglePlus:SetPushedTexture(E.Media.Textures.Plus)
+				button.TogglePlus:SetHighlightTexture("")
+				S:HandleButton(button.ToggleMinus)
+				button.ToggleMinus:SetNormalTexture(E.Media.Textures.Minus)
+				button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
+				button.ToggleMinus:SetHighlightTexture("")
+
+				button.isSkinned = true
+			end
+		end
+	end)
+
 	S:HandleButton(RatedBattlegroundFrame.SoloQueueButton, true)
 	S:HandleButton(RatedBattlegroundFrame.GroupQueueButton, true)
 	S:HandleButton(RatedBattlegroundFrame.StatisticsButton, true)

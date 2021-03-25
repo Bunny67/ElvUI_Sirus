@@ -79,26 +79,33 @@ local function LoadSkin()
 
 	InspectPVPFrame.Statistics.Inset:StripTextures()
 
+	InspectBattlegroundStatisticsScrollFrameScrollBar:StripTextures()
 	S:HandleScrollBar(InspectBattlegroundStatisticsScrollFrameScrollBar)
---[[
-	for i = 1, #InspectBattlegroundStatisticsScrollFrame.buttons do
-		local button = InspectBattlegroundStatisticsScrollFrame.buttons[i]
-		button:SetTemplate("Transparent")
 
-		button.Background:SetDrawLayer("BORDER")
-		button.Background:SetInside()
-		button.Background:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, 1, 1, 1, 1)
+	InspectBattlegroundStatisticsScrollFrame:HookScript("OnShow", function()
+		for i = 1, #InspectBattlegroundStatisticsScrollFrame.buttons do
+			local button = InspectBattlegroundStatisticsScrollFrame.buttons[i]
+			if not button.isSkinned then
+				button:SetTemplate("Transparent")
 
-		S:HandleButton(button.TogglePlus)
-		button.TogglePlus:SetNormalTexture(E.Media.Textures.Plus)
-		button.TogglePlus:SetPushedTexture(E.Media.Textures.Plus)
-		button.TogglePlus:SetHighlightTexture("")
-		S:HandleButton(button.ToggleMinus)
-		button.ToggleMinus:SetNormalTexture(E.Media.Textures.Minus)
-		button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
-		button.ToggleMinus:SetHighlightTexture("")
-	end
-]]
+				button.Background:SetDrawLayer("BORDER")
+				button.Background:SetInside()
+				button.Background:SetGradientAlpha("HORIZONTAL", 0, 0, 0, 0, 1, 1, 1, 1)
+
+				S:HandleButton(button.TogglePlus)
+				button.TogglePlus:SetNormalTexture(E.Media.Textures.Plus)
+				button.TogglePlus:SetPushedTexture(E.Media.Textures.Plus)
+				button.TogglePlus:SetHighlightTexture("")
+				S:HandleButton(button.ToggleMinus)
+				button.ToggleMinus:SetNormalTexture(E.Media.Textures.Minus)
+				button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
+				button.ToggleMinus:SetHighlightTexture("")
+
+				button.isSkinned = true
+			end
+		end
+	end)
+
 	InspectPVPFrame.Ladder.CentralContainer:StripTextures()
 	InspectPVPFrame.Ladder.CentralContainer.BackgroundOverlay:SetAlpha(0)
 
