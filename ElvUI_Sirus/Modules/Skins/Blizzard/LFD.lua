@@ -464,7 +464,7 @@ local function LoadSkin()
 
 	RatedBattlegroundStatisticsScrollFrame:StripTextures()
 	S:HandleScrollBar(RatedBattlegroundStatisticsScrollFrameScrollBar)
-
+--[[
 	RatedBattlegroundStatisticsScrollFrame.buttons[1]:Point("TOPLEFT", RatedBattlegroundStatisticsScrollFrame.scrollChild, "TOPLEFT", 1, 0)
 
 	for i = 1, #RatedBattlegroundStatisticsScrollFrame.buttons do
@@ -484,7 +484,7 @@ local function LoadSkin()
 		button.ToggleMinus:SetPushedTexture(E.Media.Textures.Minus)
 		button.ToggleMinus:SetHighlightTexture("")
 	end
-
+]]
 	S:HandleButton(RatedBattlegroundFrame.SoloQueueButton, true)
 	S:HandleButton(RatedBattlegroundFrame.GroupQueueButton, true)
 	S:HandleButton(RatedBattlegroundFrame.StatisticsButton, true)
