@@ -43,6 +43,9 @@ local function LoadSkin()
 	StoreFrameTopInset:StripTextures()
 	--StoreFrameTopInset:SetTemplate("Transparent")
 
+	StoreRefundButton:SetPoint("BOTTOM", 0, 8)
+	S:HandleButton(StoreRefundButton)
+
 	for i = 1, 4 do
 		local button = _G["StoreMoneyButton"..i]
 		button:CreateBackdrop("Transparent")

@@ -124,10 +124,13 @@ local function LoadSkin()
 	WhoFrameColumnHeader1:SetPoint("LEFT", WhoFrameColumnHeader4, "RIGHT", -2, -0)
 	WhoFrameColumn_SetWidth(WhoFrameColumnHeader1, 105)
 
-	WhoFrameColumnHeader2:ClearAllPoints()
-	WhoFrameColumnHeader2:SetPoint("LEFT", WhoFrameColumnHeader1, "RIGHT", -2, -0)
+	WhoFrameColumnHeader5:ClearAllPoints()
+	WhoFrameColumnHeader5:SetPoint("LEFT", WhoFrameColumnHeader1, "RIGHT", -2, -0)
 
-	for i = 1, 4 do
+	WhoFrameColumnHeader2:ClearAllPoints()
+	WhoFrameColumnHeader2:SetPoint("LEFT", WhoFrameColumnHeader5, "RIGHT", -2, -0)
+
+	for i = 1, 5 do
 		_G["WhoFrameColumnHeader"..i]:StripTextures()
 		_G["WhoFrameColumnHeader"..i]:StyleButton()
 	end
