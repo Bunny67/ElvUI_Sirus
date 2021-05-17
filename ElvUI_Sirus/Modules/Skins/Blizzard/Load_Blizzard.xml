@@ -31,6 +31,7 @@
 	<Script file="Sirus_Transmogrify.lua"/>
 	<Script file="Sirus_Collections.lua"/>
 
+	<Script file="Custom_Achievement.lua"/>
 	<Script file="Custom_ExtraActionButton.lua"/>
 	<Script file="Custom_MountChest.lua"/>
 	<Script file="Custom_Headhunting.lua"/>
