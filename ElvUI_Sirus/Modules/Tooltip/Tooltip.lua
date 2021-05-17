@@ -337,6 +337,10 @@ function TT:RepositionSocialToast(frame, _, anchor)
 end
 
 if E.private.tooltip.enable then
+	if QueueStatusFrame then
+		QueueStatusFrame:SetTemplate("Transparent")
+	end
+
 	if SocialToastFrame then
 		SocialToastFrame:SetTemplate("Transparent")
 		S:HandleIcon(SocialToastFrame.Icon)
