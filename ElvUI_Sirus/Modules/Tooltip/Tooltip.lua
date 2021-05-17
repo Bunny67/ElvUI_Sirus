@@ -337,16 +337,34 @@ function TT:RepositionSocialToast(frame, _, anchor)
 end
 
 if E.private.tooltip.enable then
-	SocialToastFrame:SetTemplate("Transparent")
-	S:HandleIcon(SocialToastFrame.Icon)
-	TT:SecureHook(SocialToastFrame, "ShowToast", function(self) self.Icon:SetTexCoord(unpack(E.TexCoords)) end)
-	SocialToastFrame.backdrop:SetFrameLevel(SocialToastFrame:GetFrameLevel() + 2)
-	SocialToastFrame.Icon:SetParent(SocialToastFrame.backdrop)
-	S:HandleCloseButton(SocialToastFrame.CloseButton)
-	SocialToastFrame:ClearAllPoints()
-	SocialToastFrame:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 195)
-	E:CreateMover(SocialToastFrame, "SocialToastMover", L["Social Toast Frame"])
-	TT:SecureHook(SocialToastFrame, "SetPoint", "RepositionSocialToast")
+	if SocialToastFrame then
+		SocialToastFrame:SetTemplate("Transparent")
+		S:HandleIcon(SocialToastFrame.Icon)
+		TT:SecureHook(SocialToastFrame, "ShowToast", function(self) self.Icon:SetTexCoord(unpack(E.TexCoords)) end)
+		SocialToastFrame.backdrop:SetFrameLevel(SocialToastFrame:GetFrameLevel() + 2)
+		SocialToastFrame.Icon:SetParent(SocialToastFrame.backdrop)
+		S:HandleCloseButton(SocialToastFrame.CloseButton)
+		SocialToastFrame:ClearAllPoints()
+		SocialToastFrame:Point("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 4, 195)
+		E:CreateMover(SocialToastFrame, "SocialToastMover", L["Social Toast Frame"])
+		TT:SecureHook(SocialToastFrame, "SetPoint", "RepositionSocialToast")
+	elseif SocialToastAnchorFrame then
+		hooksecurefunc(SocialToastAnchorFrame, "ShowToast", function(self)
+			for _, toastFrame in ipairs(self.toastFrames) do
+				if not toastFrame.isSkinned then
+					toastFrame:SetTemplate("Transparent")
+					S:HandleIcon(toastFrame.Icon)
+					toastFrame.backdrop:SetFrameLevel(toastFrame:GetFrameLevel() + 2)
+					toastFrame.Icon:SetParent(toastFrame.backdrop)
+					S:HandleCloseButton(toastFrame.CloseButton)
+
+					toastFrame.isSkinned = true
+				end
+
+				toastFrame.Icon:SetTexCoord(unpack(E.TexCoords))
+			end
+		end)
+	end
 
 	TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE = gsub(TOOLTIP_UNIT_LEVEL_RACE_CLASS_TYPE, "\n.+", "")
 
