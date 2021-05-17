@@ -68,6 +68,8 @@ local function LoadSkin()
 	end
 
 	S:HandleIconSelectionFrame(MacroPopupFrame, NUM_MACRO_ICONS_SHOWN, "MacroPopupButton", "MacroPopup")
+	MacroPopupFrame.BorderBox:StripTextures()
+	S:HandleEditBox(MacroPopupSearchBox)
 end
 
 S:AddCallback("Sirus_Macro", LoadSkin)

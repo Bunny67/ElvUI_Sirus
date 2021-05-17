@@ -90,6 +90,11 @@ local function LoadSkin()
 	GearManagerDialogPopup.backdrop:Point("TOPLEFT", 5, -2)
 	GearManagerDialogPopup.backdrop:Point("BOTTOMRIGHT", -4, 8)
 
+	GearManagerDialogPopup:Height(287 + 15)
+	GearManagerDialogPopupScrollFrame:Height(184 + 15)
+	GearManagerDialogPopup.BorderBox:StripTextures()
+	S:HandleEditBox(GearManagerDialogPopupSearchBox)
+
 	S:HandleEditBox(GearManagerDialogPopupEditBox)
 
 	GearManagerDialogPopupScrollFrame:StripTextures()
