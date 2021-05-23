@@ -27,7 +27,7 @@ S:AddCallbackForAddon("Blizzard_AchievementUI", "Skin_Custom_AchievementUI", fun
 	AchievementFrame.searchBox.backdrop:Point("TOPLEFT", AchievementFrame.searchBox, "TOPLEFT", -3, -3)
 	AchievementFrame.searchBox.backdrop:Point("BOTTOMRIGHT", AchievementFrame.searchBox, "BOTTOMRIGHT", 0, 3)
 	AchievementFrame.searchBox:ClearAllPoints()
-	AchievementFrame.searchBox:Point("TOPRIGHT", AchievementFrame, "TOPRIGHT", -29, -6)
+	AchievementFrame.searchBox:Point("TOPLEFT", AchievementFrame, "TOPLEFT", 604, -6)
 	AchievementFrame.searchBox:Size(107, 25)
 
 	AchievementFrame.searchResults:StripTextures()
