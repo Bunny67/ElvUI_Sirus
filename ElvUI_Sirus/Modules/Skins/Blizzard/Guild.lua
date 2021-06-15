@@ -84,16 +84,24 @@ local function LoadSkin()
 	-- GuildInfo Frame
 	GuildInfoFrame:StripTextures()
 
-	S:HandleScrollBar(GuildInfoFrameMOTDScrollFrameScrollBar)
-	S:HandleButton(GuildInfoEditMOTDButton)
-	S:HandleButton(GuildInfoEditDetailsButton)
+	S:HandleScrollBar(GuildInfoFrameInfoMOTDScrollFrameScrollBar or GuildInfoFrameMOTDScrollFrameScrollBar)
 	S:HandleScrollBar(GuildInfoDetailsFrameScrollBar)
 	S:HandleButton(GuildAddMemberButton, true)
 	S:HandleButton(GuildControlButton, true)
 	S:HandleButton(GuildViewLogButton, true)
 	S:HandleButton(GuildRenameButton, true)
 
+	if GuildInfoFrameTab1 then
+		GuildInfoFrameInfo:StripTextures()
+
+		for i = 1, 3 do
+			local frame = _G["GuildInfoFrameTab"..i]
+			frame:StripTextures();
+		end
+	end
+
 	-- GuildTextEditFrame
+	GuildTextEditFrame:StripTextures()
 	GuildTextEditFrame:SetTemplate("Transparent")
 	S:HandleCloseButton(GuildTextEditFrameCloseButton)
 	GuildTextEditContainer:SetBackdrop(nil)
@@ -101,7 +109,7 @@ local function LoadSkin()
 	S:HandleScrollBar(GuildTextEditScrollFrameScrollBar)
 
 	S:HandleButton(GuildTextEditFrameAcceptButton)
-	S:HandleButton(GuildTextEditFrameCloseButton)
+	S:HandleButton(select(4, GuildTextEditFrame:GetChildren()))
 
 	-- GuildLogFrame
 	GuildLogFrame:StripTextures()
