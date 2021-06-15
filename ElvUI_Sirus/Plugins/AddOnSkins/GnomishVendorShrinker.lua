@@ -37,7 +37,7 @@ S:AddCallbackForAddon("GnomishVendorShrinker", "GnomishVendorShrinker", function
 	GVS:SetTemplate("Transparent")
 
 	MerchantBuyBackItem:ClearAllPoints()
-	MerchantBuyBackItem:Point("BOTTOMLEFT", 172, 44)
+	MerchantBuyBackItem:Point("BOTTOMLEFT", 172, 32)
 
 	local popoutButtonOnEnter = function(self) self.icon:SetVertexColor(unpack(E.media.rgbvaluecolor)) end
 	local popoutButtonOnLeave = function(self) self.icon:SetVertexColor(1, 1, 1) end
@@ -85,7 +85,7 @@ S:AddCallbackForAddon("GnomishVendorShrinker", "GnomishVendorShrinker", function
 			end
 
 			child:Height(18)
-			child:Point("TOPLEFT", GVS, "BOTTOMLEFT", 1, -61)
+			child:Point("TOPLEFT", GVS, "BOTTOMLEFT", 1, -73)
 			S:HandleEditBox(child)
 		elseif objType == "Slider" then
 			for _, child2 in ipairs({child:GetChildren()}) do
