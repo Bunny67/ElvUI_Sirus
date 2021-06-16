@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Clique.lua"/>
 	<Script file="GnomishVendorShrinker.lua"/>
+	<Script file="MoveAnything.lua"/>
 	<Script file="Postal.lua"/>
 </Ui>
