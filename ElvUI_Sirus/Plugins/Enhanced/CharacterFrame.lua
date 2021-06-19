@@ -679,6 +679,10 @@ function module:SetResistance(statFrame, unit, resistanceIndex)
 	end
 	statFrame.tooltip2 = format(RESISTANCE_TOOLTIP_SUBTEXT, _G["RESISTANCE_TYPE"..resistanceIndex], unitLevel, resistanceLevel)
 
+	if unitLevel == 80 then
+		statFrame.tooltip2 = statFrame.tooltip2 .. "\n" .. format(RESISTANCE_TOOLTIP_SUBTEXT2, 100 / ((((unitLevel * 675.5) / 83) + unitLevel) / resistance + 1));
+	end
+
 	if petBonus > 0 then
 		statFrame.tooltip2 = statFrame.tooltip2.."\n"..format(PET_BONUS_TOOLTIP_RESISTANCE, petBonus)
 	end
