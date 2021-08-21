@@ -95,6 +95,59 @@ local function LoadSkin()
 	S:HandleButton(MountJournal.MountDisplay.ModelScene.buyFrame.buyButton)
 
 	S:HandleButton(MountJournal.MountButton, true)
+
+	
+
+	-- путеводитель
+	S:HandleButton(MountDisplayModelSceneEJFrameOpenEJButton)
+	S:HandleButton(PetJournalPetDisplayModelSceneEJFrameOpenEJButton)
+
+	--tab for mount and pet
+	for i = 1,2 do 
+	S:HandleTab(_G["CollectionsJournalTab"..i])
+	end
+
+
+
+	-- pet tab
+	S:HandleRotateButton(PetJournalPetDisplayModelSceneRotateLeftButton)
+	S:HandleRotateButton(PetJournalPetDisplayModelSceneRotateRightButton)
+	S:HandleButton(PetJournalSummonButton, true)
+	
+	S:HandleScrollBar(PetJournalListScrollFrameScrollBar)
+
+	PetJournalFilterButton:StripTextures(true)
+	S:HandleButton(PetJournalFilterButton)
+
+	S:HandleEditBox(PetJournalSearchBox)
+	
+
+	--pet tab ListScrollFrame
+	for _, button in ipairs(PetJournal.ListScrollFrame.buttons) do
+
+		button:SetHighlightTexture(E.Media.Textures.Highlight)
+		button:GetHighlightTexture():SetVertexColor(1, 1, 1)
+		button:GetHighlightTexture().SetAlpha = E.noop
+
+		button.Background:SetTexture()
+
+		button.Icon:SetDrawLayer("BORDER")
+		S:HandleIcon(button.Icon)
+	end
+	
+	-- right frame 
+	
+	PetJournal.LeftInset:StripTextures()
+	PetJournal.RightInset:StripTextures()
+	PetJournal.PetDisplay:StripTextures()
+	PetJournal.PetDisplay.ShadowOverlay:Hide()
+
+
+	--pet count
+	PetJournal.PetCount:StripTextures()
+
+	-- pet icon
+	S:HandleIcon(PetJournal.PetDisplay.InfoButton.Icon)
 end
 
 S:AddCallback("Skin_Collections", LoadSkin)
