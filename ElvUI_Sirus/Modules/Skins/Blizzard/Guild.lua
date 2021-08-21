@@ -94,9 +94,7 @@ local function LoadSkin()
 	-- GuildInfo Frame
 	GuildInfoFrame:StripTextures()
 
-
-
-	S:HandleScrollBar(GuildInfoFrameMOTDScrollFrameScrollBar)
+	S:HandleScrollBar(GuildInfoFrameInfoMOTDScrollFrameScrollBar)
 	S:HandleButton(GuildInfoEditMOTDButton)
 	S:HandleButton(GuildInfoEditDetailsButton)
 	S:HandleScrollBar(GuildInfoDetailsFrameScrollBar)
