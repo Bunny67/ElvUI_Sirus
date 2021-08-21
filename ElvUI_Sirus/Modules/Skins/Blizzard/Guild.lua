@@ -91,6 +91,12 @@ local function LoadSkin()
 	S:HandleButton(GuildMemberRemoveButton)
 	S:HandleButton(GuildMemberGroupInviteButton)
 
+	GuildMemberRankDropdown:Point("LEFT", GuildMemberDetailRankLabel, "RIGHT", -18, -3)
+	S:HandleDropDownBox(GuildMemberRankDropdown)
+
+	GuildMemberNoteBackground:SetTemplate("Transparent")
+	GuildMemberOfficerNoteBackground:SetTemplate("Transparent")
+
 	-- GuildInfo Frame
 	GuildInfoFrame:StripTextures()
 
@@ -124,9 +130,6 @@ local function LoadSkin()
 	S:HandleScrollBar(GuildLogScrollFrameScrollBar)
 
 	S:HandleButton(CloseButton2)
-
-
-	--lvl of guild
 
 end
 
