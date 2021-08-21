@@ -34,6 +34,36 @@ local function LoadSkin()
 		tab.Icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
+
+
+	-- top tab
+		for i = 1, 3 do
+		local tab2 = _G["GuildInfoFrameTab"..i]
+
+		--tab 1 info gi
+		if i == 1 then 
+		
+		-- fix for someone buttons 
+		S:HandleButton(GuildAddMemberButton, true)
+		S:HandleButton(GuildControlButton, true)
+		S:HandleButton(GuildViewLogButton, true)
+		S:HandleButton(GuildRenameButton, true)
+		end
+		if i == 2 then 
+		end
+		if i == 3 then 
+		S:HandleButton(GuildRecruitmentInviteButton, true)
+		S:HandleButton(GuildRecruitmentMessageButton, true)
+		S:HandleButton(GuildRecruitmentDeclineButton, true)
+		
+
+		end
+		S:HandleTab(_G["GuildInfoFrameTab"..i])
+		
+		--tab2:SetTemplate("Default", true)
+				
+	end
+
 	-- GuildPerks Frame
 	GuildAllPerksFrame:StripTextures()
 	S:HandleScrollBar(GuildPerksContainerScrollBar)
@@ -83,25 +113,19 @@ local function LoadSkin()
 
 	-- GuildInfo Frame
 	GuildInfoFrame:StripTextures()
+	
+	
 
-	S:HandleScrollBar(GuildInfoFrameInfoMOTDScrollFrameScrollBar or GuildInfoFrameMOTDScrollFrameScrollBar)
+	S:HandleScrollBar(GuildInfoFrameMOTDScrollFrameScrollBar)
+	S:HandleButton(GuildInfoEditMOTDButton)
+	S:HandleButton(GuildInfoEditDetailsButton)
 	S:HandleScrollBar(GuildInfoDetailsFrameScrollBar)
 	S:HandleButton(GuildAddMemberButton, true)
 	S:HandleButton(GuildControlButton, true)
 	S:HandleButton(GuildViewLogButton, true)
 	S:HandleButton(GuildRenameButton, true)
 
-	if GuildInfoFrameTab1 then
-		GuildInfoFrameInfo:StripTextures()
-
-		for i = 1, 3 do
-			local frame = _G["GuildInfoFrameTab"..i]
-			frame:StripTextures();
-		end
-	end
-
 	-- GuildTextEditFrame
-	GuildTextEditFrame:StripTextures()
 	GuildTextEditFrame:SetTemplate("Transparent")
 	S:HandleCloseButton(GuildTextEditFrameCloseButton)
 	GuildTextEditContainer:SetBackdrop(nil)
@@ -109,19 +133,23 @@ local function LoadSkin()
 	S:HandleScrollBar(GuildTextEditScrollFrameScrollBar)
 
 	S:HandleButton(GuildTextEditFrameAcceptButton)
-	S:HandleButton(select(4, GuildTextEditFrame:GetChildren()))
+	S:HandleButton(GuildTextEditFrameCloseButton)
 
-	-- GuildLogFrame
+		-- GuildLogFrame not work for now
 	GuildLogFrame:StripTextures()
 	GuildLogFrame:SetTemplate("Transparent")
-
+	
 	local CloseButton, _, CloseButton2 = GuildLogFrame:GetChildren()
 	S:HandleCloseButton(CloseButton)
 	GuildLogContainer:SetBackdrop(nil)
-
+	
 	S:HandleScrollBar(GuildLogScrollFrameScrollBar)
-
+	
 	S:HandleButton(CloseButton2)
+
+
+	--lvl of guild
+	
 end
 
 S:AddCallback("Guild", LoadSkin)
