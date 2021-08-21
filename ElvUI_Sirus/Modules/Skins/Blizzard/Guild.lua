@@ -125,8 +125,10 @@ local function LoadSkin()
 
 	S:HandleButton(CloseButton2)
 
-
-	--lvl of guild
+	S:HandleDropDownBox(GuildMemberRankDropdown)
+    local dropdownArrowColor = {1, 0.8, 0}
+    S:HandleNextPrevButton(GuildMemberRankDropdownButton, "down", dropdownArrowColor)
+    GuildMemberRankDropdownButton:Size(23)
 
 end
 
