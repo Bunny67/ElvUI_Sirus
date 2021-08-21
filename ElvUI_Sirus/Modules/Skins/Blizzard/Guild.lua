@@ -41,27 +41,27 @@ local function LoadSkin()
 		local tab2 = _G["GuildInfoFrameTab"..i]
 
 		--tab 1 info gi
-		if i == 1 then 
-		
-		-- fix for someone buttons 
+		if i == 1 then
+
+		-- fix for someone buttons
 		S:HandleButton(GuildAddMemberButton, true)
 		S:HandleButton(GuildControlButton, true)
 		S:HandleButton(GuildViewLogButton, true)
 		S:HandleButton(GuildRenameButton, true)
 		end
-		if i == 2 then 
+		if i == 2 then
 		end
-		if i == 3 then 
+		if i == 3 then
 		S:HandleButton(GuildRecruitmentInviteButton, true)
 		S:HandleButton(GuildRecruitmentMessageButton, true)
 		S:HandleButton(GuildRecruitmentDeclineButton, true)
-		
+
 
 		end
 		S:HandleTab(_G["GuildInfoFrameTab"..i])
-		
+
 		--tab2:SetTemplate("Default", true)
-				
+
 	end
 
 	-- GuildPerks Frame
@@ -113,8 +113,8 @@ local function LoadSkin()
 
 	-- GuildInfo Frame
 	GuildInfoFrame:StripTextures()
-	
-	
+
+
 
 	S:HandleScrollBar(GuildInfoFrameMOTDScrollFrameScrollBar)
 	S:HandleButton(GuildInfoEditMOTDButton)
@@ -138,18 +138,18 @@ local function LoadSkin()
 		-- GuildLogFrame not work for now
 	GuildLogFrame:StripTextures()
 	GuildLogFrame:SetTemplate("Transparent")
-	
+
 	local CloseButton, _, CloseButton2 = GuildLogFrame:GetChildren()
 	S:HandleCloseButton(CloseButton)
 	GuildLogContainer:SetBackdrop(nil)
-	
+
 	S:HandleScrollBar(GuildLogScrollFrameScrollBar)
-	
+
 	S:HandleButton(CloseButton2)
 
 
 	--lvl of guild
-	
+
 end
 
 S:AddCallback("Guild", LoadSkin)
