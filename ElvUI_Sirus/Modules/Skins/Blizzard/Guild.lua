@@ -34,35 +34,15 @@ local function LoadSkin()
 		tab.Icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
-
-
 	-- top tab
-		for i = 1, 3 do
-		local tab2 = _G["GuildInfoFrameTab"..i]
-
-		--tab 1 info gi
-		if i == 1 then
-
-		-- fix for someone buttons
-		S:HandleButton(GuildAddMemberButton, true)
-		S:HandleButton(GuildControlButton, true)
-		S:HandleButton(GuildViewLogButton, true)
-		S:HandleButton(GuildRenameButton, true)
-		end
-		if i == 2 then
-		end
-		if i == 3 then
-		S:HandleButton(GuildRecruitmentInviteButton, true)
-		S:HandleButton(GuildRecruitmentMessageButton, true)
-		S:HandleButton(GuildRecruitmentDeclineButton, true)
-
-
-		end
-		S:HandleTab(_G["GuildInfoFrameTab"..i])
-
-		--tab2:SetTemplate("Default", true)
-
+	for i = 1, 3 do
+		local tab = _G["GuildInfoFrameTab"..i]
+		S:HandleTab(tab)
 	end
+
+	S:HandleButton(GuildRecruitmentInviteButton, true)
+	S:HandleButton(GuildRecruitmentMessageButton, true)
+	S:HandleButton(GuildRecruitmentDeclineButton, true)
 
 	-- GuildPerks Frame
 	GuildAllPerksFrame:StripTextures()
