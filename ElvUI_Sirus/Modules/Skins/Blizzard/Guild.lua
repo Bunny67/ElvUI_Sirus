@@ -91,6 +91,12 @@ local function LoadSkin()
 	S:HandleButton(GuildMemberRemoveButton)
 	S:HandleButton(GuildMemberGroupInviteButton)
 
+	GuildMemberRankDropdown:Point("LEFT", GuildMemberDetailRankLabel, "RIGHT", -18, -3)
+	S:HandleDropDownBox(GuildMemberRankDropdown)
+
+	GuildMemberNoteBackground:SetTemplate("Transparent")
+	GuildMemberOfficerNoteBackground:SetTemplate("Transparent")
+
 	-- GuildInfo Frame
 	GuildInfoFrame:StripTextures()
 
@@ -124,11 +130,6 @@ local function LoadSkin()
 	S:HandleScrollBar(GuildLogScrollFrameScrollBar)
 
 	S:HandleButton(CloseButton2)
-
-	S:HandleDropDownBox(GuildMemberRankDropdown)
-    local dropdownArrowColor = {1, 0.8, 0}
-    S:HandleNextPrevButton(GuildMemberRankDropdownButton, "down", dropdownArrowColor)
-    GuildMemberRankDropdownButton:Size(23)
 
 end
 
