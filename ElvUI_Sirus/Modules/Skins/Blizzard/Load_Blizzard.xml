@@ -36,4 +36,5 @@
 	<Script file="Custom_MountChest.lua"/>
 	<Script file="Custom_Headhunting.lua"/>
 	<Script file="Custom_Roulette.lua"/>
+	<Script file="Custom_Auction.lua"/>
 </Ui>

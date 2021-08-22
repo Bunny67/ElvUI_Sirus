@@ -113,7 +113,7 @@ local function LoadSkin()
 	S:HandleButton(GuildTextEditFrameAcceptButton)
 	S:HandleButton(GuildTextEditFrameCloseButton)
 
-		-- GuildLogFrame not work for now
+	-- GuildLogFrame not work for now
 	GuildLogFrame:StripTextures()
 	GuildLogFrame:SetTemplate("Transparent")
 
