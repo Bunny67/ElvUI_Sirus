@@ -50,46 +50,9 @@ local function LoadSkin()
 				AuctionHouseFrameSearchBarSearchBox:StripTextures(true)
 				S:HandleEditBox(AuctionHouseFrameSearchBarSearchBox)			
 			--category buttons (не придумал как сделать по другому пока, он показывает только 20 кнопок на экране максимум и если гортаешь они обновляются) 
-				for i = 1,20 do 
+				for i = 1, 20, 1 do 
 				S:HandleButton(_G["AuctionHouseFrameCategoriesListAuctionFilterButton"..i])
 				end
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton2)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton3)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton4)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton5)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton6)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton7)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton8)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton9)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton10)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton11)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton12)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton13)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton14)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton15)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton16)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton17)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton18)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton19)
---				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton20)
-								--for _, button in ipairs(AuctionHouseFrame.CategoriesList.AuctionFilter.Buttons) do
-								--
-								--button:SetHighlightTexture(E.Media.Textures.Highlight)
-								--button:GetHighlightTexture():SetVertexColor(1, 1, 1)
-								--button:GetHighlightTexture().SetAlpha = E.noop
-								--
-								--button.Background:SetTexture()
-								--
-								--end
-								--top tap
-								--/run	print(AuctionHouseFrame.CategoriesList)
-								--	/run	print(AuctionHouseFrame.BrowseResultsFrame.ItemList.HeaderContainer)
-								--	/run for k,v in pairs(AuctionHouseFrame.CategoriesList) do	print(k,v)	end
-								--AuctionHouseFrame.BrowseResultsFrame.ItemList.HeaderContainer:StripTextures()
-								--AuctionHouseFrame.BrowseResultsFrame.ItemList.HeaderContainer:StyleButton()
-								--AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1:SetTemplate("Transparent")
-								--AuctionHouseFrame.BrowseResultsFrame.ItemList.HeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1:StripTextures()
-								--AuctionHouseFrame.BrowseResultsFrame.ItemList.HeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1:StyleButton()
 		--sell tab
 			--frames
 				--right side
