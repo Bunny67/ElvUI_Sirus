@@ -49,7 +49,7 @@ local function LoadSkin()
 			--Search
 				AuctionHouseFrameSearchBarSearchBox:StripTextures(true)
 				S:HandleEditBox(AuctionHouseFrameSearchBarSearchBox)			
-			--category buttons (РЅРµ РїСЂРёРґСѓРјР°Р» РєР°Рє СЃРґРµР»Р°С‚СЊ РїРѕ РґСЂСѓРіРѕРјСѓ РїРѕРєР°, РѕРЅ РїРѕРєР°Р·С‹РІР°РµС‚ С‚РѕР»СЊРєРѕ 20 РєРЅРѕРїРѕРє РЅР° СЌРєСЂР°РЅРµ РјР°РєСЃРёРјСѓРј Рё РµСЃР»Рё РіРѕСЂС‚Р°РµС€СЊ РѕРЅРё РѕР±РЅРѕРІР»СЏСЋС‚СЃСЏ) 
+			--category buttons (не придумал как сделать по другому пока, он показывает только 20 кнопок на экране максимум и если гортаешь они обновляются) 
 				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton1)
 				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton2)
 				S:HandleButton(AuctionHouseFrame.CategoriesList.AuctionFilterButton3)
@@ -200,7 +200,11 @@ local function LoadSkin()
 							AuctionHouseFrameAuctionsFrameBidsListScrollFrame:CreateBackdrop("Transparent")
 							AuctionHouseFrameAuctionsFrameBidsList:StripTextures()
 							AuctionHouseFrameAuctionsFrameBidsListNineSlice:StripTextures()
+	--hooksecurefunc
 
+	
+	
+	
 end
 
 S:AddCallback('AuctionHouse', LoadSkin)

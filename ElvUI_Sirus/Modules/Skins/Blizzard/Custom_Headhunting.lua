@@ -83,8 +83,8 @@ local function LoadSkin()
 
 	local function SkinRewardFrame(frame)
 		S:HandlePortraitFrame(frame)
-		S:HandleEditBox(frame.SearchFrame.SearchBox)
-		S:HandleButton(frame.SearchFrame.SearchButton)
+		S:HandleEditBox(frame.SearchFrame.SearchBox) --??
+		S:HandleButton(frame.SearchFrame.SearchButton) --??
 		frame.CentralContainer:StripTextures()
 		frame.CentralContainer.ScrollFrame.ShadowOverlay:SetAlpha(0)
 		S:HandleScrollBar(_G[frame:GetName().."CentralContainerScrollFrameScrollBar"])
@@ -101,6 +101,11 @@ local function LoadSkin()
 
 	HeadHuntingSetRewardExternalFrame:SetParent(UIParent)
 	SkinRewardFrame(HeadHuntingSetRewardExternalFrame)
+	--SearchBox and button 
+	S:HandleEditBox(HeadHuntingFrame.Container.AllTargetsPanel.SearchFrame.SearchBox)
+	S:HandleButton(HeadHuntingFrame.Container.AllTargetsPanel.SearchFrame.SearchButton)
+	HeadHuntingFrameContainerAllTargetsPanelFilterDropDownMenu:StripTextures(true)	
+	S:HandleButton(HeadHuntingFrameContainerAllTargetsPanelFilterDropDownMenu)
 end
 
 S:AddCallback("Custom_Headhunting", LoadSkin)
