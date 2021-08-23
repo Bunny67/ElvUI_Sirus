@@ -114,8 +114,10 @@ local function LoadSkin()
 	S:HandleButton(GuildRenameButton, true)
 
 	-- GuildTextEditFrame
+	GuildTextEditFrame:StripTextures()
 	GuildTextEditFrame:SetTemplate("Transparent")
 	S:HandleCloseButton(GuildTextEditFrameCloseButton)
+	GuildTextEditContainer:StripTextures()
 	GuildTextEditContainer:SetBackdrop(nil)
 
 	S:HandleScrollBar(GuildTextEditScrollFrameScrollBar)
