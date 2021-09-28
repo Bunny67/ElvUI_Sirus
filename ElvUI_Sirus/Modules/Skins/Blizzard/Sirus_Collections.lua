@@ -96,8 +96,6 @@ local function LoadSkin()
 
 	S:HandleButton(MountJournal.MountButton, true)
 
-
-
 	-- путеводитель
 	S:HandleButton(MountDisplayModelSceneEJFrameOpenEJButton)
 	S:HandleButton(PetJournalPetDisplayModelSceneEJFrameOpenEJButton)
@@ -106,8 +104,6 @@ local function LoadSkin()
 	for i = 1,2 do
 	S:HandleTab(_G["CollectionsJournalTab"..i])
 	end
-
-
 
 	-- pet tab
 	S:HandleRotateButton(PetJournalPetDisplayModelSceneRotateLeftButton)
@@ -120,7 +116,6 @@ local function LoadSkin()
 	S:HandleButton(PetJournalFilterButton)
 
 	S:HandleEditBox(PetJournalSearchBox)
-
 
 	--pet tab ListScrollFrame
 	for _, button in ipairs(PetJournal.ListScrollFrame.buttons) do
@@ -141,7 +136,6 @@ local function LoadSkin()
 	PetJournal.RightInset:StripTextures()
 	PetJournal.PetDisplay:StripTextures()
 	PetJournal.PetDisplay.ShadowOverlay:Hide()
-
 
 	--pet count
 	PetJournal.PetCount:StripTextures()

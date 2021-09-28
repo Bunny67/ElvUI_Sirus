@@ -251,9 +251,7 @@ local function LoadSkin()
 			S:HandleCheckBox(GuildRecruitmentRaidButton)
 			S:HandleCheckBox(GuildRecruitmentWeekdaysButton)
 			S:HandleCheckBox(GuildRecruitmentWeekendsButton)
-			S:HandleButton(GuildRecruitmentTankButton,true)
-			S:HandleButton(GuildRecruitmentHealerButton,true)
-			S:HandleButton(GuildRecruitmentDamagerButton,true)
+			
 			S:HandleCheckBox(GuildRecruitmentLevelAnyButton)
 			S:HandleCheckBox(GuildRecruitmentLevelMaxButton)
 
@@ -261,7 +259,6 @@ local function LoadSkin()
 			GuildRecruitmentCommentInputFrameScrollFrame:StripTextures()
 			GuildRecruitmentCommentInputFrame:StripTextures()
 
-			
 			
 			
 								
