@@ -23,6 +23,8 @@ local function LoadSkin()
 				--browseframe
 					AuctionHouseFrameBrowseResultsFrameItemListScrollFrame:StripTextures()
 					AuctionHouseFrameBrowseResultsFrameItemListScrollFrame:CreateBackdrop("Transparent")
+
+				--buy tab 
 					AuctionHouseFrameBrowseResultsFrameItemList:StripTextures()
 					AuctionHouseFrameBrowseResultsFrameItemListNineSlice:StripTextures()
 				--money
@@ -36,19 +38,49 @@ local function LoadSkin()
 					--AuctionHouseFrameCategoriesListScrollFrameScrollChildFrame:StripTextures()	
 					--AuctionHouseFrameCategoriesListScrollFrameScrollChildFrame:CreateBackdrop("Transparent")
 					AuctionHouseFrameCategoriesListScrollFrame:StripTextures()
+				--results					
+					AuctionHouseFrameItemBuyFrameItemListScrollFrame:StripTextures()
+					AuctionHouseFrameItemBuyFrameItemListScrollFrame:CreateBackdrop("Transparent")
+					----------hook
+					function aucpanitemlistnineslice_OnShow(self)
+							AuctionHouseFrameItemBuyFrameItemListScrollFrameNineSlice:StripTextures()
+							AuctionHouseFrameItemBuyFrameItemListScrollFrameNineSlice:CreateBackdrop("Transparent")
+							S:HandleEditBox(AuctionHouseFrameItemBuyFrameBidFraameBidAmountGold)
+							S:HandleEditBox(AuctionHouseFrameItemBuyFrameBidFraameBidAmountSilver)
+					end
+					aucpanitemlistnineslice = AuctionHouseFrameItemBuyFrameItemListScrollFrame
+					aucpanitemlistnineslice:HookScript("OnShow", aucpanitemlistnineslice_OnShow)
+					--
+					AuctionHouseFrameItemBuyFrameItemDisplay:StripTextures()
+					AuctionHouseFrameItemBuyFrameItemDisplay:CreateBackdrop("Transparent")
+					AuctionHouseFrameItemBuyFrameItemDisplayNineSlice:StripTextures()
+					AuctionHouseFrameItemBuyFrameItemDisplayNineSlice:CreateBackdrop("Transparent")
+
 			--scrollbar
 				AuctionHouseFrameCategoriesListScrollFrameScrollBar:StripTextures()	
 				S:HandleScrollBar(AuctionHouseFrameBrowseResultsFrameItemListScrollFrameScrollBar)
 				S:HandleScrollBar(AuctionHouseFrameCategoriesListScrollFrameScrollBar)
+				S:HandleScrollBar(AuctionHouseFrameItemBuyFrameItemListScrollFrameScrollBar)
 			--button
 				S:HandleButton(AuctionHouseFrameSearchBarSearchButton, true)
 				AuctionHouseFrameSearchBarFilterButton:StripTextures(true)
 				S:HandleButton(AuctionHouseFrameSearchBarFilterButton, true)
 				S:HandleCloseButton(AuctionHouseFrameCloseButton)
 				S:HandleButton(AuctionHouseFrameSearchBarFavoritesSearchButton)
+				-- 1
+				S:HandleButton(AuctionHouseFrameItemBuyFrameItemDisplayItemButton)
+				S:HandleButton(AuctionHouseFrameItemBuyFrameBackButton)				
+				S:HandleButton(AuctionHouseFrameItemBuyFrameBuyoutFrameBuyoutButton)
+				S:HandleButton(AuctionHouseFrameItemBuyFrameBidFrameBidButton)
+				S:HandleButton(AuctionHouseFrameItemBuyFrameItemListRefreshFrameRefreshButton)
+
 			--Search
 				AuctionHouseFrameSearchBarSearchBox:StripTextures(true)
-				S:HandleEditBox(AuctionHouseFrameSearchBarSearchBox)			
+				S:HandleEditBox(AuctionHouseFrameSearchBarSearchBox)
+				-- edit box
+					
+--					AuctionHouseFrameItemBuyFrameBidFraameBidAmountGold:Width(70)
+--					AuctionHouseFrameItemBuyFrameBidFraameBidAmountGold:Height(20)
 			
 		--sell tab
 			--frames
@@ -216,7 +248,13 @@ local function LoadSkin()
 			for i = 1,3 do
 				S:HandleButton(_G["AuctionHouseFrameAuctionsFrameBidsListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
-		end		
+		end
+		function aucfpanelbidbut1_OnShow(self)
+			for i = 1,2 do
+				S:HandleButton(_G["AuctionHouseFrameItemBuyFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
+			end	
+		end
+		
 		
 			aucfpanel1 =	AuctionHouseFrameBrowseResultsFrameItemList 
 				aucfpanel1:HookScript("OnShow", firtab_OnShow)			
@@ -229,6 +267,9 @@ local function LoadSkin()
 				aucfpanel4:HookScript("OnShow", thtab_OnShow)
 			aucfpanel5 = AuctionHouseFrameAuctionsFrameBidsList
 				aucfpanel5:HookScript("OnShow", fortab_OnShow)
+			-- bid buy 
+			aucfpanelbidbuy1 = AuctionHouseFrameItemBuyFrameItemListScrollFrame
+			aucfpanelbidbuy1:HookScript("OnShow", aucfpanelbidbut1_OnShow)		
 
 end
 

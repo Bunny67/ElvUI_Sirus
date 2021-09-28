@@ -181,9 +181,9 @@ local function LoadSkin()
 			end			
 		
 			local gcontl = GuildControlPopupFrameCheckboxes
-			gcontl:HookScript("OnShow", guildcontrol_OnShow)
+				gcontl:HookScript("OnShow", guildcontrol_OnShow)
 			local gcontl2 = GuildControlPopupFrameCheckbox17
-			gcontl2:HookScript("OnShow", for17_OnShow)
+				gcontl2:HookScript("OnShow", for17_OnShow)
 
 			local function ebWithdrawGold(self)
 				S:HandleEditBox(GuildControlWithdrawGoldEditBox)
@@ -227,6 +227,45 @@ local function LoadSkin()
 				
 			end
 			GuildFrame:HookScript("OnShow", handlelvl)
+
+			-- 2 tab nabor
+			GuildRecruitmentInterestFrame:StripTextures()
+			GuildRecruitmentInterestFrame:SetTemplate("Transparent")
+			GuildRecruitmentAvailabilityFrame:StripTextures()
+			GuildRecruitmentAvailabilityFrame:SetTemplate("Transparent")
+			GuildRecruitmentRolesFrame:StripTextures()
+			GuildRecruitmentRolesFrame:SetTemplate("Transparent")
+			GuildRecruitmentLevelFrame:StripTextures()
+			GuildRecruitmentLevelFrame:SetTemplate("Transparent")
+			GuildRecruitmentCommentFrame:StripTextures()
+			GuildRecruitmentCommentFrame:SetTemplate("Transparent")
+			-- buttin 2 tab
+			GuildRecruitmentListGuildButton:StripTextures()
+			S:HandleButton(GuildRecruitmentListGuildButton)
+			
+			--checkbox
+			S:HandleCheckBox(GuildRecruitmentQuestButton)
+			S:HandleCheckBox(GuildRecruitmentPvPButton)
+			S:HandleCheckBox(GuildRecruitmentDungeonButton)
+			S:HandleCheckBox(GuildRecruitmentRPButton)
+			S:HandleCheckBox(GuildRecruitmentRaidButton)
+			S:HandleCheckBox(GuildRecruitmentWeekdaysButton)
+			S:HandleCheckBox(GuildRecruitmentWeekendsButton)
+			S:HandleButton(GuildRecruitmentTankButton,true)
+			S:HandleButton(GuildRecruitmentHealerButton,true)
+			S:HandleButton(GuildRecruitmentDamagerButton,true)
+			S:HandleCheckBox(GuildRecruitmentLevelAnyButton)
+			S:HandleCheckBox(GuildRecruitmentLevelMaxButton)
+
+			GuildRecruitmentCommentInputFrameScrollFrameFocusButton:StripTextures()
+			GuildRecruitmentCommentInputFrameScrollFrame:StripTextures()
+			GuildRecruitmentCommentInputFrame:StripTextures()
+
+			
+			
+			
+								
+
 end
 
 S:AddCallback("Guild", LoadSkin)
