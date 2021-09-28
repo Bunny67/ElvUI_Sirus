@@ -257,7 +257,7 @@ local function LoadSkin()
 			for i = 1,3 do
 				S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end
-			fcng4:HookScript("OnHide", fcng4_OnShow)
+			--fcng4:HookScript("OnHide", fcng4_OnShow)
 		end
 
 		function secftab_OnShow(self)
