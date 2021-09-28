@@ -180,55 +180,56 @@ local function LoadSkin()
 							AuctionHouseFrameAuctionsFrameBidsList:StripTextures()
 							AuctionHouseFrameAuctionsFrameBidsListNineSlice:StripTextures()
 
-		--category buttons (не придумал как сделать по другому пока, он показывает только 20 кнопок на экране максимум и если гортаешь они обновляются) 				
-			local function buttonsleft_OnShow(self)
+		--category buttons (РЅРµ РїСЂРёРґСѓРјР°Р» РєР°Рє СЃРґРµР»Р°С‚СЊ РїРѕ РґСЂСѓРіРѕРјСѓ РїРѕРєР°, РѕРЅ РїРѕРєР°Р·С‹РІР°РµС‚ С‚РѕР»СЊРєРѕ 20 РєРЅРѕРїРѕРє РЅР° СЌРєСЂР°РЅРµ РјР°РєСЃРёРјСѓРј Рё РµСЃР»Рё РіРѕСЂС‚Р°РµС€СЊ РѕРЅРё РѕР±РЅРѕРІР»СЏСЋС‚СЃСЏ) 				
+		function buttonsleft_OnShow(self)
 				for i = 1,20 do
 					S:HandleButton(_G["AuctionHouseFrameCategoriesListAuctionFilterButton"..i])
 				end
 			end
-			AuctionHouseFrameCategoriesListScrollFrame:HookScript("OnShow", buttonsleft_OnShow)
+			AuctionHouseFrameCategoriesList:HookScript("OnShow", buttonsleft_OnShow)
 		--hooksecurefunc
-		local function firtab_OnShow(self)
-			for i = 1,4 do
+		function firtab_OnShow(self)
+			for i = 1,3 do
 				S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end			
 		end
 
-		local function secftab_OnShow(self)
+		function secftab_OnShow(self)
 			for i = 1,2 do
 				S:HandleButton(_G["AuctionHouseFrameItemSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
 		end
 
-		local function secstab_OnShow(self)
+		function secstab_OnShow(self)
 			for i = 1,2 do
 				S:HandleButton(_G["AuctionHouseFrameCommoditiesSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
 		end
 
-		local function thtab_OnShow(self)
+		function thtab_OnShow(self)
 			for i = 1,4 do
 				S:HandleButton(_G["AuctionHouseFrameAuctionsFrameAllAuctionsListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
 		end
 
-		local function fortab_OnShow(self)
+		function fortab_OnShow(self)
 			for i = 1,3 do
 				S:HandleButton(_G["AuctionHouseFrameAuctionsFrameBidsListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
 		end		
 		
-		local aucfpanel1 =	AuctionHouseFrame 
-			aucfpanel1:HookScript("OnShow", firtab_OnShow)			
-		local aucfpanel2 = AuctionHouseFrameItemSellListHeaderContainer
-			aucfpanel2:SetScript("OnShow", secftab_OnShow)
+			aucfpanel1 =	AuctionHouseFrameBrowseResultsFrameItemList 
+				aucfpanel1:HookScript("OnShow", firtab_OnShow)			
+			aucfpanel2 = AuctionHouseFrameItemSellList
+				aucfpanel2:HookScript("OnShow", secftab_OnShow)
 			--aucfpanel2:HookScript("OnShow", secftab_OnShow)
-		local aucfpanel3 = AuctionHouseFrameCommoditiesSellFrame
-			aucfpanel3:HookScript("OnShow", secstab_OnShow)
-		local aucfpanel4 = AuctionHouseFrameAuctionsFrameAllAuctionsListHeaderContainer
-			aucfpanel4:HookScript("OnShow", thtab_OnShow)
-		local aucfpanel5 = AuctionHouseFrameAuctionsFrameBidsListHeaderContainer
-			aucfpanel5:HookScript("OnShow", fortab_OnShow)	
+			aucfpanel3 = AuctionHouseFrameCommoditiesSellList
+				aucfpanel3:HookScript("OnShow", secstab_OnShow)
+			aucfpanel4 = AuctionHouseFrameAuctionsFrameAllAuctionsList
+				aucfpanel4:HookScript("OnShow", thtab_OnShow)
+			aucfpanel5 = AuctionHouseFrameAuctionsFrameBidsList
+				aucfpanel5:HookScript("OnShow", fortab_OnShow)
+
 end
 
 S:AddCallback('AuctionHouse', LoadSkin)
