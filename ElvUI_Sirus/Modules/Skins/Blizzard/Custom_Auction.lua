@@ -253,13 +253,14 @@ local function LoadSkin()
 			end
 			AuctionHouseFrameCategoriesList:HookScript("OnShow", buttonsleft_OnShow)
 		--hooksecurefunc
-		function firtab_OnShow(self)
+		function firtab_OnShow(self)			
 			for i = 1,3 do
-				S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
+				S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])
 			end
-			--fcng4:HookScript("OnHide", fcng4_OnShow)
+					
+--			fcng4:HookScript("OnUpdate", fcng4_OnShow)
 		end
-
+		
 		function secftab_OnShow(self)
 			for i = 1,2 do
 				S:HandleButton(_G["AuctionHouseFrameItemSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
@@ -286,12 +287,15 @@ local function LoadSkin()
 		function aucfpanelbidbut1_OnShow(self)
 			for i = 1,2 do
 				S:HandleButton(_G["AuctionHouseFrameItemBuyFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
+			end
+			for i = 3,4 do
+				S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
 		end
 		
 		
-			aucfpanel1 =	AuctionHouseFrameBrowseResultsFrameItemListHeaderContainer 
-				aucfpanel1:HookScript("OnUpdate", firtab_OnShow)			
+			aucfpanel1 = AuctionHouseFrame
+				aucfpanel1:HookScript("OnShow", firtab_OnShow)			
 			aucfpanel2 = AuctionHouseFrameItemSellList
 				aucfpanel2:HookScript("OnShow", secftab_OnShow)
 			--aucfpanel2:HookScript("OnShow", secftab_OnShow)
@@ -310,14 +314,39 @@ local function LoadSkin()
 --							S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..PoolFrameAuctionHouseTableHeaderStringTemplate])		
 --						end							
 --					end
+--					local frame14511251 = CreateFrame("Button", "AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4", UIParent)
 --				function fcng4_OnShow(self)
---						for i = 1,4 do
+--						for i = 3,4 do
 --							S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 --						end			
 --					end				
---				fcng4 = AuctionHouseTableCellItemQuantityRightTemplate
---				fcng4:HookScript("OnUpdate", fcng4_OnShow)
-			
+--				fcng4 = AuctionHouseFrameBrowseResultsFrameItemList
+--				fcng4:HookScript("OnShow", fcng4_OnShow)
+--					local frame14511251 = CreateFrame("Button", "AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4", UIParent)
+--					function fcng4_OnShow(self)
+--						for i = 3,4 do
+--							S:HandleButton(_G["AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
+--						end			
+--					end				
+--				fcng4 = AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4
+--				fcng4:HookScript("OnShow", fcng4_OnShow)
+--	AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4 = AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4
+--	if (AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4) then
+--	S:HandleButton(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4)
+--	else return 
+--	end
+				function fcng4_OnShow(self)
+					S:HandleButton(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4)
+				end
+--		AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4 = AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4
+--		AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4:HookScript("OnLoad", fcng4_OnShow)
+--
+--	hooksecurefunc(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4,"OnShow" ,fcng4_OnShow)
+
+--	AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4:SetScript("OnLoad",fcng4_OnShow);
+
+	hooksecurefunc(AuctionHouseTableBuilderMixin,"AddUnsortableColumnInternal", fcng4_OnShow)
+
 end
 
 S:AddCallback('AuctionHouse', LoadSkin)
