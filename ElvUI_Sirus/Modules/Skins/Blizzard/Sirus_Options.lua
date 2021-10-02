@@ -18,6 +18,8 @@ local function LoadSkin()
 		"InterfaceOptionsNotificationPanelShowSocialToast",
 		"InterfaceOptionsNotificationPanelBattlePassToast",
 		"InterfaceOptionsNotificationPanelToggleMove",
+		"InterfaceOptionsNotificationPanelAuctionHouseToast",
+
 
 		}
 		for _, checkbox in ipairs(checkboxes) do
