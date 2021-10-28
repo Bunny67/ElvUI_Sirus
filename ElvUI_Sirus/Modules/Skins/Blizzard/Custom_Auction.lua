@@ -335,8 +335,15 @@ local function LoadSkin()
 --	S:HandleButton(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4)
 --	else return 
 --	end
+			
 				function fcng4_OnShow(self)
-					S:HandleButton(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4)
+				if AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4 ~= nil then 
+					AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4:SetScript("OnUpdate", function()
+										S:HandleButton(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4)
+																	end)
+						end
+											
+					
 				end
 --		AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4 = AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4
 --		AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4:HookScript("OnLoad", fcng4_OnShow)
@@ -344,9 +351,10 @@ local function LoadSkin()
 --	hooksecurefunc(AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4,"OnShow" ,fcng4_OnShow)
 
 --	AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4:SetScript("OnLoad",fcng4_OnShow);
-
+--	AceHook:SecureHookScript(frame, script, [handler])
+--	AceHook:SecureHookScript(AuctionHouseTableBuilderMixin,"AddUnsortableColumnInternal", fcng4_OnShow)
 	hooksecurefunc(AuctionHouseTableBuilderMixin,"AddUnsortableColumnInternal", fcng4_OnShow)
-
+--AuctionHouseFrameBrowseResultsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate4:SetScript("OnShow", func)
 end
 
 S:AddCallback('AuctionHouse', LoadSkin)
