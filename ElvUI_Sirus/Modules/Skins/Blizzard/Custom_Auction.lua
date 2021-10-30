@@ -244,6 +244,92 @@ local function LoadSkin()
 							AuctionHouseFrameAuctionsFrameBidsListScrollFrame:CreateBackdrop("Transparent")
 							AuctionHouseFrameAuctionsFrameBidsList:StripTextures()
 							AuctionHouseFrameAuctionsFrameBidsListNineSlice:StripTextures()
+				---commolist
+					--frame
+						AuctionHouseFrameAuctionsFrameCommoditiesListScrollFrame:StripTextures()
+						AuctionHouseFrameAuctionsFrameCommoditiesListScrollFrame:CreateBackdrop("Transparent")
+
+						function commfktab_onshow(self)						
+							if AuctionHouseFrameAuctionsFrameCommoditiesListScrollFrame ~= nil then
+								AuctionHouseFrameAuctionsFrameCommoditiesListScrollFrame:SetScript("OnUpdate", function() 
+
+									AuctionHouseFrameAuctionsFrameCommoditiesListNineSlice:StripTextures()
+									AuctionHouseFrameAuctionsFrameCommoditiesList:StripTextures()
+									AuctionHouseFrameAuctionsFrameCommoditiesList:CreateBackdrop("Transparent")
+									AuctionHouseFrameAuctionsFrameItemDisplay:StripTextures()
+									AuctionHouseFrameAuctionsFrameItemDisplayNineSlice:StripTextures()
+									AuctionHouseFrameAuctionsFrameItemDisplay:CreateBackdrop("Transparent")
+					--scrollbar
+									S:HandleScrollBar(AuctionHouseFrameAuctionsFrameCommoditiesListScrollFrameScrollBar)
+					--buttons		
+									if AuctionHouseFrameAuctionsFrameCommoditiesListRefreshFrameRefreshButton ~= nil then 
+											AuctionHouseFrameAuctionsFrameCommoditiesListRefreshFrameRefreshButton:SetScript("OnUpdate", function()
+												S:HandleButton(AuctionHouseFrameAuctionsFrameCommoditiesListRefreshFrameRefreshButton)
+											end)										
+										end
+									if AuctionHouseFrameAuctionsFrameCommoditiesListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1 ~= nil then
+											AuctionHouseFrameAuctionsFrameCommoditiesListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1:SetScript("OnUpdate", function()
+												S:HandleButton(AuctionHouseFrameAuctionsFrameCommoditiesListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1)
+											end)
+									end							
+								end)
+							end
+						end
+						AuctionHouseFrameAuctionsFrameCommoditiesList:HookScript("OnUpdate", commfktab_onshow)
+					
+				--itemlist3tab
+					AuctionHouseFrameAuctionsFrameItemListScrollFrame:StripTextures()
+					AuctionHouseFrameAuctionsFrameItemListScrollFrame:CreateBackdrop("Transparent")
+
+					function itemfktab_onshow(self)						
+						if AuctionHouseFrameAuctionsFrameItemListScrollFrame ~= nil then
+							AuctionHouseFrameAuctionsFrameItemListScrollFrame:SetScript("OnUpdate", function() 
+
+									AuctionHouseFrameAuctionsFrameItemListNineSlice:StripTextures()
+									AuctionHouseFrameAuctionsFrameItemList:StripTextures()
+									AuctionHouseFrameAuctionsFrameItemList:CreateBackdrop("Transparent")
+									AuctionHouseFrameAuctionsFrameItemDisplay:StripTextures()
+									AuctionHouseFrameAuctionsFrameItemDisplayNineSlice:StripTextures()
+									AuctionHouseFrameAuctionsFrameItemDisplay:CreateBackdrop("Transparent")
+								--scrollbar
+									S:HandleScrollBar(AuctionHouseFrameAuctionsFrameItemListScrollFrameScrollBar)
+								--buttons										
+										if AuctionHouseFrameAuctionsFrameItemListRefreshFrameRefreshButton ~= nil then 
+											AuctionHouseFrameAuctionsFrameItemListRefreshFrameRefreshButton:SetScript("OnUpdate", function()
+												S:HandleButton(AuctionHouseFrameAuctionsFrameItemListRefreshFrameRefreshButton)
+																			end)
+										
+										end
+										if AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1 ~= nil then
+											AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1:SetScript("OnUpdate", function()
+												S:HandleButton(AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate1)
+																			end)
+										end 	
+										if AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate2 ~= nil then
+											AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate2:SetScript("OnUpdate", function()
+												S:HandleButton(AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate2)
+																			end)
+										end
+										if AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate3 ~= nil then
+											AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate3:SetScript("OnUpdate", function()
+												S:HandleButton(AuctionHouseFrameAuctionsFrameItemListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate3)
+																			end)
+										end  								
+							
+							end)
+						end
+
+					end
+					AuctionHouseFrameAuctionsFrameItemList:HookScript("OnUpdate", itemfktab_onshow)
+
+
+				
+
+
+
+
+
+
 
 		--category buttons (не придумал как сделать по другому пока, он показывает только 20 кнопок на экране максимум и если гортаешь они обновляются) 				
 		function buttonsleft_OnShow(self)
@@ -265,6 +351,11 @@ local function LoadSkin()
 			for i = 1,2 do
 				S:HandleButton(_G["AuctionHouseFrameItemSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate"..i])		
 			end	
+			if AuctionHouseFrameItemSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate3 ~= nil then
+				AuctionHouseFrameItemSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate3:SetScript("OnUpdate", function()
+					S:HandleButton(AuctionHouseFrameItemSellListHeaderContainerPoolFrameAuctionHouseTableHeaderStringTemplate3)
+												end)
+			end
 		end
 
 		function secstab_OnShow(self)
@@ -296,7 +387,7 @@ local function LoadSkin()
 		--[[ 	aucfpanel1 = AuctionHouseFrame
 				aucfpanel1:HookScript("OnShow", firtab_OnShow)	 ]]		
 			aucfpanel2 = AuctionHouseFrameItemSellList
-				aucfpanel2:HookScript("OnShow", secftab_OnShow)
+				aucfpanel2:HookScript("OnUpdate", secftab_OnShow)
 			--aucfpanel2:HookScript("OnShow", secftab_OnShow)
 			aucfpanel3 = AuctionHouseFrameCommoditiesSellList
 				aucfpanel3:HookScript("OnShow", secstab_OnShow)
