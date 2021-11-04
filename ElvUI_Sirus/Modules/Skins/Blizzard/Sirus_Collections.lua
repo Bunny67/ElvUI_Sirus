@@ -120,14 +120,22 @@ local function LoadSkin()
 	--pet tab ListScrollFrame
 	for _, button in ipairs(PetJournal.ListScrollFrame.buttons) do
 
-		button:SetHighlightTexture(E.Media.Textures.Highlight)
-		button:GetHighlightTexture():SetVertexColor(1, 1, 1)
-		button:GetHighlightTexture().SetAlpha = E.noop
+		
 
+		local highlight = button:GetHighlightTexture()
+		button:SetHighlightTexture(E.Media.Textures.Highlight)
+		highlight:SetTexCoord(0, 1, 0, 1)
+		highlight:SetVertexColor(1, 1, 1, .35)
+		highlight:SetAllPoints()
+		print(highlight)
 		button.Background:SetTexture()
 
-		button.Icon:SetDrawLayer("BORDER")
+		 button.Icon:SetDrawLayer("BORDER")
 		S:HandleIcon(button.Icon)
+		
+		 button.DragButton.Favorite:SetParent(button.backdrop)
+
+		
 	end
 
 	-- right frame
@@ -142,6 +150,18 @@ local function LoadSkin()
 
 	-- pet icon
 	S:HandleIcon(PetJournal.PetDisplay.InfoButton.Icon)
+
+	-- function fcngsirusjournal_onshow()
+	-- 	PetJournal:SetScript("OnUpdate",function()
+	-- 		if PetJournalSummonRandomFavoriteButton ~= nil then 
+	-- 			S:HandleItemButton(PetJournalSummonRandomFavoriteButton)
+	-- 		end
+	-- 						end)
+	-- end
+									
+
+	-- PetJournal:HookScript("OnUpdate",fcngsirusjournal_onshow)
+	S:HandleItemButton(PetJournal.SummonRandomFavoritePetButton)
 end
 
 S:AddCallback("Skin_Collections", LoadSkin)
