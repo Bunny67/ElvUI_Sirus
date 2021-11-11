@@ -4,7 +4,8 @@ local mod = E:NewModule("ElvUI_SirusCase", "AceEvent-3.0")
 
 local CASE_LIST = {}
 local ACTIVE_CASES = {}
-
+---------------
+--------------
 local BUTTON_WIDTH, BUTTON_HEIGHT = 64, 64
 local SMALL_BUTTON_WIDTH, SMALL_BUTTON_HEIGHT = 56, 56
 local BUTTON_SPACING = 3
@@ -74,7 +75,7 @@ local function Reset(self)
 
 	self.RightScroll:SetHorizontalScroll(RIGHT_START_POINT)
 	self.RightScroll:UpdateScrollChildRect()
-
+--
 	for i = 1, 7 do
 		table.insert(randonTable, i + 6)
 	end

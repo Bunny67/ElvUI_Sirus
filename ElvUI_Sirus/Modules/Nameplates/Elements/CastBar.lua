@@ -46,10 +46,10 @@ function NP:UpdateElement_CastBarOnValueChanged(value)
 		if not spell then
 			_, _, spellName = UnitChannelInfo(unit)
 		end
-
 		unitFrame.CastBar.Name:SetText(spellName)
+		
 	else
-		unitFrame.CastBar.Name:SetText()
+		unitFrame.CastBar.Name:SetText("")
 	end
 
 	unitFrame.CastBar.Icon.texture:SetTexture(self.Icon:GetTexture())
